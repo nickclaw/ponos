@@ -1,3 +1,5 @@
 node_modules/*
 public/lib/*
 npm-debug.log
+config/development.json
+config/production.json

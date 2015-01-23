@@ -1,5 +1,6 @@
 var cluster = require('cluster'),
     winston = require('winston'),
+    nconf = require('nconf'),
     os = require('os');
 
 // setup logging and expose it globally
@@ -15,6 +16,11 @@ global.Log = new winston.Logger({
 });
 Log.cli();
 
+// setup environment variables
+global.env = nconf
+    .argv()
+    .file('./config/' + process.env.NODE_ENV + '.json')
+    .get();
 
 if (cluster.isMaster) {
     var numClusters = require('os').cpus().length;
@@ -39,10 +45,18 @@ if (cluster.isMaster) {
         } else {
             Log.error("Worker %s died.", worker.id);
         }
+        cluster.fork();
     });
 
 
 } else {
+
+
+    Log.log = function() {
+        arguments[1] = '[' + cluster.worker.id + '] ' + arguments[1];
+        winston.Logger.prototype.log.apply(this, arguments);
+    };
+
     require('./app/');
 }
 
