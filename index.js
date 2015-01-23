@@ -1,31 +1,7 @@
-var cluster = require('cluster'),
-    nconf = require('nconf'),
-    os = require('os'),
-    Promise = require('bluebird'),
-    winston = require('winston');
+var cluster = require('cluster');
 
-// setup logging and expose it globally
-global.Log = new winston.Logger({
-    transports: [
-        new winston.transports.Console({
-            colorize: true,
-            timestamp: true,
-            prettyPrint: true,
-            depth: 3
-        })
-    ]
-});
-Log.cli();
-
-// setup environment variables
-global.C = nconf
-    .argv()
-    .file('./config/' + process.env.NODE_ENV + '.json')
-    .file('./config/default.json')
-    .get();
-
-// expose bluebird Promises
-global.Promise = Promise;
+// add globals: Log, C, Promise
+require('config/config.js');
 
 if (cluster.isMaster) {
     var numClusters = Math.min(require('os').cpus().length, C.APP.MAX_CPUS);
@@ -58,7 +34,7 @@ if (cluster.isMaster) {
 
     Log.info('Online.');
 
-    require('./app/');
+    require('./app/server');
 }
 
 // log any uncaught expections

@@ -54,9 +54,12 @@ async.parallel([
 ], function(err) {
     if (err) {
         Log.error("Could not start instance.");
-        Log.error(err.stack);
+        Log.error(err.stack);ff
         process.exit();
     }
 
     Log.info("Instance started.");
+    module.exports.resolve();
 });
+
+module.exports = new Promise();
