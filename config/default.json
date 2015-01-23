@@ -1,9 +1,14 @@
 {
-    "database": {
-
-    },
-
     "server": {
         "port": 8080
+    },
+
+    "database": {
+
+        "host": "localhost",
+        "port": 9999,
+
+        "user": "root",
+        "pass": "password123"
     }
 }
