@@ -1,6 +1,6 @@
 {
     "APP": {
-        "MAX_CPUS": 1,
+        "MAX_CPUS": 4,
         "REVIVE": true
     },
 

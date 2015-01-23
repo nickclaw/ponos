@@ -1,7 +1,7 @@
 node_modules/*
 public/lib/*
 npm-debug.log
-config/development.json
-config/production.json
+config/*.json
+!config/default.json
 public/build/*
 .sass-cache
