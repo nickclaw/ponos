@@ -14,7 +14,7 @@ Install all third party packages with npm and bower.
     npm install
     bower install
 
-Copy the `config/default.json` file to have working values. By default `npm start` will tell the application to look for `config/development.json`, but you can point to any file by changing the `NODE_ENV` environment variable.
+A post-install script will copy the `config/default.json` to `config/{development,production,testing}.json`, this can be used to customize the application in different contexts. Set the `NODE_ENV` environent variable to choose which configuration file to use. The commands `npm start` and `grunt default` both set the `NODE_ENV` to `development`.
 
 ### Configuration
 
