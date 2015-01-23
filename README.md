@@ -23,19 +23,23 @@ Taken from `config/default.json`, a lot more configuration options will be added
 ```javascript
 
 {
-    "server": {
-        "port": 8080 // port to listen on
+    "APP": {
+        "MAX_CPUS": 4 // maximum number of clusters
     },
 
-    "database": {
+    "SERVER": {
+        "PORT": 8080 // port to listen on
+    },
+
+    "DATABASE": {
 
         // where to connect to
-        "host": "localhost",
-        "port": 9999,
+        "HOST": "localhost",
+        "PORT": 9999,
 
-        // database authentication
-        "user": "root",
-        "pass": "password123"
+        // authentication
+        "USER": "root",
+        "PASS": "password123"
     }
 }
 

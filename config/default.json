@@ -1,14 +1,18 @@
 {
-    "server": {
-        "port": 8080
+    "APP": {
+        "MAX_CPUS": 1
     },
 
-    "database": {
+    "SERVER": {
+        "PORT": 8080
+    },
 
-        "host": "localhost",
-        "port": 9999,
+    "DATABASE": {
 
-        "user": "root",
-        "pass": "password123"
+        "HOST": "localhost",
+        "PORT": 9999,
+
+        "USER": "root",
+        "PASS": "password"
     }
 }

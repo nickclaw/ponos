@@ -3,6 +3,8 @@ var async = require('async'),
     path = require('path'),
     serve = require('serve-static');
 
+var router = require('./routes/');
+
 var app = express();
 
 //
@@ -11,11 +13,14 @@ var app = express();
 
 // intercept all requests
 app.use(function(req, res, next) {
-    Log.info('Request:', req);
+    Log.data('[%s] %s', req.method, req.url);
     next();
 });
 
-app.use(serve(path.join(__dirname, '../public/src/')));
+// add static and dynamic routes
+app.use(router);
+app.use('/lib', serve(path.join(__dirname, '../public/lib')));
+app.use('/', serve(path.join(__dirname, '../public/src/')));
 
 // listen for unmatched routes
 app.use(function(req, res) {
@@ -31,13 +36,12 @@ app.use(function(err, req, res, next) {
 //
 // Start server
 //
-
 async.parallel([
 
     // open server on port
     function(next) {
-        app.listen(env.server.port, function(err) {
-            Log.info("Server listening on port %s", env.server.port);
+        app.listen(C.SERVER.PORT, function(err) {
+            Log.info("Server listening on port %s", C.SERVER.PORT);
             next(err);
         });
     },
