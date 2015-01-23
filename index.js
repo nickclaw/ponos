@@ -1,7 +1,8 @@
-var cluster = require('cluster');
+var cluster = require('cluster'),
+    winston = require('winston');
 
 // add globals: Log, C, Promise
-require('config/config.js');
+require('./config/config.js');
 
 if (cluster.isMaster) {
     var numClusters = Math.min(require('os').cpus().length, C.APP.MAX_CPUS);

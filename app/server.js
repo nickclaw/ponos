@@ -59,7 +59,4 @@ async.parallel([
     }
 
     Log.info("Instance started.");
-    module.exports.resolve();
 });
-
-module.exports = new Promise();

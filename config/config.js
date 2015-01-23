@@ -22,7 +22,7 @@ Log.cli();
 // setup environment variables
 global.C = nconf
     .argv()
-    .file('./' + process.env.NODE_ENV + '.json')
+    .file(__dirname + '/' + process.env.NODE_ENV + '.json')
     .get();
 
 // expose bluebird Promises

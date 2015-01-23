@@ -3,3 +3,5 @@ public/lib/*
 npm-debug.log
 config/development.json
 config/production.json
+public/build/*
+.sass-cache
