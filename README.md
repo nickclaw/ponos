@@ -24,7 +24,8 @@ Taken from `config/default.json`, a lot more configuration options will be added
 
 {
     "APP": {
-        "MAX_CPUS": 4 // maximum number of clusters
+        "MAX_CPUS": 4, // maximum number of clusters
+        "REVIVE": true // fork a new process after one exits
     },
 
     "SERVER": {

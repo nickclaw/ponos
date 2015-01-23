@@ -22,7 +22,8 @@ if (cluster.isMaster) {
         } else {
             Log.error("Worker %s died.", worker.id);
         }
-        cluster.fork();
+
+        if (C.APP.REVIVE) cluster.fork();
     });
 
 } else {
