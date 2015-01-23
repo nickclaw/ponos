@@ -1,0 +1,10 @@
+{
+  "name": "ponos",
+  "version": "0.0.1",
+  "authors": [
+    "Nicholas Clawson <nickclaw@gmail.com>"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}
