@@ -27,8 +27,9 @@ Taken from `config/default.json`, a lot more configuration options will be added
 {
     "APP": {
         "MAX_CPUS": 4, // maximum number of clusters
-        "REVIVE": true // fork a new process after one exits
-    },
+        "REVIVE": true, // fork a new process after one exits
+        "LOGFILE": "output.log" // relative to project root, leave empty for no file logging
+     },
 
     "SERVER": {
         "PORT": 8080 // port to listen on

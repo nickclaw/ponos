@@ -1,7 +1,8 @@
 {
     "APP": {
         "MAX_CPUS": 4,
-        "REVIVE": true
+        "REVIVE": true,
+        "LOGFILE": "output.log"
     },
 
     "SERVER": {
