@@ -20,6 +20,8 @@ module.exports = function(app, passport) {
         cookie: { maxAge: C.SERVER.COOKIE.MAXAGE }
     }));
 
+    app.use(passport.initialize());
+    app.use(passport.session());
     // add dynamic routes
     app.use(router);
     app.use(app);

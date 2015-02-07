@@ -1,7 +1,11 @@
 var async = require('async'),
-    express = require('express');
+    express = require('express'),
+    passport = require('passport');
 
 var app = express();
+
+require('./setup/passport')(passport)
+require('./setup/express')(app, passport);
 
 
 //
