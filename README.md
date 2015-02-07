@@ -1,4 +1,4 @@
-ponos (actual name pending)
+scaffold (actual name pending)
 ===========
 
 ### Requirements
