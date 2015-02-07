@@ -33,11 +33,9 @@ module.exports = (options) => {
         Router.run(routes, req.url, (Handler, state) => {
             state.routes.forEach((route) => console.log(`${route.path}: ` + (route.handler === Handler ? 'yes': 'no')))
 
-            setTimeout(function() {
-                res.render('../app/index.ejs', {
-                    content: React.renderToString(<Handler />)
-                });
-            }, 2000);
+            res.render('../app/index.ejs', {
+                content: React.renderToString(<Handler />)
+            });
         });
     }
 }
