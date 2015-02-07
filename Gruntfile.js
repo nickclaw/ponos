@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                 options: {
                     cwd: __dirname,
                     ignore: ['node_modules', 'public'],
-                    ext: 'js,json',
+                    ext: 'js,json,jsx,es,ejs',
                     env: {
                         NODE_ENV: 'development'
                     }

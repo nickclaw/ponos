@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>scaffold</title>
+    </head>
+    <body>
+        <%- content %>
+    </body>
+    <script src="/static/lib/react/react.js"></script>
+    <script src="/static/lib/react-router/dist/react-router.js"></script>
+    <script src="/static/script/app.js"></script>
+    <script type="text/javascript">
+        ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler) {
+            React.render(React.createElement(Handler, null), document.body);
+        });
+    </script>
+</html>

@@ -1,16 +1,23 @@
 var path = require('path'),
     serve = require('serve-static'),
+    to5ify = require('6to5ify'),
+    shim = require('browserify-shim'),
     bodyParser = require('body-parser'),
+    browserify = require('browserify-middleware'),
     cookieParser = require('cookie-parser'),
     cookieSession = require('cookie-session'),
     router = require('../routes/'),
-    app = require('../../app/index');
+    frontend = require('../../app/index');
 
 module.exports = function(app, passport) {
 
     // add static routes
-    app.use('/lib', serve(path.join(__dirname, '../public/lib')));
-    app.use('/static', serve(path.join(__dirname, '../public/src/')));
+    app.use('/static/lib', serve(path.join(__dirname, '../../public/lib')));
+    app.use('/static/script/app.js', browserify('./app/index.jsx',  {
+        transform: [to5ify, shim],
+        gzip: true
+    }));
+    app.use('/static', serve(path.join(__dirname, '../../public/src/')));
 
     app.use(bodyParser.json());
     app.use(cookieParser());
@@ -22,9 +29,10 @@ module.exports = function(app, passport) {
 
     app.use(passport.initialize());
     app.use(passport.session());
+
     // add dynamic routes
     app.use(router);
-    app.use(app);
+    app.use(frontend());
 
     // listen for unmatched routes
     app.use(function(req, res) {
