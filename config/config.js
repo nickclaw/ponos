@@ -27,8 +27,7 @@ global.C = nconf
 
 var transports = [
     new winston.transports.Console({
-        level: 'info',
-        handleException: true,
+        level: 'verbose',
         colorize: true,
         prettyPrint: true,
         depth: 3
@@ -37,7 +36,6 @@ var transports = [
 
 if (C.APP.LOGFILE) {
     transports.push(new winston.transports.File({
-        handleException: true,
         level: 'silly',
         colorize: false,
         timestamp: true,

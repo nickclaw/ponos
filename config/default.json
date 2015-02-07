@@ -17,11 +17,10 @@
     },
 
     "DATABASE": {
-
-        "HOST": "localhost",
-        "PORT": 9999,
-
+        "NAME": "database",
+        "HOST": "127.0.0.1",
+        "DIALECT": "mariadb",
         "USER": "root",
-        "PASS": "password"
+        "PASS": ""
     }
 }
