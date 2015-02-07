@@ -3,6 +3,11 @@ var nconf = require('nconf'),
     Promise = require('bluebird'),
     winston = require('winston');
 
+// allow .es and .jsx files to be compiled on the fly
+require('6to5/register')({
+    extensions: [".es", ".jsx"]
+});
+
 //
 // Sets up globals and configuration
 //

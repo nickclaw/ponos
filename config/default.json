@@ -6,7 +6,14 @@
     },
 
     "SERVER": {
-        "PORT": 8080
+        "PORT": 8080,
+        "HOST": "127.0.0.1",
+
+        "COOKIE": {
+            "KEY": "key",
+            "SECRET": "notasecret",
+            "MAXAGE": 86400000
+        }
     },
 
     "DATABASE": {
