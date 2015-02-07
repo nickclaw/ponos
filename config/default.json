@@ -22,5 +22,12 @@
         "DIALECT": "mariadb",
         "USER": "root",
         "PASS": ""
+    },
+
+    "AUTH": {
+        "GOOGLE": {
+            "ID": "",
+            "SECRET": ""
+        }
     }
 }

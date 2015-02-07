@@ -11,9 +11,10 @@ var sequelize = new Sequelize(
     }
 );
 
-require('./model/user')(sequelize);
-
 module.exports = sequelize;
+
+module.exports.User = require('./model/user')(sequelize);
+
 module.exports.promise = new Promise(function(res, rej) {
     sequelize.sync({force: true}).then(res, rej);
 });
