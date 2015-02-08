@@ -1,5 +1,6 @@
 var React = require('react'),
-    Router = require('react-router');
+    Router = require('react-router'),
+    flux = require('reflux');
 
 var {Route, DefaultRoute, NotFoundRoute, Redirect, RouteHandler, Link} = Router;
 
@@ -8,6 +9,8 @@ var App = React.createClass({
         <div>
             <h1>Main</h1>
             <Link to="/home">click me</Link>
+            <a href="/auth/google/signup">signup</a>
+            <a href="/auth/google/login">login</a>
             <RouteHandler/>
         </div>
     )
@@ -25,17 +28,27 @@ var routes = (
     </Route>
 );
 
-if (typeof window !== 'undefined') window.routes = routes;
+//
+// Render server or browser side
+//
 
-module.exports = (options) => {
+if (typeof window !== 'undefined') {
+    Router.run(routes, Router.HistoryLocation, (Handler) => {
+        React.render(React.createElement(Handler, null), document.body);
+    });
+} else {
 
-    return (req, res, next) => {
-        Router.run(routes, req.url, (Handler, state) => {
-            state.routes.forEach((route) => console.log(`${route.path}: ` + (route.handler === Handler ? 'yes': 'no')))
+    module.exports = (options) => {
 
-            res.render('../app/index.ejs', {
-                content: React.renderToString(<Handler />)
+        return (req, res, next) => {
+            Router.run(routes, req.url, (Handler, state) => {
+                state.routes.forEach((route) => console.log(`${route.path}: ` + (route.handler === Handler ? 'yes': 'no')))
+
+                res.render('../app/index.ejs', {
+                    content: React.renderToString(<Handler />)
+                });
             });
-        });
+        }
     }
+
 }

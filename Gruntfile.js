@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                 script: 'index.js',
                 options: {
                     cwd: __dirname,
-                    ignore: ['node_modules', 'public'],
+                    watch: ['app', 'config', 'server', 'index.js', 'Gruntfile.js'],
                     ext: 'js,json,jsx,es,ejs',
                     env: {
                         NODE_ENV: 'development'

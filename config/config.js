@@ -5,7 +5,9 @@ var nconf = require('nconf'),
 
 // allow .es and .jsx files to be compiled on the fly
 require('6to5/register')({
-    extensions: [".es", ".jsx"]
+    extensions: [".es", ".jsx", ".es6"],
+    experimental: true,
+    playground: true
 });
 
 //
