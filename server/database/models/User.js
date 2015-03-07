@@ -10,7 +10,8 @@ var Review = mongoose.Schema({
     b: { type: Number },
     c: { type: Number },
 
-    created: { type: Date }
+    created: { type: Date },
+    updated: { type: Date }
 });
 
 var schema = mongoose.Schema({
@@ -20,8 +21,6 @@ var schema = mongoose.Schema({
     lastName: { type: String },
     phone: { type: String },
 
-    new: { type: Boolean }, // flag for newly created users
-    finished: { type: Boolean }, // flag for users without a full profile
     roles: { type: [String] },  // in database, let users be worker and/or employer
 
     // worker specific data
@@ -53,6 +52,11 @@ var schema = mongoose.Schema({
         google_id: { type: String, unique: true, sparse: true }
     }
 
+    // metadata
+    created: { type: Date },
+    updated: { type: Date },
+    new: { type: Boolean }, // flag for newly created users
+    finished: { type: Boolean } // flag for users without a full profile
 });
 
 var model = mongoose.model('User', schema);
