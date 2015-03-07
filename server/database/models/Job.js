@@ -1,12 +1,13 @@
 var mongoose = require('mongoose'),
     timestamp = require('../plugins/timestamp'),
+    unique = require('../plugins/unique'),
     ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Application = mongoose.Schema({
     applicant: { type: ObjectId },
     blurb: { type: String }
 });
-
+Application.plugin(unique);
 Application.plugin(timestamp);
 
 var schema = mongoose.Schema({
@@ -27,6 +28,7 @@ var schema = mongoose.Schema({
     equipmentRequired: { type: String },
     perks: { type: String }
 });
+schema.plugin(unique);
 schema.plugin(timestamp);
 
 var model = mongoose.model('Job', schema);

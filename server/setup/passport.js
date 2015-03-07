@@ -6,8 +6,8 @@ var db = require('../database/'),
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
-        Log.verbose("Serializing user: %s", user._id.toString());
-        done(null, user._id);
+        Log.verbose("Serializing user: %s", user.id);
+        done(null, user.id);
     });
 
     passport.deserializeUser(function(id, done) {

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     timestamp = require('../plugins/timestamp'),
+    unique = require('../plugins/unique'),
     ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Review = mongoose.Schema({
@@ -12,7 +13,7 @@ var Review = mongoose.Schema({
     b: { type: Number },
     c: { type: Number }
 });
-
+Review.plugin(unique);
 Review.plugin(timestamp);
 
 var schema = mongoose.Schema({
@@ -57,7 +58,7 @@ var schema = mongoose.Schema({
     new: { type: Boolean }, // flag for newly created users
     finished: { type: Boolean } // flag for users without a full profile
 });
-
+schema.plugin(unique);
 schema.plugin(timestamp);
 
 // if password has been changed, hash it
