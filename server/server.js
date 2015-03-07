@@ -1,4 +1,5 @@
 var async = require('async'),
+    mongoose = require('mongoose'),
     express = require('express'),
     passport = require('passport'),
     mongoose = require('mongoose');
@@ -8,40 +9,43 @@ var app = express();
 require('./setup/passport')(passport)
 require('./setup/express')(app, passport);
 
-//
-// Start server
-//
-async.parallel([
-
-    // open server on port
-    function(next) {
+module.exports = Promise.all([
+    new Promise(function(res, rej) {
         app.listen(C.SERVER.PORT, function(err) {
-            if (err) Log.error('Could not listen to port %s', C.SERVER.PORT);
-            else Log.info("Server listening on port: %s", C.SERVER.PORT);
-            
-            next(err);
+            if (err) {
+                Log.error("Server did not start.");
+                rej(err);
+            } else {
+                Log.info("Server listening on port: %s", C.SERVER.PORT);
+                res();
+            }
         });
-    },
+    }),
 
-    // connect to database
-    function(next) {
+    new Promise(function(res, rej) {
         mongoose.connect('mongodb://' + C.DATABASE.HOST + ':' + C.DATABASE.PORT + '/' + C.DATABASE.NAME, {
             user: C.DATABASE.USER,
             pass: C.DATABASE.PASS
         }, function(err) {
-            if (err) Log.error('Could not connect to database');
-            else Log.info('Connected to database');
-
-            next(err);
+            if (err) {
+                Log.error('Could not connect to database');
+                rej(err);
+            }
+            else {
+                Log.info('Connected to database');
+                res();
+            }
         });
-    }
+    })
+]);
 
-], function(err) {
-    if (err) {
+module.exports
+    .then(function() {
+        Log.info("Instance started.");
+    })
+    .catch(function() {
         Log.error("Could not start instance.");
         Log.error(err.stack);
         process.exit();
-    }
-
-    Log.info("Instance started.");
-});
+    })
+    .done();

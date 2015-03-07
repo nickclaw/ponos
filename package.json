@@ -6,7 +6,7 @@
   "repository": "https://github.com/nickclaw/scaffold",
   "scripts": {
     "start": "NODE_ENV=development node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=testing ./node_modules/.bin/mocha ./test/test.es",
     "postinstall": "./scripts/post-install.sh development testing production"
   },
   "author": "",
