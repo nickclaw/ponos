@@ -3,7 +3,8 @@
         "MAX_CPUS": 4,
         "REVIVE": true,
         "STDOUT": true,
-        "LOGFILE": "output.log"
+        "LOGFILE": "output.log",
+        "SEED": "veryrandomseed"
     },
 
     "SERVER": {

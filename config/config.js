@@ -1,9 +1,10 @@
 var nconf = require('nconf'),
     path = require('path'),
     Promise = require('bluebird'),
-    winston = require('winston');
+    winston = require('winston'),
+    shortId = require('shortid');
 
-// allow .es and .jsx files to be compiled on the fly
+// allow .es files to be compiled on the fly
 require('babel/register')({
     extensions: [".es"],
     experimental: true,
@@ -11,7 +12,7 @@ require('babel/register')({
 });
 
 //
-// Sets up globals and configuration
+// Setup globals & configuration
 //
 
 // expose bluebird Promises
@@ -55,3 +56,10 @@ if (C.APP.LOGFILE) {
 global.Log = new winston.Logger({
     transports: transports
 }).cli();
+
+//
+// ID generation
+//
+
+shortId.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-+');
+shortId.seed(C.APP.SEED);
