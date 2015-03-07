@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-describe('scaffolds database interface', function() {
+describe.only('scaffolds database interface', function() {
 
     before(function(next) {
         this.timeout(5000);

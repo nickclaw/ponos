@@ -5,6 +5,7 @@ module.exports = function(schema) {
         _id: {
             type: String,
             unique: true,
+            sparse: true,
             'default': shortId.generate
         }
     });

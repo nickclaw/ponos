@@ -6,10 +6,9 @@ module.exports = function(schema) {
         created: { type: Date }
     })
 
-    schema.pre('save', function() {
+    schema.pre('save', function(next) {
         if (!this.created) this.created = new Date();
         this.updated = new Date();
         next();
     });
-
 };
