@@ -1,5 +1,4 @@
-var db = require('../database/'),
-    User = db.User,
+var User = db.User,
     GoogleAuth = require('passport-google-oauth').OAuth2Strategy,
     LocalAuth = require('passport-local').Strategy;
 

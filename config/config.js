@@ -23,6 +23,8 @@ global.C = nconf
     .argv()
     .get();
 
+global.db = require('../server/database/');
+
 //
 // Logging
 //

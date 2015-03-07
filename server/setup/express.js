@@ -1,10 +1,7 @@
 var path = require('path'),
     serve = require('serve-static'),
-    to5ify = require('6to5ify'),
-    shim = require('browserify-shim'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    browserify = require('browserify-middleware'),
     cookieParser = require('cookie-parser'),
     cookieSession = require('cookie-session'),
     router = require('../routes/');
