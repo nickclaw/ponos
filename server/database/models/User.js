@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    bcrypt = require('bcrypt'),
     ObjectId = mongoose.Schema.Types.ObjectID;
 
 var Review = mongoose.Schema({
@@ -58,6 +59,27 @@ var schema = mongoose.Schema({
     new: { type: Boolean }, // flag for newly created users
     finished: { type: Boolean } // flag for users without a full profile
 });
+
+// if password has been changed, hash it
+// modified from github.com/nickclaw/DrownTheAve
+schema.pre('save', function(next) {
+    if (this.get('auth.local.password') && this.isModified('auth.local.password')) {
+        var salt = bcrypt.genSaltSync(10);
+        this.auth.local.password = bcrypt.hashSync(this.get('auth.local.password'), salt);
+    }
+    next();
+});
+
+
+/**
+ * Returns true if the password matches the hashed password
+ * borrowed from github.com/nickclaw/DrownTheAve
+ * @param {String} unhashed password
+ * @return {Boolean}
+ */
+schema.methods.checkPassword = function(password) {
+    return bcrypt.compareSync(password, this.auth.local.password);
+};
 
 var model = mongoose.model('User', schema);
 module.exports = model;
