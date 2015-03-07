@@ -14,6 +14,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "babel": "^4.7.3",
+    "bcrypt": "^0.8.1",
     "bluebird": "^2.8.2",
     "body-parser": "^1.10.2",
     "co": "^4.1.0",

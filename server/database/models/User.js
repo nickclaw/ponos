@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
-    ObjectId = mongoose.Schema.Types.ObjectID;
+    timestamp = require('../plugins/timestamp'),
+    ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Review = mongoose.Schema({
     reviewer: { type: ObjectId },
@@ -9,11 +10,10 @@ var Review = mongoose.Schema({
     comment: { type: String },
     a: { type: Number },
     b: { type: Number },
-    c: { type: Number },
-
-    created: { type: Date },
-    updated: { type: Date }
+    c: { type: Number }
 });
+
+Review.plugin(timestamp);
 
 var schema = mongoose.Schema({
 
@@ -51,14 +51,14 @@ var schema = mongoose.Schema({
         },
 
         google_id: { type: String, unique: true, sparse: true }
-    }
+    },
 
     // metadata
-    created: { type: Date },
-    updated: { type: Date },
     new: { type: Boolean }, // flag for newly created users
     finished: { type: Boolean } // flag for users without a full profile
 });
+
+schema.plugin(timestamp);
 
 // if password has been changed, hash it
 // modified from github.com/nickclaw/DrownTheAve
@@ -69,7 +69,6 @@ schema.pre('save', function(next) {
     }
     next();
 });
-
 
 /**
  * Returns true if the password matches the hashed password

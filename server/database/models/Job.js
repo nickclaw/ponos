@@ -1,24 +1,22 @@
 var mongoose = require('mongoose'),
-    ObjectId = mongoose.Schema.Types.ObjectID;
-
-var Location = mongoose.Schema({
-    lat: { type: Number },
-    long: { type: Number }
-});
+    timestamp = require('../plugins/timestamp'),
+    ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Application = mongoose.Schema({
     applicant: { type: ObjectId },
     blurb: { type: String }
-
-    created: { type: Date },
-    updated: { type: Date }
 });
+
+Application.plugin(timestamp);
 
 var schema = mongoose.Schema({
     poster: { type: ObjectId },
 
     title: { type: String },
-    location: { type: Location },
+    location: {
+        lat: { type: Number },
+        long: { type: Number }
+    },
     start: { type: Date },
     end: { type: Date },
     description: { type: String },
@@ -28,13 +26,8 @@ var schema = mongoose.Schema({
     equipmentProvided: { type: String },
     equipmentRequired: { type: String },
     perks: { type: String }
-
-
-    // metadata
-    created: { type: Date },
-    updated: { type: Date }
-
 });
+schema.plugin(timestamp);
 
 var model = mongoose.model('Job', schema);
 module.exports = model;
