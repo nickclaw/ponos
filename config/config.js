@@ -4,8 +4,8 @@ var nconf = require('nconf'),
     winston = require('winston');
 
 // allow .es and .jsx files to be compiled on the fly
-require('6to5/register')({
-    extensions: [".es", ".jsx", ".es6"],
+require('babel/register')({
+    extensions: [".es"],
     experimental: true,
     playground: true
 });
@@ -27,14 +27,16 @@ global.C = nconf
 // Logging
 //
 
-var transports = [
-    new winston.transports.Console({
+var transports = [ ];
+
+if (C.APP.STDOUT) {
+    transports.push(new winston.transports.Console({
         level: 'verbose',
         colorize: true,
         prettyPrint: true,
         depth: 3
-    })
-];
+    }));
+}
 
 if (C.APP.LOGFILE) {
     transports.push(new winston.transports.File({

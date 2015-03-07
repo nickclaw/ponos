@@ -7,23 +7,13 @@ var path = require('path'),
     browserify = require('browserify-middleware'),
     cookieParser = require('cookie-parser'),
     cookieSession = require('cookie-session'),
-    router = require('../routes/'),
-    frontend = require('../../app/index');
+    router = require('../routes/');
 
 module.exports = function(app, passport) {
 
     // serve files
     app.use(compress());
     app.use('/static/lib', serve(path.join(__dirname, '../../public/lib')));
-    app.use('/static/script/app.js', browserify('./app/index.jsx',  {
-        transform: [
-            to5ify.configure({
-                experimental: true,
-                playground: true
-            }),
-            shim
-        ]
-    }));
     app.use('/static', serve(path.join(__dirname, '../../public/src/')));
 
     // session
@@ -41,7 +31,6 @@ module.exports = function(app, passport) {
 
     // add dynamic routes
     app.use(router);
-    app.use(frontend());
 
     // listen for unmatched routes
     app.use(function(req, res) {

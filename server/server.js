@@ -1,5 +1,4 @@
 var async = require('async'),
-    database = require('../database'),
     express = require('express'),
     passport = require('passport');
 
@@ -23,13 +22,15 @@ async.parallel([
 
     // connect to database
     function(next) {
-        database.promise.then(
-            function() {
-                Log.info("Connected to database: %s", C.DATABASE.NAME);
-                next();
-            },
-            function(err) { next(err); }
-        );
+        mongoose.connect('mongodb://' + C.DATABASE.HOST + ':' + C.DATABASE.PORT + '/' + C.DATABASE.NAME, {
+                user: C.DATABASE.USER,
+                pass: C.DATABASE.PASS
+            }, function(err) {
+                if (err) Log.error('Could not connect to database');
+                else Log.info('Connected to database');
+
+                next(err);
+            });
     }
 
 ], function(err) {
