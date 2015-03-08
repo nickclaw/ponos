@@ -23,7 +23,11 @@ var FieldValidationError = module.exports.FieldValidationError = vlad.FieldValid
 var GroupValidationError = module.exports.GroupValidationError = vlad.GroupValidationError;
 var ArrayValidationError = module.exports.ArrayValidationError = vlad.ArrayValidationError;
 
-var validateId = vlad(vlad.string);
+//
+// Validation
+//
+
+var validateId = vlad(vlad.string.within(7, 14));
 
 //
 // Users
@@ -56,7 +60,10 @@ db.updateUser = wrap(function*(_id, data) {
 
     if (!user) throw new NotFoundError("User not found.", id);
 
-    yield user.update(data).exec();
+    user.set(data);
+    user.set('finished', true);
+
+    yield user.save.bind(user);
 
     return user.toObject();
 });
