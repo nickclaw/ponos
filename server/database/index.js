@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-    co = require('co'),
     vlad = require('vlad'),
     errorFactory = require('error-factory');
 
@@ -17,74 +16,9 @@ module.exports.Job = Job;
 // Custom errors
 //
 var NotFoundError = module.exports.NotFoundError = errorFactory('NotFoundError', ['message', 'id']);
+var NotAuthorizedError = module.exports.NotAuthorizedError = errorFactory('NotAuthorizedError', ['message']);
 var DatabaseError = module.exports.DatabaseError = errorFactory('DatabaseError', ['message', 'id']);
 var ValidationError = module.exports.ValidationError = vlad.ValidationError;
 var FieldValidationError = module.exports.FieldValidationError = vlad.FieldValidationError;
 var GroupValidationError = module.exports.GroupValidationError = vlad.GroupValidationError;
 var ArrayValidationError = module.exports.ArrayValidationError = vlad.ArrayValidationError;
-
-//
-// Validation
-//
-
-var validateId = vlad(vlad.string.within(7, 14));
-
-//
-// Users
-//
-
-/**
- * Get a user by ID
- * @param {String} id
- * @return {Promise}
- */
-db.getUser = wrap(function*(_id) {
-    var id = yield validateId(_id),
-        user = yield User.findById(id).exec();
-
-    if (!user) throw new NotFoundError("User not found.", id);
-    return user.toObject();
-});
-
-db.deleteUser = wrap(function*(_id) {
-    var id = yield validateId(_id),
-        user = yield User.findByIdAndRemove(id).exec();
-
-    if (!user) throw new NotFoundError("User not found.", id);
-    return user.toObject();
-});
-
-db.updateUser = wrap(function*(_id, data) {
-    var id = yield validateId(_id),
-        user = yield User.findById(id).exec();
-
-    if (!user) throw new NotFoundError("User not found.", id);
-
-    user.set(data);
-    user.set('finished', true);
-
-    yield user.save.bind(user);
-
-    return user.toObject();
-});
-
-db.createUser = wrap(function*(data) {
-    var user = yield User.create(data);
-
-    return user.toObject();
-});
-
-function wrap(fn) {
-    fn = co.wrap(fn);
-
-    return function() {
-        return fn.apply(fn, arguments)
-            .catch(function(e) {
-                if (e instanceof ValidationError) throw e;
-                if (e instanceof NotFoundError) throw e;
-                var error = new DatabaseError(e.message);
-                error.stack = e.stack;
-                throw error;
-            });
-    }
-}
