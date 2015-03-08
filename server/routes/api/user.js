@@ -1,4 +1,5 @@
 var router = require('express').Router(),
+    _ = require('lodash'),
     vlad = require('vlad'),
     util = require('./util');
 
@@ -28,6 +29,7 @@ router
 
     .post('/:user', util.auth, owns, function(req, res, next) {
         // TODO remove protected data from body
+        req.doc.set(util.whitelist(req.body, editable));
         req.doc.save(function(err, doc) {
             if (err) return next(err);
             next();
@@ -43,9 +45,8 @@ router
 
     // returner
     .use(function(req, res, next) {
-        // TODO remove private data from doc.toObject()
-        if (req.doc) return res.status(200).send(req.doc.toObject());
-        next(new db.NotFoundError("error bitch"));
+        res.status(200)
+            .send(util.whitelist(req.doc.toObject(), viewable));
     })
 
     // error handler
@@ -67,4 +68,45 @@ router
 function owns(req, res, next) {
     if (req.doc._id === req.user._id) return next();
     next(new db.NotAuthorizedError());
+}
+
+var editable = {
+    firstName: true,
+    lastName: true,
+    phone: true,
+
+    worker: {
+        bio: true,
+        experience: true,
+        age: true,
+        gender: true
+    },
+
+    employer: {
+        bio: true,
+        url: true
+    }
+};
+
+var viewable = {
+    _id: true,
+    firstName: true,
+    lastName: true,
+    phone: true,
+    roles: true,
+
+    worker: {
+        bio: true,
+        experience: true,
+        age: true,
+        gender: true
+    },
+
+    employer: {
+        bio: true,
+        url: true
+    },
+
+    new: true,
+    finished: true
 }

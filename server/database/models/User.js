@@ -94,7 +94,8 @@ schema.methods.checkPassword = function(password) {
 // Validation
 //
 schema.methods.validate = function(callback) {
-    var validator = newValidator;
+    var validator = propertyValidator;
+    if (this.isNew) validator = newValidator;
     if (this.roles.includes('worker')) validator = workerValidator;
     if (this.roles.includes('employer')) validator = employerValidator;
 
@@ -108,6 +109,8 @@ var propertyValidations = {
     new: vlad.boolean.required,
     finished: vlad.boolean.required
 };
+
+var propertyValidator = vlad(propertyValidations);
 
 var authValidator = function(value) {
     return Promise.resolve();

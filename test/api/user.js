@@ -15,16 +15,21 @@ describe('user endpoint', function() {
 
     describe('GET /api/user/:id', function() {
 
-        var user = users[0];
+        var user = users[0],
+            ret = null;
 
         it('should retrieve the user', function() {
             return r
                 .get('/api/user/' + user._id).should.be.fulfilled
                 .then(function(body) {
-                    expect(body.auth.local.password).to.not.equal(user.auth.local.password);
-                    body.auth.local.password = user.auth.local.password;
-                    expect(body).to.shallowDeepEqual(user);
+                    ret = body;
                 });
+        });
+
+        it('should only show public properties', function() {
+            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'finished', 'new', 'roles', 'employer'])
+            expect(ret.worker.reviews).to.be.undefined;
+            expect(ret.employer.reviews).to.be.undefined;
         });
 
         it('should return 404 with an unknown id', function() {
@@ -35,8 +40,16 @@ describe('user endpoint', function() {
     });
 
     describe('POST /api/user/:id', function() {
-        var user = users[0];
-        var data = {};
+        var user = users[0],
+            data = {
+                _id: "abcdefgasdf",
+                firstName: "New",
+                lastName: "Name",
+                new: true,
+                false: true,
+                finished: true
+            },
+            ret = null;
 
 
         it('should return 403 if you are not the user', function() {
@@ -57,7 +70,17 @@ describe('user endpoint', function() {
                 .post('/api/user/' + user._id, data).should.be.fulfilled
                 .then(function(body) {
                     stub.logout();
+                    ret = body;
                 });
+        });
+
+        it('should only update editable properties', function() {
+            expect(ret._id).to.equal(user._id);
+            expect(ret.firstName).to.equal(data.firstName);
+            expect(ret.lastName).to.equal(data.lastName);
+            expect(ret.new).to.equal(data.new);
+            expect(ret.false).to.be.undefined;
+            expect(ret.finished).to.equal(user.finished);
         });
 
     });
