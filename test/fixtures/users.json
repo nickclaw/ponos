@@ -1,0 +1,18 @@
+[
+    {
+        "_id": "1234567890",
+        "firstName": "Test",
+        "lastName": "User",
+        "roles": [],
+
+        "auth": {
+            "local": {
+                "email": "test@example.com",
+                "password": "password"
+            }
+        },
+
+        "new": true,
+        "finished": false
+    }
+]

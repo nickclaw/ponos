@@ -33,7 +33,7 @@ module.exports = Promise.all([
             }
             else {
                 Log.info('Connected to database');
-                res();
+                res(app);
             }
         });
     })

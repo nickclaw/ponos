@@ -6,5 +6,5 @@ module.exports = {
         next(new db.NotAuthorizedError());
     },
 
-    IdValidator = vlad(vlad.string.within(7, 14));
-}
+    IdValidator: vlad(vlad.string.within(7, 14))
+};

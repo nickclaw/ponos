@@ -5,7 +5,7 @@ var router = require('express').Router(),
 module.exports = router;
 
 router
-    .param('user', function(id, req, res, next) {
+    .param('user', function(req, res, next, id) {
         util.IdValidator(id)
             .then(function(id) {
                 return db.User.findById(id).exec();
@@ -17,37 +17,46 @@ router
             .then(next, next);
     })
 
-    // implicit get
+    .get('/', function(req, res, next) {
+        res.status(200).send([]);
+    })
+
+    // implicit GET /user
+    .get('/:user', function(req, res, next) {
+        next();
+    })
 
     .post('/:user', util.auth, owns, function(req, res, next) {
         // TODO remove protected data from body
-        req.doc.set(req.body);
-        req.doc.save().exec()
-            .then(next, next);
+        req.doc.save(function(err, doc) {
+            if (err) return next(err);
+            next();
+        });
     })
 
     .delete('/:user', util.auth, owns, function(req, res, next) {
-        req.doc.remove().exec()
-            .then(next, next);
-    })
-
-    .post('/', util.auth, function(req, res, next) {
-
+        req.doc.remove(function(err, doc) {
+            if (err) return next(err);
+            next();
+        });
     })
 
     // returner
     .use(function(req, res, next) {
         // TODO remove private data from doc.toObject()
-        res.send(200, req.doc.toObject());
+        if (req.doc) return res.status(200).send(req.doc.toObject());
+        next(new db.NotFoundError("error bitch"));
     })
 
     // error handler
     .use(function(err, req, res, next) {
-        if (err instanceof db.NotAuthorizedError) return res.send(403);
-        if (err instanceof db.NotFoundError) return res.send(404);
-        if (err instanceof db.ValidationError) return res.end(401, err.toJSON());
+        if (err instanceof db.NotAuthorizedError) return res.sendStatus(403);
+        if (err instanceof db.NotFoundError) return res.sendStatus(404);
+        if (err instanceof db.ValidationError) return res.status(401).send(err.toJSON());
 
-        return res.send(500);
+        Log.error(err);
+
+        return res.status(500).send({message: "WTF"});
     })
 ;
 
@@ -56,6 +65,6 @@ router
 //
 
 function owns(req, res, next) {
-    if (req.doc.id === req.user.id) return next();
+    if (req.doc._id === req.user._id) return next();
     next(new db.NotAuthorizedError());
 }

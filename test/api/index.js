@@ -1,18 +1,24 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+    request = require('superagent'),
+    users = require('../fixtures/users'),
+    stub = require('passport-stub');
 
-describe('scaffolds api', function() {
+describe('scaffold apis', function() {
 
     before(function() {
         this.timeout(7500);
-        return require('../../server/server');
-        // load fixtures?
+        return require('../../server/server')
+            .then(function(results) {
+                stub.install(results[1]);
+            });
     });
 
-    require('./placeholder');
+    require('./user');
+    require('./job');
 
     after(function() {
         if (mongoose.connection) {
-            mongoose.connection.db.dropDatabase();
+            if (mongoose.connection.db) mongoose.connection.db.dropDatabase();
             mongoose.connection.close();
         }
     });

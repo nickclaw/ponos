@@ -2,6 +2,11 @@ var router = require('express').Router();
 
 module.exports = router;
 
-router.use('/api', require('./api/'));
-router.use('/auth', require('./auth/'));
-router.use('/admin', require('./admin/'));
+router
+    .use(function(req, res, next) {
+        Log.verbose(req.method + ' ' + req.url);
+        next();
+    })
+    .use('/api', require('./api/'))
+    .use('/auth', require('./auth/'))
+    .use('/admin', require('./admin/'));
