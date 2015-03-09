@@ -7,6 +7,14 @@ module.exports = router;
 
 router
     .param('user', function(req, res, next, id) {
+
+        // allow /api/user/me shortcut
+        if (id.toLowerCase() === 'me') {
+            if (!req.user) return next(new db.NotAuthorizedError("Must be signed in."));
+            req.doc = req.user;
+            return next();
+        }
+
         util.IdValidator(id)
             .then(function(id) {
                 return db.User.findById(id).exec();
@@ -18,15 +26,23 @@ router
             .then(next, next);
     })
 
+    //
+    // Search
+    //
     .get('/', function(req, res, next) {
         res.status(200).send([]);
     })
 
-    // implicit GET /user
+    //
+    // Retrieve
+    //
     .get('/:user', function(req, res, next) {
         next();
     })
 
+    //
+    // Update
+    //
     .post('/:user', util.auth, owns, function(req, res, next) {
         // TODO remove protected data from body
         req.doc.set(util.whitelist(req.body, editable));
@@ -36,6 +52,9 @@ router
         });
     })
 
+    //
+    // Delete
+    //
     .delete('/:user', util.auth, owns, function(req, res, next) {
         req.doc.remove(function(err, doc) {
             if (err) return next(err);
@@ -57,7 +76,7 @@ router
 
         Log.error(err);
 
-        return res.status(500).send({message: "WTF"});
+        return res.status(500).send();
     })
 ;
 

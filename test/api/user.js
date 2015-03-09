@@ -137,4 +137,30 @@ describe('user endpoint', function() {
         });
     });
 
+    describe('METHOD /api/user/me', function() {
+
+        var id = users[0]._id;
+
+        it('should act on the logged in user', function() {
+            return db.User.findById(id).exec()
+                .then(function(user) {
+                    stub.login(user);
+                })
+                .then(function() {
+                    return r.get('/api/user/me').should.be.fulfilled;
+                })
+                .then(function(u) {
+                    stub.logout();
+                    expect(u._id).to.equal(id);
+                });
+        });
+
+        it('should return 403 if not logged in', function() {
+            return r
+                .get('/api/user/me').should.be.rejected
+                .then(r.hasStatus(403));
+        });
+
+    });
+
 });
