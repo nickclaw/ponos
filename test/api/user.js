@@ -49,6 +49,10 @@ describe('user endpoint', function() {
                 false: true,
                 finished: true
             },
+            badData = {
+                firstName: "",
+                lastName: ""
+            },
             ret = null;
 
 
@@ -62,6 +66,16 @@ describe('user endpoint', function() {
             return r
                 .post('/api/user/' + 'asfdsafsaasdf', data).should.be.rejected
                 .then(r.hasStatus(404));
+        });
+
+        it('should return 401 for invalid input', function() {
+            stub.login(user);
+            return r
+                .post('/api/user/' + user._id, badData).should.be.rejected
+                .then(r.hasStatus(401))
+                .then(function() {
+                    stub.logout();
+                });
         });
 
         it('should update the user', function() {

@@ -45,6 +45,7 @@ global.r = {
     hasStatus: function(code) {
         return function(res) {
             expect(res.status).to.equal(code);
+            return res;
         }
     }
 }
