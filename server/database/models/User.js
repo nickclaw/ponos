@@ -11,8 +11,8 @@ var mongoose = require('mongoose'),
 // works for both worker/employer reviews
 //
 var Review = mongoose.Schema({
-    reviewer: { type: ObjectId },
-    job: { type: ObjectId },
+    reviewer: { type: ObjectId, ref: "User" },
+    job: { type: ObjectId, ref: "Job" },
 
     comment: { type: String },
     a: { type: Number },
@@ -93,7 +93,7 @@ schema.methods.checkPassword = function(password) {
 //
 // Validation
 //
-schema.methods.validate = function(callback) {
+schema.methods.validate = function validate(callback) {
     var validator = propertyValidator;
     if (this.isNew) validator = newValidator;
     if (this.roles.includes('worker')) validator = workerValidator;
