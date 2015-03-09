@@ -6,7 +6,7 @@ var nconf = require('nconf'),
 
 // allow .es files to be compiled on the fly
 require('babel/register')({
-    extensions: [".es"],
+    extensions: [".es", ".js"],
     experimental: true,
     playground: true
 });

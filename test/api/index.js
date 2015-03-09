@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose'),
     request = require('superagent'),
     users = require('../fixtures/users'),
     stub = require('passport-stub');

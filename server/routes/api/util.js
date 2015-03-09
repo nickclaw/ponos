@@ -8,13 +8,18 @@ module.exports = {
      */
     auth: function auth(req, res, next) {
         if (!!req.user) return next();
-        next(new db.NotAuthorizedError());
+        next(new db.NotAuthorizedError("Not allowed."));
     },
 
     /**
-     * Validate shortid length
+     * Make sure current user is of a certain role
      */
-    IdValidator: vlad(vlad.string.within(7, 14)),
+    role: function(role) {
+        return function hasRole(req, res, next) {
+            if (req.user.roles.includes(role)) return next();
+            next(new db.NotAuthorizedError("Wrong role."));
+        };
+    },
 
     /**
      * Returns a new object that only contains whitelisted paths
@@ -34,5 +39,23 @@ module.exports = {
         });
 
         return obj;
-    }
+    },
+
+    //
+    // Common validation
+    //
+
+    /**
+     * Validate shortid length
+     */
+    IdValidator: vlad(vlad.string.within(7, 14)),
+
+    /**
+     * Validate standard query request
+     */
+    queryValidator: vlad.middleware({
+        limit: vlad.integer.default(10).within(0, 25).catch,
+        offset: vlad.integer.min(0).default(0),
+        query: vlad.string // unsupported for now
+    }, 'query')
 };

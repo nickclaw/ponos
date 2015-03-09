@@ -5,6 +5,9 @@ var router = require('express').Router(),
 
 module.exports = router;
 
+//
+// Routing
+//
 router
     .param('user', function(req, res, next, id) {
 
@@ -29,8 +32,16 @@ router
     //
     // Search
     //
-    .get('/', function(req, res, next) {
-        res.status(200).send([]);
+    .get('/', util.queryValidator, function(req, res, next) {
+        db.User
+            .find()
+            .lean()
+            .limit(req.query.limit)
+            .skip(req.query.offset)
+            .exec().then(function(users) {
+                req.doc = users;
+                next();
+            }, next);
     })
 
     //
@@ -62,16 +73,33 @@ router
         });
     })
 
+    //
+    // Search users jobs
+    //
+    .get('/:user/jobs', util.queryValidator, function(req, res, next) {
+        db.Job
+            .find({poster: req.user._id})
+            .lean()
+            .limit(req.query.offset)
+            .skip(req.query.offset)
+            .exec().then(function(jobs) {
+                req.doc = jobs;
+                req.filter = viewable; // TODO job.viewable
+                next();
+            }, next);
+    })
+
     // returner
     .use(function(req, res, next) {
+        var data = toJSON(req.doc, req.filter || viewable);
         res.status(200)
-            .send(util.whitelist(req.doc.toObject(), viewable));
+            .send(data);
     })
 
     // error handler
     .use(function(err, req, res, next) {
-        if (err instanceof db.NotAuthorizedError) return res.sendStatus(403);
-        if (err instanceof db.NotFoundError) return res.sendStatus(404);
+        if (err instanceof db.NotAuthorizedError) return res.status(403).send(err.message);
+        if (err instanceof db.NotFoundError) return res.status(404).send(err.message);
         if (err instanceof db.ValidationError) return res.status(401).send(err.toJSON());
 
         Log.error(err);
@@ -87,6 +115,20 @@ router
 function owns(req, res, next) {
     if (req.doc._id === req.user._id) return next();
     next(new db.NotAuthorizedError());
+}
+
+function toJSON(data, list) {
+    if (data.toObject) {
+        return util.whitelist(data.toObject(), list);
+    }
+
+    if (Array.isArray(data)) {
+        return data.map(function(d) {
+            return toJSON(d, list);
+        });
+    }
+
+    return util.whitelist(data, list);
 }
 
 var editable = {
