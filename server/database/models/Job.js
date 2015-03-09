@@ -1,18 +1,17 @@
 var mongoose = require('mongoose'),
     vlad = require('vlad'),
     timestamp = require('../plugins/timestamp'),
-    unique = require('../plugins/unique'),
-    ObjectId = mongoose.Schema.Types.ObjectId;
+    unique = require('../plugins/unique');
 
 var Application = mongoose.Schema({
-    applicant: { type: ObjectId, ref: "User" },
+    applicant: { type: String, ref: "User" },
     blurb: { type: String }
 });
 Application.plugin(unique);
 Application.plugin(timestamp);
 
 var schema = mongoose.Schema({
-    poster: { type: ObjectId },
+    poster: { type: String, ref: "User" },
 
     title: { type: String },
     location: {
@@ -34,9 +33,6 @@ var schema = mongoose.Schema({
 schema.plugin(unique);
 schema.plugin(timestamp);
 
-var model = mongoose.model('Job', schema);
-module.exports = model;
-
 //
 // Validation
 //
@@ -46,18 +42,21 @@ schema.methods.validate = function validate(done) {
 };
 
 var jobValidator = vlad({
-    title: vlad.string.required,
+    title: vlad.string.required.within(5, 140),
     location: vlad({
-        lat: vlad.number.required,
-        long: vlad.number.required
+        lat: vlad.number.required.within(-90, 90),
+        long: vlad.number.required.within(-180, 180)
     }),
     start: vlad.date.required,
     end: vlad.date.required,
-    description: vlad.string.required,
-    needed: vlad.integer.required,
-    rate: vlad.number.required,
+    description: vlad.string.required.min(5),
+    needed: vlad.integer.required.within(1, 10),
+    rate: vlad.number.required.min(1),
 
     equipmentProvided: vlad.string,
     equipmentRequired: vlad.string,
     perks: vlad.string
 });
+
+var model = mongoose.model('Job', schema);
+module.exports = model;

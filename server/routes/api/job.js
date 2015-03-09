@@ -28,7 +28,7 @@ router
     // Create
     //
     .post('/', util.auth, function(req, res, next) {
-        var data = util.whitelist(req.body, creatable);
+        var data = util.whitelist(req.body, createable);
         data.poster = req.user._id;
         data.applications = [];
 
@@ -128,6 +128,7 @@ var editable = {
 };
 
 var viewable = {
+    _id: true,
     poster: true,
     title: true,
     location: {
@@ -142,5 +143,7 @@ var viewable = {
     rate: true,
     equipmentProvided: true,
     equipmentRequired: true,
-    perks: true
+    perks: true,
+    created: true,
+    updated: true
 }

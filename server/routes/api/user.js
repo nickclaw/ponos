@@ -127,5 +127,7 @@ var viewable = {
     },
 
     new: true,
-    finished: true
+    finished: true,
+    created: true,
+    updated: true
 }

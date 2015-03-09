@@ -3,16 +3,15 @@ var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     vlad = require('vlad'),
     timestamp = require('../plugins/timestamp'),
-    unique = require('../plugins/unique'),
-    ObjectId = mongoose.Schema.Types.ObjectId;
+    unique = require('../plugins/unique');
 
 //
 // review schema
 // works for both worker/employer reviews
 //
 var Review = mongoose.Schema({
-    reviewer: { type: ObjectId, ref: "User" },
-    job: { type: ObjectId, ref: "Job" },
+    reviewer: { type: String, ref: "User" },
+    job: { type: String, ref: "Job" },
 
     comment: { type: String },
     a: { type: Number },
