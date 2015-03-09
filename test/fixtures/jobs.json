@@ -1,0 +1,19 @@
+[
+    {
+        "_id": "abcdefghijk",
+        "poster": "1234567890",
+        "title": "Lawnmowing",
+        "location": {
+            "lat": 45.32,
+            "long": 50.75
+        },
+        "start": "2015-03-09T02:24:42.216Z",
+        "end": "2015-03-09T04:24:42.216Z",
+        "description": "Mow my lawn pleeeeease.",
+        "needed": 1,
+        "rate": 20,
+
+        "equipmentProvided": "Lawnmower",
+        "created": "2015-03-09T02:40:40.195Z"
+    }
+]

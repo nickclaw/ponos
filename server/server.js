@@ -1,7 +1,8 @@
 var async = require('async'),
     mongoose = require('mongoose'),
     express = require('express'),
-    passport = require('passport');
+    passport = require('passport'),
+    mongoose = require('mongoose');
 
 var app = express();
 
@@ -32,7 +33,7 @@ module.exports = Promise.all([
             }
             else {
                 Log.info('Connected to database');
-                res();
+                res(app);
             }
         });
     })

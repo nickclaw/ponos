@@ -2,7 +2,9 @@
     "APP": {
         "MAX_CPUS": 4,
         "REVIVE": true,
-        "LOGFILE": "output.log"
+        "STDOUT": true,
+        "LOGFILE": "output.log",
+        "SEED": "veryrandomseed"
     },
 
     "SERVER": {
@@ -19,8 +21,8 @@
     "DATABASE": {
         "NAME": "database",
         "HOST": "127.0.0.1",
-        "DIALECT": "mariadb",
-        "USER": "root",
+        "PORT": "9999",
+        "USER": "",
         "PASS": ""
     },
 

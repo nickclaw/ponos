@@ -1,15 +1,29 @@
-var User = {}, //require('../database/').User,
+var User = db.User,
     GoogleAuth = require('passport-google-oauth').OAuth2Strategy,
     LocalAuth = require('passport-local').Strategy;
 
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
+        Log.verbose("Serializing user: %s", user.id);
         done(null, user.id);
     });
 
     passport.deserializeUser(function(id, done) {
-        User.find(id).nodeify(done);
+        User.findById(id, function(err, user) {
+            if (err) {
+                Log.warn('Error unserializing user: %s', id);
+                return done(err, null);
+            }
+
+            if (!user) {
+                Log.verbose('Could not unserialize user: %s', id);
+                return done(null, null);
+            }
+
+            Log.verbose('Unserialized user: %s', id);
+            return done(null, user);
+        });
     });
 
     //
@@ -21,10 +35,7 @@ module.exports = function(passport) {
         callbackURL: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/google/login/callback",
         scope: 'profile'
     }, function(accessToken, refreshToken, profile, done) {
-        User.findOne({
-            authType: "google",
-            authUser: profile.id
-        }).nodeify(done);
+        User.findOne({'auth.google_id': profile.id}, done);
     }));
 
     passport.use('google-signup', new GoogleAuth({
@@ -34,11 +45,19 @@ module.exports = function(passport) {
         scope: 'profile'
     }, function(accessToken, refreshToken, profile, done) {
         User.create({
-            authType: "google",
-            authUser: profile.id,
             firstName: profile.name.givenName,
-            lastName: profile.name.familyName
-        }).nodeify(done);
+            lastName: profile.name.familyName,
+            roles: [],
+            worker: {},
+            employer: {},
+
+            auth: {
+                google_id: profile.id
+            },
+
+            new: true,
+            finished: false
+        }, done);
     }));
 
 
@@ -48,22 +67,28 @@ module.exports = function(passport) {
     passport.use('local-login', new LocalAuth({
         usernameField: 'email'
     }, function(email, password, done) {
-        User.findOne({
-            authType: "local",
-            authUser: email
-        }).then(function(user) {
-            if (user.password !== password) throw new Error();
-            return user;
-        }).nodeify(done);
+        User.findOne({'auth.local.email': email}, function(err, user) {
+            if (err || !user) return done(err, user);
+            if (!user.checkPassword(password)) return done(new Error());
+            done(null, user);
+        });
     }));
 
     passport.use('local-signup', new LocalAuth({
-        usernameField: 'email'
-    }, function(email, password, done) {
-        User.create({
-            authType: "local",
-            authUser: email,
-            authPass: password
+        usernameField: 'email',
+        passReqToCallback: true,
+    }, function(req, email, password, done) {
+        db.createUser({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            phone: req.body.phone,
+
+            auth: {
+                local: {
+                    email: req.body.email,
+                    password: req.body.password
+                }
+            }
         }).nodeify(done);
     }));
 
