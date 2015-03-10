@@ -1,4 +1,4 @@
-scaffold (actual name pending)
+scaffold
 ===========
 
 ### Requirements
