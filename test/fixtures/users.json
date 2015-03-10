@@ -4,7 +4,17 @@
         "firstName": "Test",
         "lastName": "User",
         "phone": "1 555 555 5555",
-        "roles": [],
+        "roles": ["worker", "employer"],
+
+        "worker": {
+            "bio": "This is a worker bio.",
+            "age": 21,
+            "gender": "male"
+        },
+
+        "employer": {
+            "bio": "This is an employer bio."
+        },
 
         "auth": {
             "local": {

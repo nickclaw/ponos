@@ -1,4 +1,6 @@
 var router = require('express').Router(),
+    userFilter = require('../../database/filters/user'),
+    jobFilter = require('../../database/filters/job'),
     _ = require('lodash'),
     vlad = require('vlad'),
     util = require('./util');
@@ -56,7 +58,7 @@ router
     //
     .post('/:user', util.auth, owns, function(req, res, next) {
         // TODO remove protected data from body
-        req.doc.set(util.whitelist(req.body, editable));
+        req.doc.set(util.whitelist(req.body, userFilter.editable));
         req.doc.save(function(err, doc) {
             if (err) return next(err);
             next();
@@ -84,14 +86,14 @@ router
             .skip(req.query.offset)
             .exec().then(function(jobs) {
                 req.doc = jobs;
-                req.filter = viewable; // TODO job.viewable
+                req.filter = jobFilter.viewable;
                 next();
             }, next);
     })
 
     // returner
     .use(function(req, res, next) {
-        var data = toJSON(req.doc, req.filter || viewable);
+        var data = toJSON(req.doc, req.filter || userFilter.viewable);
         res.status(200)
             .send(data);
     })
@@ -129,47 +131,4 @@ function toJSON(data, list) {
     }
 
     return util.whitelist(data, list);
-}
-
-var editable = {
-    firstName: true,
-    lastName: true,
-    phone: true,
-
-    worker: {
-        bio: true,
-        experience: true,
-        age: true,
-        gender: true
-    },
-
-    employer: {
-        bio: true,
-        url: true
-    }
-};
-
-var viewable = {
-    _id: true,
-    firstName: true,
-    lastName: true,
-    phone: true,
-    roles: true,
-
-    worker: {
-        bio: true,
-        experience: true,
-        age: true,
-        gender: true
-    },
-
-    employer: {
-        bio: true,
-        url: true
-    },
-
-    new: true,
-    finished: true,
-    created: true,
-    updated: true
 }
