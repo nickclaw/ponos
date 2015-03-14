@@ -15,6 +15,7 @@ describe('scaffold apis', function() {
 
     require('./user');
     require('./job');
+    require('./application');
 
     after(function() {
         if (mongoose.connection) {
