@@ -55,11 +55,19 @@ describe('user endpoint', function() {
             },
             ret = null;
 
-
-        it('should return 403 if you are not the user', function() {
+        it('should return 401 if you are not logged in', function() {
             return r
                 .post('/api/user/' + user._id, data).should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
+        });
+
+
+        it('should return 403 if you are not the user', function() {
+            r.login(users[1]);
+            return r
+                .post('/api/user/' + user._id, data).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should return 404 with an unknown id', function() {
@@ -68,11 +76,11 @@ describe('user endpoint', function() {
                 .then(r.hasStatus(404));
         });
 
-        it('should return 401 for invalid input', function() {
+        it('should return 400 for invalid input', function() {
             stub.login(user);
             return r
                 .post('/api/user/' + user._id, badData).should.be.rejected
-                .then(r.hasStatus(401))
+                .then(r.hasStatus(400))
                 .then(function() {
                     stub.logout();
                 });
@@ -103,10 +111,18 @@ describe('user endpoint', function() {
 
         var user = users[0];
 
-        it('should return 403 if you are not the user', function() {
+        it('should return 401 if you are not logged in', function() {
             return r
                 .del('/api/user/' + user._id).should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
+        });
+
+        it('should return 403 if you are not the user', function() {
+            r.login(users[1]);
+            return r
+                .del('/api/user/' + user._id).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should return 404 with an unknown id', function() {
@@ -137,6 +153,7 @@ describe('user endpoint', function() {
         });
     });
 
+
     describe('METHOD /api/user/me', function() {
 
         var id = users[0]._id;
@@ -155,10 +172,10 @@ describe('user endpoint', function() {
                 });
         });
 
-        it('should return 403 if not logged in', function() {
+        it('should return 401 if not logged in', function() {
             return r
                 .get('/api/user/me').should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
         });
 
     });

@@ -26,5 +26,33 @@
         "new": true,
         "finished": false,
         "created": "2015-03-08T02:40:40.195Z"
+    },
+    {
+        "_id": "abcdefghi",
+        "firstName": "Test",
+        "lastName": "User",
+        "phone": "1 555 555 5555",
+        "roles": ["worker", "employer"],
+
+        "worker": {
+            "bio": "This is a worker bio.",
+            "age": 21,
+            "gender": "male"
+        },
+
+        "employer": {
+            "bio": "This is an employer bio."
+        },
+
+        "auth": {
+            "local": {
+                "email": "test1@example.com",
+                "password": "password"
+            }
+        },
+
+        "new": true,
+        "finished": false,
+        "created": "2015-03-08T02:40:40.195Z"
     }
 ]

@@ -17,7 +17,7 @@ module.exports = {
     role: function(role) {
         return function hasRole(req, res, next) {
             if (req.user.roles.includes(role)) return next();
-            next(new db.NotAuthorizedError("Wrong role."));
+            next(new db.NotAllowedError("Wrong role."));
         };
     },
 
@@ -27,14 +27,19 @@ module.exports = {
      * @param {Object} list
      * @return {Object}
      */
-    whitelist: function whitelist(object, list) {
-        var obj = {};
+    whitelist: function whitelist(target, list) {
 
-        _.each(object, function(value, key) {
+        if (target === null || target === undefined) return target;
+
+        var obj = Object.create(null);
+
+        _.each(list, function(val, key) {
+            if (target[key] === void 0) return;
+
             if (typeof list[key] === 'object') {
-                obj[key] = whitelist(object[key], list[key]);
-            } else if (list[key]) {
-                obj[key] = value;
+                obj[key] = whitelist(target[key], val);
+            } else {
+                obj[key] = target[key];
             }
         });
 

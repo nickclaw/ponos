@@ -1,4 +1,5 @@
 var chai = require('chai'),
+    stub = require('passport-stub'),
     shallowEqual = require('chai-shallow-deep-equal'),
     asPromised = require('chai-as-promised'),
     request = require('superagent');
@@ -47,6 +48,15 @@ global.r = {
             expect(res.status).to.equal(code);
             return res;
         }
+    },
+
+    login: function(user) {
+        stub.login(user);
+    },
+
+    logout: function(val) {
+        stub.logout();
+        return val;
     }
 }
 

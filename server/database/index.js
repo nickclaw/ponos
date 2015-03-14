@@ -13,12 +13,17 @@ module.exports.User = User;
 module.exports.Job = Job;
 
 //
+// Expose vlad errors
+//
+module.exports.ValidationError = vlad.ValidationError; // 400
+module.exports.FieldValidationError = vlad.FieldValidationError;
+module.exports.GroupValidationError = vlad.GroupValidationError;
+module.exports.ArrayValidationError = vlad.ArrayValidationError;
+
+
+//
 // Custom errors
 //
-var NotFoundError = module.exports.NotFoundError = errorFactory('NotFoundError', ['message', 'id']);
-var NotAuthorizedError = module.exports.NotAuthorizedError = errorFactory('NotAuthorizedError', ['message']);
-var DatabaseError = module.exports.DatabaseError = errorFactory('DatabaseError', ['message', 'id']);
-var ValidationError = module.exports.ValidationError = vlad.ValidationError;
-var FieldValidationError = module.exports.FieldValidationError = vlad.FieldValidationError;
-var GroupValidationError = module.exports.GroupValidationError = vlad.GroupValidationError;
-var ArrayValidationError = module.exports.ArrayValidationError = vlad.ArrayValidationError;
+module.exports.NotAuthorizedError = errorFactory('NotAuthorizedError', ['message']); // 401
+module.exports.NotAllowedError = errorFactory("NotAllowedError", ['message']); // 403
+module.exports.NotFoundError = errorFactory('NotFoundError', ['message', 'id']); // 404

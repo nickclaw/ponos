@@ -45,17 +45,17 @@ describe('job endpoint', function() {
             },
             ret = null;
 
-        it('should return 403 if not logged in', function() {
+        it('should return 401 if not logged in', function() {
             return r
                 .post('/api/job', data).should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
         });
 
-        it('should return 401 if invalid data', function() {
+        it('should return 400 if invalid data', function() {
             stub.login(user);
             return r
                 .post('/api/job', badData).should.be.rejected
-                .then(r.hasStatus(401))
+                .then(r.hasStatus(400))
                 .then(function() {
                     stub.logout();
                 });
@@ -91,7 +91,7 @@ describe('job endpoint', function() {
                 })
         });
 
-        it('should return 404 if a non existent job is created', function() {
+        it('should return 404 if a non existent id', function() {
             return r
                 .get('/api/job/' + 'adfsafsfas').should.be.rejected
                 .then(r.hasStatus(404));
@@ -115,10 +115,18 @@ describe('job endpoint', function() {
             },
             ret = null;
 
-        it('should return 403 if user isnt authorized', function() {
+        it('should return 401 if user isnt authorized', function() {
             return r
                 .post('/api/job/' + job._id, data).should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
+        });
+
+        it('should return 403 if not users job', function() {
+            r.login(users[1]);
+            return r
+                .post('/api/job/' + job._id, data).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should return 404 if a non existent job is updated', function() {
@@ -127,14 +135,12 @@ describe('job endpoint', function() {
                 .then(r.hasStatus(404));
         });
 
-        it('should return 401 if invalid data', function() {
+        it('should return 400 if invalid data', function() {
             stub.login(user);
             return r
                 .post('/api/job/' + job._id, badData).should.be.rejected
-                .then(r.hasStatus(401))
-                .then(function() {
-                    stub.logout();
-                })
+                .then(r.hasStatus(400))
+                .then(r.logout)
         });
 
         it('should update the job', function() {
@@ -158,10 +164,18 @@ describe('job endpoint', function() {
         var job = jobs[0],
             user = users[0];
 
-        it('should return 403 if user isnt authorized', function() {
+        it('should return 401 if user isnt authorized', function() {
             return r
                 .del('/api/job/' + job._id).should.be.rejected
-                .then(r.hasStatus(403));
+                .then(r.hasStatus(401));
+        });
+
+        it('should return 403 if user doesnt own job', function() {
+            r.login(users[1]);
+            return r
+                .del('/api/job/' + job._id).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should return 404 if a non existent job is deleted (IS THIS THE RIGHT BEHAVIOR?)', function() {

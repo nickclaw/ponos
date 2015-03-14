@@ -15,9 +15,8 @@ router
 
         // allow /api/user/me shortcut
         if (id.toLowerCase() === 'me') {
-            if (!req.user) return next(new db.NotAuthorizedError("Must be signed in."));
-            req.doc = req.user;
-            return next();
+            if (!req.user) return next(db.NotAuthorizedError("Must be signed in."));
+            id = req.user._id;
         }
 
         util.IdValidator(id)
@@ -25,8 +24,9 @@ router
                 return db.User.findById(id).exec();
             })
             .then(function(user) {
-                if (!user) throw new db.NotFoundError("User not found.", id);
+                if (!user) throw db.NotFoundError("User not found.", id);
                 req.doc = user;
+                req.filter = userFilter.viewable;
             })
             .then(next, next);
     })
@@ -34,92 +34,118 @@ router
     //
     // Search
     //
-    .get('/', util.queryValidator, function(req, res, next) {
-        db.User
-            .find()
-            .lean()
-            .limit(req.query.limit)
-            .skip(req.query.offset)
-            .exec().then(function(users) {
-                req.doc = users;
-                next();
-            }, next);
-    })
+    .get('/',
+        util.queryValidator,
+        function(req, res, next) {
+            db.User
+                .find()
+                .lean()
+                .limit(req.query.limit)
+                .skip(req.query.offset)
+                .exec().then(function(users) {
+                    req.doc = users;
+                    next();
+                }, next);
+        },
+        send
+    )
 
     //
     // Retrieve
     //
-    .get('/:user', function(req, res, next) {
-        next();
-    })
+    .get('/:user', send)
 
     //
     // Update
     //
-    .post('/:user', util.auth, owns, function(req, res, next) {
-        // TODO remove protected data from body
-        req.doc.set(util.whitelist(req.body, userFilter.editable));
-        req.doc.save(function(err, doc) {
-            if (err) return next(err);
-            next();
-        });
-    })
+    .post('/:user',
+        util.auth,
+        owns,
+        function(req, res, next) {
+            // TODO remove protected data from body
+            req.doc.set(util.whitelist(req.body, userFilter.editable));
+            req.doc.save(function(err, doc) {
+                if (err) return next(err);
+                next();
+            });
+        },
+        send
+    )
 
     //
     // Delete
     //
-    .delete('/:user', util.auth, owns, function(req, res, next) {
-        req.doc.remove(function(err, doc) {
-            if (err) return next(err);
-            next();
-        });
-    })
-
-    //
-    // Search users jobs
-    //
-    .get('/:user/jobs', util.queryValidator, function(req, res, next) {
-        db.Job
-            .find({poster: req.user._id})
-            .lean()
-            .limit(req.query.offset)
-            .skip(req.query.offset)
-            .exec().then(function(jobs) {
-                req.doc = jobs;
-                req.filter = jobFilter.viewable;
+    .delete('/:user',
+        util.auth,
+        owns,
+        function(req, res, next) {
+            req.doc.remove(function(err, doc) {
+                if (err) return next(err);
                 next();
-            }, next);
-    })
+            });
+        },
+        send
+    );
 
-    // returner
+
+//
+// Search users jobs
+//
+
+var userJobsQueryValidator = vlad.middleware({
+    limit: vlad.integer.default(10).within(0, 25).catch,
+    offset: vlad.integer.min(0).default(0),
+    type: vlad.enum('filled', 'pending', 'open', 'old')
+});
+
+router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
+    db.Job
+        .find({poster: req.user._id})
+        .lean()
+        .limit(req.query.offset)
+        .skip(req.query.offset)
+        .exec().then(function(jobs) {
+            req.doc = jobs;
+            req.filter = jobFilter.viewable;
+            next();
+        }, next);
+});
+
+
+router
     .use(function(req, res, next) {
-        var data = toJSON(req.doc, req.filter || userFilter.viewable);
-        res.status(200)
-            .send(data);
+        res.status(501).send();
     })
-
-    // error handler
     .use(function(err, req, res, next) {
-        if (err instanceof db.NotAuthorizedError) return res.status(403).send(err.message);
+        if (err instanceof db.ValidationError) return res.status(400).send(err.toJSON());
+        if (err instanceof db.NotAuthorizedError) return res.status(401).send(err.message);
+        if (err instanceof db.NotAllowedError) return res.status(403).send(err.message);
         if (err instanceof db.NotFoundError) return res.status(404).send(err.message);
-        if (err instanceof db.ValidationError) return res.status(401).send(err.toJSON());
 
-        Log.error(err);
+        Log.error(err.message, err.stack);
 
         return res.status(500).send();
     })
 ;
 
+
+
 //
 // Util
 //
 
+function send(req, res, next) {
+    var data = toJSON(req.doc, req.filter);
+    res.status(200).send(data);
+}
+
 function owns(req, res, next) {
     if (req.doc._id === req.user._id) return next();
-    next(new db.NotAuthorizedError());
+    next(db.NotAllowedError());
 }
 
 function toJSON(data, list) {
+
     if (data.toObject) {
         return util.whitelist(data.toObject(), list);
     }
