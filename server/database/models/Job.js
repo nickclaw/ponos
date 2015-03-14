@@ -3,13 +3,6 @@ var mongoose = require('mongoose'),
     timestamp = require('../plugins/timestamp'),
     unique = require('../plugins/unique');
 
-var Application = mongoose.Schema({
-    applicant: { type: String, ref: "User" },
-    blurb: { type: String }
-});
-Application.plugin(unique);
-Application.plugin(timestamp);
-
 var schema = mongoose.Schema({
     poster: { type: String, ref: "User" },
 
@@ -26,9 +19,7 @@ var schema = mongoose.Schema({
 
     equipmentProvided: { type: String },
     equipmentRequired: { type: String },
-    perks: { type: String },
-
-    applications: [Application]
+    perks: { type: String }
 });
 schema.plugin(unique);
 schema.plugin(timestamp);

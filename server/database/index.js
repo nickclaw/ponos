@@ -2,15 +2,13 @@ var mongoose = require('mongoose'),
     vlad = require('vlad'),
     errorFactory = require('error-factory');
 
-var User = require('./models/User');
-var Job = require('./models/Job');
-
 //
 // Expose models
 //
-var db = module.exports = {}
-module.exports.User = User;
-module.exports.Job = Job;
+module.exports.User = require('./models/User');
+module.exports.Job = require('./models/Job');
+module.exports.Application = require('./models/Application');
+
 
 //
 // Expose vlad errors

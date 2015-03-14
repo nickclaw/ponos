@@ -25,7 +25,7 @@ router
             })
             .then(function(user) {
                 if (!user) throw db.NotFoundError("User not found.", id);
-                req.doc = user;
+                req.$user = user;
                 req.filter = userFilter.viewable;
             })
             .then(next, next);
@@ -43,7 +43,7 @@ router
                 .limit(req.query.limit)
                 .skip(req.query.offset)
                 .exec().then(function(users) {
-                    req.doc = users;
+                    req.$user = users;
                     next();
                 }, next);
         },
@@ -63,8 +63,8 @@ router
         owns,
         function(req, res, next) {
             // TODO remove protected data from body
-            req.doc.set(util.whitelist(req.body, userFilter.editable));
-            req.doc.save(function(err, doc) {
+            req.$user.set(util.whitelist(req.body, userFilter.editable));
+            req.$user.save(function(err, doc) {
                 if (err) return next(err);
                 next();
             });
@@ -79,7 +79,7 @@ router
         util.auth,
         owns,
         function(req, res, next) {
-            req.doc.remove(function(err, doc) {
+            req.$user.remove(function(err, doc) {
                 if (err) return next(err);
                 next();
             });
@@ -105,28 +105,12 @@ router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
         .limit(req.query.offset)
         .skip(req.query.offset)
         .exec().then(function(jobs) {
-            req.doc = jobs;
+            req.$user = jobs;
             req.filter = jobFilter.viewable;
             next();
         }, next);
 });
 
-
-router
-    .use(function(req, res, next) {
-        res.status(501).send();
-    })
-    .use(function(err, req, res, next) {
-        if (err instanceof db.ValidationError) return res.status(400).send(err.toJSON());
-        if (err instanceof db.NotAuthorizedError) return res.status(401).send(err.message);
-        if (err instanceof db.NotAllowedError) return res.status(403).send(err.message);
-        if (err instanceof db.NotFoundError) return res.status(404).send(err.message);
-
-        Log.error(err.message, err.stack);
-
-        return res.status(500).send();
-    })
-;
 
 
 
@@ -135,12 +119,12 @@ router
 //
 
 function send(req, res, next) {
-    var data = toJSON(req.doc, req.filter);
+    var data = toJSON(req.$user, req.filter);
     res.status(200).send(data);
 }
 
 function owns(req, res, next) {
-    if (req.doc._id === req.user._id) return next();
+    if (req.$user._id === req.user._id) return next();
     next(db.NotAllowedError());
 }
 

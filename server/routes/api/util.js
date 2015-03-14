@@ -62,5 +62,5 @@ module.exports = {
         limit: vlad.integer.default(10).within(0, 25).catch,
         offset: vlad.integer.min(0).default(0),
         query: vlad.string // unsupported for now
-    }, 'query')
+    })
 };
