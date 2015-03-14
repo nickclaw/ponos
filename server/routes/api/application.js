@@ -18,7 +18,6 @@ router
         .then(function(app) {
             if (!app) throw db.NotFoundError();
             req.$app = app;
-            // req.filter?
         })
         .then(next, next);
     })
@@ -32,9 +31,15 @@ router
         util.role('worker'),
         // has not applied
         function(req, res, next) {
+            var data = req.body;
+            data.applicant = req.user;
+            data.owner = req.$job.owner;
+            data.job = req.$job;
 
-        },
-        send
+            req.$app = new db.Application(data);
+            req.$app.save(next);
+            res.send(req.$app.toObject());
+        }
     )
 
     //
@@ -46,16 +51,32 @@ router
         util.role('employer'),
         isOwnerMiddleware,
         function(req, res, next) {
+            db.Application
+            .find({
+                owner: req.user.id
+            })
+            .populate('job')
+            .populate('applicant')
+            .exec(function(err, apps) {
+                if (err) return next(err);
 
-        },
-        send
+                var obj = {
+                    pending: [],
+                    rejected: [],
+                    waiting: [],
+                    accepted: []
+                };
+
+                apps.forEach(function(app) {
+                    obj[app.status].push(
+                        app.toObject() // TODO whitelist
+                    );
+                });
+
+                res.send(obj);
+            });
+        }
     )
-
-    //
-    // Get application
-    // TODO do we need this?
-    //
-    .get('/:app', send)
 
     //
     // Accept an application
@@ -66,12 +87,24 @@ router
         util.auth,
         state('pending', 'waiting'),
         function(req, res, next) {
+            var save = false; // TODO isModified?
             if (isOwner(req) && hasState(req, 'pending')) {
-
+                req.$app.state = 'waiting';
+                save = true;
             }
 
             if (isApplicant(req) && hasState(req, 'waiting')) {
+                req.$app.state = 'accepted';
+                save = true;
+            }
 
+            if (save) {
+                req.$app.save(function(err) {
+                    if (err) return next(err);
+                    res.send(200);
+                });
+            } else {
+                next(db.NotAllowedError());
             }
         }
     )
@@ -87,7 +120,10 @@ router
         isApplicantMiddleware,
         state('pending', 'rejected', 'waiting'),
         function(req, res, next) {
-
+            req.$app.remove().exec(function(err) {
+                if (err) return next(err);
+                res.send(200);
+            });
         }
     )
 
@@ -102,7 +138,11 @@ router
         isOwnerMiddleware,
         state('pending', 'waiting'),
         function(req, res, next) {
-
+            req.$app.state = 'rejected';
+            req.$app.save(function(err){
+                if (err) return next(err);
+                res.send(200);
+            });
         }
     )
 
