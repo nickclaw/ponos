@@ -1,0 +1,35 @@
+{
+    "APP": {
+        "MAX_CPUS": 1,
+        "REVIVE": false,
+        "STDOUT": false,
+        "LOGFILE": "output.log",
+        "SEED": "veryrandomseed"
+    },
+
+    "SERVER": {
+        "PORT": 8080,
+        "HOST": "http://127.0.0.1",
+
+        "COOKIE": {
+            "KEY": "key",
+            "SECRET": "notasecret",
+            "MAXAGE": 86400000
+        }
+    },
+
+    "DATABASE": {
+        "NAME": "scaffold",
+        "HOST": "127.0.0.1",
+        "PORT": "27017",
+        "USER": "",
+        "PASS": ""
+    },
+
+    "AUTH": {
+        "GOOGLE": {
+            "ID": "very_random_id",
+            "SECRET": "super_duper_secret"
+        }
+    }
+}

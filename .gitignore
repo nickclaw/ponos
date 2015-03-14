@@ -3,6 +3,7 @@ public/lib/*
 npm-debug.log
 config/*.json
 !config/default.json
+!config/travis.json
 public/build/*
 .sass-cache
 *.log

@@ -1,5 +1,6 @@
-scaffold
+![scaffold](public/src/image/logo.png)
 ===========
+[![Build Status](https://travis-ci.org/nickclaw/scaffold.svg)](https://travis-ci.org/nickclaw/scaffold)
 
 ### Requirements
 

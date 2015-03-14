@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "0.12"
+services:
+  - mongodb
+before_install:
+    cp config/travis.json config/testing.json
+after_failure:
+    cat output.log
