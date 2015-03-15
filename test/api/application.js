@@ -85,7 +85,7 @@ describe('application endpoint', function() {
         });
     });
 
-    describe.only('POST /api/job/:id/application/:id/withdraw - withdraw', function() {
+    describe('POST /api/job/:id/application/:id/withdraw - withdraw', function() {
 
         it('should return 401 for unauthenticated users', function() {
             return r.post('/api/job/' + id + '/application/withdraw').should.be.rejected
@@ -120,15 +120,53 @@ describe('application endpoint', function() {
     describe('POST /api/job/:id/application/:id/accept - accepting', function() {
 
         it('should return 401 for unauthenticated users', function() {
-
+            return r.post('/api/job/' + id + '/application/accept').should.be.rejected
+                .then(r.hasStatus(401));
         });
 
         it('should return 403 for anyone but the job owner', function() {
-
+            r.login(U.worker);
+            return r.post('/api/job/' + id + '/application/accept').should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
-        it('should accept the application', function() {
+        describe('as an employer', function() {
 
+            it('should return 403 if not pending', function() {
+                r.login(U.employer);
+                return db.Application.update({}, {state: 'waiting'}).exec()
+                    .then(function() {
+                        return r.post('/api/job/' + id + '/application/accept');
+                    }).should.be.rejected
+                    .then(r.hasStatus(403))
+                    .then(r.logout);
+            });
+
+            it('should accept the application', function() {
+                r.login(U.employer);
+                return r.post('/api/job/' + id + '/application/accept').should.be.fulfilled
+                    .then(r.logout);
+            });
+        });
+
+        describe('as a worker', function() {
+
+            it('should return 403 if not waiting', function() {
+                r.login(U.user);
+                return r.post('/api/job/' + id + '/application/accept').should.be.rejected
+                    .then(r.hasStatus(403))
+                    .then(r.logout);
+            });
+
+            it('should accept the application', function() {
+                r.login(U.user);
+                return db.Application.update({}, {state: 'waiting'}).exec()
+                    .then(function() {
+                        return r.post('/api/job/' + id + '/application/accept');
+                    }).should.be.fulfilled
+                    .then(r.logout);
+            });
         });
 
     });
@@ -136,16 +174,31 @@ describe('application endpoint', function() {
     describe('POST /api/job/:id/application/:id/reject - rejecting', function() {
 
         it('should return 401 for unauthenticated users', function() {
-
+            return r.post('/api/job/' + id + '/application/reject').should.be.rejected
+                .then(r.hasStatus(401));
         });
 
         it('should return 403 for anyone but the job owner', function() {
+            r.login(U.worker);
+            return r.post('/api/job/' + id + '/application/reject').should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
+        });
 
+        it('should return 403 if accepted', function() {
+            r.login(U.employer);
+            return db.Application.update({}, {state: 'accepted'}).exec()
+                .then(function() {
+                    return r.post('/api/job/' + id + '/application/reject');
+                }).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should reject the application', function() {
-
+            r.login(U.employer);
+            return r.post('/api/job/' + id + '/application/reject').should.be.fulfilled
+                .then(r.logout);
         });
-
     });
 });
