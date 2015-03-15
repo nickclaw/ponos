@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    request = require('superagent'),
+    _ = require('lodash'),
     users = require('../fixtures/users'),
     stub = require('passport-stub');
 
@@ -10,6 +10,13 @@ describe('scaffold apis', function() {
         return require('../../server/server')
             .then(function(results) {
                 stub.install(results[1]);
+                return Promise.all(
+                    _.map(users, function(val, name){
+                        var user = new db.User(val);
+                        U[name] = user;
+                        return Promise.try(user.save, [], user);
+                    })
+                );
             });
     });
 

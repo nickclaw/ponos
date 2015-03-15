@@ -13,6 +13,9 @@ chai.use(shallowEqual);
 
 // expose expect for nice looking tests
 global.expect = chai.expect;
+global.U = {
+    anon: true
+};
 
 //
 // Expose request shortcuts

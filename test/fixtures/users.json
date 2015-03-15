@@ -1,34 +1,6 @@
-[
-    {
-        "_id": "1234567890",
-        "firstName": "Test",
-        "lastName": "User",
-        "phone": "1 555 555 5555",
-        "roles": ["worker", "employer"],
-
-        "worker": {
-            "bio": "This is a worker bio.",
-            "age": 21,
-            "gender": "male"
-        },
-
-        "employer": {
-            "bio": "This is an employer bio."
-        },
-
-        "auth": {
-            "local": {
-                "email": "test@example.com",
-                "password": "password"
-            }
-        },
-
-        "new": true,
-        "finished": false,
-        "created": "2015-03-08T02:40:40.195Z"
-    },
-    {
-        "_id": "abcdefghi",
+{
+    "user": {
+        "_id": "iamauser",
         "firstName": "Test",
         "lastName": "User",
         "phone": "1 555 555 5555",
@@ -54,5 +26,57 @@
         "new": true,
         "finished": false,
         "created": "2015-03-08T02:40:40.195Z"
+    },
+
+    "worker": {
+        "_id": "iamaworker",
+        "firstName": "Test",
+        "lastName": "User",
+        "phone": "1 555 555 5555",
+        "roles": ["worker"],
+
+        "worker": {
+            "bio": "This is a worker bio.",
+            "age": 21,
+            "gender": "male"
+        },
+
+        "employer": {},
+
+        "auth": {
+            "local": {
+                "email": "test2@example.com",
+                "password": "password"
+            }
+        },
+
+        "new": true,
+        "finished": false,
+        "created": "2015-03-08T02:40:40.195Z"
+    },
+
+    "employer": {
+        "_id": "iamanemployer",
+        "firstName": "Test",
+        "lastName": "User",
+        "phone": "1 555 555 5555",
+        "roles": ["employer"],
+
+        "worker": {},
+
+        "employer": {
+            "bio": "This is an employer bio."
+        },
+
+        "auth": {
+            "local": {
+                "email": "test3@example.com",
+                "password": "password"
+            }
+        },
+
+        "new": true,
+        "finished": false,
+        "created": "2015-03-08T02:40:40.195Z"
     }
-]
+}

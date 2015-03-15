@@ -1,5 +1,4 @@
-var stub = require('passport-stub'),
-    jobs = require('../fixtures/jobs'),
+var jobs = require('../fixtures/jobs'),
     users = require('../fixtures/users');
 
 describe('job endpoint', function() {
@@ -7,24 +6,17 @@ describe('job endpoint', function() {
     // fixtures
     beforeEach(function() {
         this.timeout(5000);
-        return Promise.all([
-            db.User.create(users),
-            db.Job.create(jobs)
-        ]);
+        return db.Job.create(jobs);
     });
 
     afterEach(function() {
-        return Promise.all([
-            db.Job.remove({}).exec(),
-            db.User.remove({}).exec()
-        ]);
+        return db.Job.remove({}).exec();
     });
 
     describe('POST /api/job - create', function() {
 
-        var user = users[0],
-            data = {
-                "poster": "asdfsafasfd",
+        var data = {
+                "poster": "teestrr",
                 "title": "Lawnmowing",
                 "location": {
                     "lat": 45.32,
@@ -52,28 +44,26 @@ describe('job endpoint', function() {
         });
 
         it('should return 400 if invalid data', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
                 .post('/api/job', badData).should.be.rejected
                 .then(r.hasStatus(400))
-                .then(function() {
-                    stub.logout();
-                });
+                .then(r.logout);
         });
 
         it('should create a job', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
                 .post('/api/job', data).should.be.fulfilled
                 .then(function(j) {
                     ret = j;
-                    stub.logout();
+                    r.logout();
                 })
         });
 
         it('should only allow settable properties to be set', function() {
             expect(ret.not_a_property).to.be.undefined;
-            expect(ret.poster).to.equal(user._id);
+            expect(ret.poster).to.equal(U.user._id);
             expect(ret.rate).to.equal(data.rate);
         });
 
@@ -102,7 +92,6 @@ describe('job endpoint', function() {
     describe('POST /api/job/:id - update', function() {
 
         var job = jobs[0],
-            user = users[0],
             data = {
                 title: "Extreme Lawnmowing",
                 start: "2015-02-09T02:24:42.216Z"
@@ -122,7 +111,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if not users job', function() {
-            r.login(users[1]);
+            r.login(U.employer);
             return r
                 .post('/api/job/' + job._id, data).should.be.rejected
                 .then(r.hasStatus(403))
@@ -136,7 +125,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 400 if invalid data', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
                 .post('/api/job/' + job._id, badData).should.be.rejected
                 .then(r.hasStatus(400))
@@ -144,12 +133,12 @@ describe('job endpoint', function() {
         });
 
         it('should update the job', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
                 .post('/api/job/' + job._id, data).should.be.fulfilled
                 .then(function(j) {
                     ret = j;
-                    stub.logout();
+                    r.logout();
                 });
         });
 
@@ -161,8 +150,7 @@ describe('job endpoint', function() {
 
     describe('DELETE /api/job/:id - delete', function() {
 
-        var job = jobs[0],
-            user = users[0];
+        var job = jobs[0];
 
         it('should return 401 if user isnt authorized', function() {
             return r
@@ -171,7 +159,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if user doesnt own job', function() {
-            r.login(users[1]);
+            r.login(U.employer);
             return r
                 .del('/api/job/' + job._id).should.be.rejected
                 .then(r.hasStatus(403))
@@ -185,11 +173,11 @@ describe('job endpoint', function() {
         });
 
         it('should delete the job', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
                 .del('/api/job/' + job._id).should.be.fulfilled
                 .then(function(j) {
-                    stub.logout();
+                    r.logout();
                     expect(j).to.shallowDeepEqual(job);
                 })
         });

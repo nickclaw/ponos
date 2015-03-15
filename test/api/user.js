@@ -1,26 +1,12 @@
-var users = require('../fixtures/users'),
-    stub = require('passport-stub');
-
 describe('user endpoint', function() {
-
-    // fixtures
-    beforeEach(function() {
-        this.timeout(5000);
-        return db.User.create(users);
-    });
-
-    afterEach(function() {
-        return db.User.remove({}).exec();
-    });
 
     describe('GET /api/user/:id', function() {
 
-        var user = users[0],
-            ret = null;
+        var ret = null;
 
         it('should retrieve the user', function() {
             return r
-                .get('/api/user/' + user._id).should.be.fulfilled
+                .get('/api/user/' + U.user._id).should.be.fulfilled
                 .then(function(body) {
                     ret = body;
                 });
@@ -40,14 +26,9 @@ describe('user endpoint', function() {
     });
 
     describe('POST /api/user/:id', function() {
-        var user = users[0],
-            data = {
+        var data = {
                 _id: "abcdefgasdf",
                 firstName: "New",
-                lastName: "Name",
-                new: true,
-                false: true,
-                finished: true
             },
             badData = {
                 firstName: "",
@@ -57,15 +38,15 @@ describe('user endpoint', function() {
 
         it('should return 401 if you are not logged in', function() {
             return r
-                .post('/api/user/' + user._id, data).should.be.rejected
+                .post('/api/user/' + U.user._id, data).should.be.rejected
                 .then(r.hasStatus(401));
         });
 
 
         it('should return 403 if you are not the user', function() {
-            r.login(users[1]);
+            r.login(U.worker);
             return r
-                .post('/api/user/' + user._id, data).should.be.rejected
+                .post('/api/user/' + U.user._id, data).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
@@ -77,50 +58,51 @@ describe('user endpoint', function() {
         });
 
         it('should return 400 for invalid input', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
-                .post('/api/user/' + user._id, badData).should.be.rejected
+                .post('/api/user/' + U.user._id, badData).should.be.rejected
                 .then(r.hasStatus(400))
-                .then(function() {
-                    stub.logout();
-                });
+                .then(r.logout);
         });
 
         it('should update the user', function() {
-            stub.login(user);
+            r.login(U.user);
             return r
-                .post('/api/user/' + user._id, data).should.be.fulfilled
+                .post('/api/user/' + U.user._id, data).should.be.fulfilled
                 .then(function(body) {
-                    stub.logout();
                     ret = body;
+                    r.logout();
                 });
         });
 
         it('should only update editable properties', function() {
-            expect(ret._id).to.equal(user._id);
+            expect(ret._id).to.equal(U.user._id);
             expect(ret.firstName).to.equal(data.firstName);
-            expect(ret.lastName).to.equal(data.lastName);
-            expect(ret.new).to.equal(data.new);
-            expect(ret.false).to.be.undefined;
-            expect(ret.finished).to.equal(user.finished);
         });
 
     });
 
     describe('DELETE /api/user/:id', function() {
 
-        var user = users[0];
+        var newUser;
+
+        before(function() {
+            newUser = require('../fixtures/users').user;
+            newUser._id = 'throwaway';
+            newUser.auth.local.email = 'throwaway@example.com';
+            return db.User.create(newUser)
+        });
 
         it('should return 401 if you are not logged in', function() {
             return r
-                .del('/api/user/' + user._id).should.be.rejected
+                .del('/api/user/' + newUser._id).should.be.rejected
                 .then(r.hasStatus(401));
         });
 
         it('should return 403 if you are not the user', function() {
-            r.login(users[1]);
+            r.login(U.worker);
             return r
-                .del('/api/user/' + user._id).should.be.rejected
+                .del('/api/user/' + newUser._id).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
@@ -132,17 +114,15 @@ describe('user endpoint', function() {
         });
 
         it('should delete the user', function() {
-            stub.login(user);
+            r.login(newUser);
             return r
-                .del('/api/user/' + user._id).should.be.fulfilled
-                .then(function(body) {
-                    stub.logout();
-                });
+                .del('/api/user/' + newUser._id).should.be.fulfilled
+                .then(r.logout);
         });
 
     });
 
-    describe('GET /api/user', function() {
+    describe.skip('GET /api/user', function() {
 
         it('should return a list of users', function() {
             return r
@@ -156,18 +136,17 @@ describe('user endpoint', function() {
 
     describe('METHOD /api/user/me', function() {
 
-        var id = users[0]._id;
-
         it('should act on the logged in user', function() {
+            var id = U.user._id;
             return db.User.findById(id).exec()
                 .then(function(user) {
-                    stub.login(user);
+                    r.login(user);
                 })
                 .then(function() {
                     return r.get('/api/user/me').should.be.fulfilled;
                 })
                 .then(function(u) {
-                    stub.logout();
+                    r.logout();
                     expect(u._id).to.equal(id);
                 });
         });
