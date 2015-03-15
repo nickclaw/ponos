@@ -1,5 +1,6 @@
 var router = require('express').Router(),
-    util = require('./util');
+    util = require('./util'),
+    vlad = require('vlad');
 
 module.exports = router;
 
@@ -30,6 +31,9 @@ router
         util.auth,
         util.role('worker'),
         // has not applied
+        vlad.middleware('body', {
+            blurb: vlad.string.required
+        }),
         function(req, res, next) {
             var data = req.body;
             data.applicant = req.user;
