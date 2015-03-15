@@ -75,32 +75,44 @@ describe('application endpoint', function() {
                 .then(r.logout);
         });
 
-        it('should be able to return all the applications', function() {
+        it.skip('should be able to return all the applications', function() {
             r.login(U.employer);
             return r.get('/api/job/' + id + '/application').should.be.fulfilled
                 .then(r.logout)
                 .then(function(apps) {
-                    console.log(apps);
+
                 });
         });
     });
 
-    describe('POST /api/job/:id/application/:id/withdraw - withdraw', function() {
+    describe.only('POST /api/job/:id/application/:id/withdraw - withdraw', function() {
 
         it('should return 401 for unauthenticated users', function() {
-
+            return r.post('/api/job/' + id + '/application/withdraw').should.be.rejected
+                .then(r.hasStatus(401));
         });
 
         it('should return 403 for anyone but the application owner', function() {
-
+            r.login(U.worker);
+            return r.post('/api/job/' + id + '/application/withdraw').should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should return 403 after the application has been accepted', function() {
-
+            r.login(U.user);
+            return db.Application.update({}, {state: 'accepted'}).exec()
+                .then(function() {
+                    return r.post('/api/job/' + id + '/application/withdraw');
+                }).should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should withdraw the application', function() {
-
+            r.login(U.user);
+            return r.post('/api/job/' + id + '/application/withdraw').should.be.fulfilled
+                .then(r.logout);
         });
 
     });

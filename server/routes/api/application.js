@@ -11,18 +11,6 @@ module.exports = router;
 
 router
 
-    .param('app', function(req, res, next, id) {
-        util.IdValidator(id)
-        .then(function() {
-            return db.Application.findById(id).exec();
-        })
-        .then(function(app) {
-            if (!app) throw db.NotFoundError();
-            req.$app = app;
-        })
-        .then(next, next);
-    })
-
     //
     // Apply
     // This can only be done by workers
@@ -87,11 +75,13 @@ router
     // This can only be one by the owner (while pending)
     // or the applicant (while waiting)
     //
-    .post('/:app/accept',
+    .post('/accept',
         util.auth,
+        getApplication,
         state('pending', 'waiting'),
         function(req, res, next) {
             var save = false; // TODO isModified?
+
             if (isOwner(req) && hasState(req, 'pending')) {
                 req.$app.state = 'waiting';
                 save = true;
@@ -105,7 +95,7 @@ router
             if (save) {
                 req.$app.save(function(err) {
                     if (err) return next(err);
-                    res.send(200);
+                    res.sendStatus(200);
                 });
             } else {
                 next(db.NotAllowedError());
@@ -118,15 +108,16 @@ router
     // This can only be done by the applicant
     // before the application has been accepted by them
     //
-    .post('/:app/withdraw',
+    .post('/withdraw',
         util.auth,
         util.role('worker'),
+        getApplication,
         isApplicantMiddleware,
         state('pending', 'rejected', 'waiting'),
         function(req, res, next) {
-            req.$app.remove().exec(function(err) {
+            req.$app.remove(function(err) {
                 if (err) return next(err);
-                res.send(200);
+                res.sendStatus(200);
             });
         }
     )
@@ -136,16 +127,17 @@ router
     // This can only be done by the owner
     // before the application has been accepted by the applicant
     //
-    .post('/:app/reject',
+    .post('/reject',
         util.auth,
         util.role('employer'),
+        getApplication,
         isOwnerMiddleware,
         state('pending', 'waiting'),
         function(req, res, next) {
             req.$app.state = 'rejected';
             req.$app.save(function(err){
                 if (err) return next(err);
-                res.send(200);
+                res.sendStatus(200);
             });
         }
     )
@@ -154,10 +146,20 @@ router
 // Util
 //
 
-function send() {
+function getApplication(req, res, next) {
 
+    var prop = req.user.roles.includes('worker') ? 'applicant' : 'owner',
+        query = {
+            job: req.$job.id,
+            [prop]: req.user.id
+        };
+
+    db.Application.findOne(query, function(err, app) {
+        if (!app) return next(db.NotAllowedError());
+        req.$app = app;
+        next();
+    });
 }
-
 
 function isOwner(req) {
     var user = req.user,
