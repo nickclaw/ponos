@@ -72,7 +72,7 @@ router
                 };
 
                 apps.forEach(function(app) {
-                    obj[app.status].push(
+                    obj[app.state].push(
                         app.toObject() // TODO whitelist
                     );
                 });
@@ -163,7 +163,7 @@ function isOwner(req) {
     var user = req.user,
         job = req.$job;
 
-    return job.owner === user._id;
+    return job.poster === user._id;
 }
 
 function isApplicant(req) {

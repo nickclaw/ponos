@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 var schema = mongoose.Schema({
     applicant: { type: String, ref: "User" },
-    ownser: { type: String, ref: "User" },
+    owner: { type: String, ref: "User" },
     job: { type: String, ref: "Job" },
 
     state: { type: String, default: 'pending', enum: [

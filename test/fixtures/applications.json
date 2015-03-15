@@ -1,0 +1,11 @@
+[
+    {
+        "_id": "iamanapplication",
+        "applicant": "iamauser",
+        "owner": "iamanemployer",
+        "job": "iamajob",
+        "state": "pending",
+        "blurb": "I would really love to work here",
+        "created": "2015-03-09T02:40:40.195Z"
+    }
+]

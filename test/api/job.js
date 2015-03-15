@@ -111,7 +111,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if not users job', function() {
-            r.login(U.employer);
+            r.login(U.user);
             return r
                 .post('/api/job/' + job._id, data).should.be.rejected
                 .then(r.hasStatus(403))
@@ -125,7 +125,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 400 if invalid data', function() {
-            r.login(U.user);
+            r.login(U.employer);
             return r
                 .post('/api/job/' + job._id, badData).should.be.rejected
                 .then(r.hasStatus(400))
@@ -133,7 +133,7 @@ describe('job endpoint', function() {
         });
 
         it('should update the job', function() {
-            r.login(U.user);
+            r.login(U.employer);
             return r
                 .post('/api/job/' + job._id, data).should.be.fulfilled
                 .then(function(j) {
@@ -159,7 +159,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if user doesnt own job', function() {
-            r.login(U.employer);
+            r.login(U.user);
             return r
                 .del('/api/job/' + job._id).should.be.rejected
                 .then(r.hasStatus(403))
@@ -173,7 +173,7 @@ describe('job endpoint', function() {
         });
 
         it('should delete the job', function() {
-            r.login(U.user);
+            r.login(U.employer);
             return r
                 .del('/api/job/' + job._id).should.be.fulfilled
                 .then(function(j) {

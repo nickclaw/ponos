@@ -1,13 +1,21 @@
-var jobs = require('../fixtures/jobs');
+var jobs = require('../fixtures/jobs'),
+    applications = require('../fixtures/applications');
 
 describe('application endpoint', function() {
 
     beforeEach(function() {
-        return db.Job.create(jobs);
+        this.timeout(5000);
+        return Promise.all([
+            db.Job.create(jobs),
+            db.Application.create(applications)
+        ]);
     });
 
     afterEach(function() {
-        return db.Job.remove().exec();
+        return Promise.all([
+            db.Job.remove().exec(),
+            db.Application.remove().exec()
+        ]);
     });
 
     var id = jobs[0]._id;
@@ -56,15 +64,24 @@ describe('application endpoint', function() {
     describe('GET /api/job/:id/application - viewing applications', function() {
 
         it('should return 401 for unauthenticated users', function() {
-
+            return r.get('/api/job/' + id + '/application').should.be.rejected
+                .then(r.hasStatus(401));
         });
 
         it('should return 403 for non-job owners', function() {
-
+            r.login(U.user);
+            return r.get('/api/job/' + id + '/application').should.be.rejected
+                .then(r.hasStatus(403))
+                .then(r.logout);
         });
 
         it('should be able to return all the applications', function() {
-
+            r.login(U.employer);
+            return r.get('/api/job/' + id + '/application').should.be.fulfilled
+                .then(r.logout)
+                .then(function(apps) {
+                    console.log(apps);
+                });
         });
     });
 

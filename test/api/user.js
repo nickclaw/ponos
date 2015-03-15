@@ -5,6 +5,7 @@ describe('user endpoint', function() {
         var ret = null;
 
         it('should retrieve the user', function() {
+            this.timeout(5000);
             return r
                 .get('/api/user/' + U.user._id).should.be.fulfilled
                 .then(function(body) {
