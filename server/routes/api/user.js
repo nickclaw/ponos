@@ -98,7 +98,7 @@ var userJobsQueryValidator = vlad.middleware({
     type: vlad.enum('filled', 'pending', 'open', 'old')
 });
 
-router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
+router.get('/:user/jobs/posted', userJobsQueryValidator, function(req, res, next) {
     db.Job
         .find({poster: req.user._id})
         .lean()
@@ -110,8 +110,6 @@ router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
             next();
         }, next);
 });
-
-
 
 
 //

@@ -25,7 +25,7 @@ router
         function(req, res, next) {
             var data = req.body;
             data.applicant = req.user;
-            data.owner = req.$job.owner;
+            data.owner = req.$job.poster;
             data.job = req.$job;
 
             req.$app = new db.Application(data);

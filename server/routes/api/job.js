@@ -24,7 +24,12 @@ router
     // Search
     //
     .get('/', function(req, res, next) {
-        res.status(200).send([]);
+        db.Job.find({}).exec()
+            .then(function(jobs) {
+                res.send(jobs.map(function(job) {
+                    return job.toObject();
+                }));
+            });
     })
 
     //
