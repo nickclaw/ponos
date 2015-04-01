@@ -14,7 +14,7 @@ chai.use(shallowEqual);
 // expose expect for nice looking tests
 global.expect = chai.expect;
 global.U = {
-    anon: true
+    anon: null
 };
 
 //

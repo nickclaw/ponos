@@ -1,6 +1,7 @@
 var router = require('express').Router(),
     _ = require('lodash'),
-    vlad = require('vlad');
+    vlad = require('vlad'),
+    util = require('./util');
 
 module.exports = router;
 
@@ -42,15 +43,14 @@ router
     //
     .post('/',
 
-        // make sure we have an application
-        vlad.middleware({
-            application: vlad.string.required
-        }),
+        util.auth,
 
         //
         // We require an application ID as a query parameter
         // intercept the request and fill req.$app with
-        function intercept(req, res, next) {
+        function(req, res, next) {
+            if (!req.query.application) return next(db.NotFoundError("Application not found."));
+
             db.Application
                 .findById(req.query.application)
                 .populate('job')
@@ -71,7 +71,16 @@ router
         }),
 
         function(req, res, next) {
-            var role = req.$user.roles[0];
+
+            if (req.$user.id !== req.$app.owner && req.$user.id !== req.$app.applicant){
+                return next(db.NotAllowedError('d'));
+            }
+
+            if (req.user.id !== req.$app.owner && req.user.id !== req.$app.applicant) {
+                return next(db.NotAllowedError('e'));
+            }
+
+            var role = req.$user.id === req.$app.owner ? 'employer' : 'worker';
 
             if (req.$app.job.end > new Date()) return next(db.NotAllowedError("a"));
             if (req.$app.state !== 'accepted') return next(db.NotAllowedError("b"));
@@ -92,6 +101,7 @@ router
                 res.sendStatus(200);
             });
         }
-    );
+    )
+;
 
     // we dont allow editing or deletion

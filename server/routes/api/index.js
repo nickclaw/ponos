@@ -8,7 +8,7 @@ router
     // Error handling
     //
     .use(function(req, res, next) {
-        Log.warn("Unmatched route: " + req.method + " " + req.url);
+        Log.warn("Unmatched route: " + req.method + " " + req.originalUrl);
         res.status(501).send();
     })
     .use(function(err, req, res, next) {

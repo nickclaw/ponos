@@ -23,6 +23,7 @@ describe('scaffold apis', function() {
     require('./user');
     require('./job');
     require('./application');
+    require('./review');
 
     after(function() {
         stub.uninstall();

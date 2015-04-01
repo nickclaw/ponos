@@ -32,6 +32,7 @@ module.exports.screen = function(action, data) {
 var whitelist = {
     view: {
         _id: true,
+        job: true,
         owner: true,
         applicant: true,
         blurb: true,

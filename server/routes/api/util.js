@@ -8,7 +8,7 @@ module.exports = {
      */
     auth: function auth(req, res, next) {
         if (!!req.user) return next();
-        next(new db.NotAuthorizedError("Not allowed."));
+        next(new db.NotAuthorizedError("Not authorized."));
     },
 
     /**

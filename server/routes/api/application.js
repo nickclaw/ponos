@@ -29,8 +29,10 @@ router
             data.job = req.$job;
 
             req.$app = new db.Application(data);
-            req.$app.save(next);
-            res.send(req.$app.toObject());
+            req.$app.save(function(err) {
+                if (err) return next(err);
+                res.send(req.$app.render());
+            });
         }
     )
 
