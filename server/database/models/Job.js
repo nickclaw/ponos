@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     vlad = require('vlad'),
+    screen = require('screener'),
     timestamp = require('../plugins/timestamp'),
     unique = require('../plugins/unique');
 
@@ -23,6 +24,10 @@ var schema = mongoose.Schema({
 });
 schema.plugin(unique);
 schema.plugin(timestamp);
+
+schema.methods.render = function(user) {
+    return module.exports.screen('view', this.toObject());
+};
 
 //
 // Validation
@@ -51,3 +56,62 @@ var jobValidator = vlad({
 
 var model = mongoose.model('Job', schema);
 module.exports = model;
+
+module.exports.screen = function(action, data) {
+    return screen(data, whitelist[action]);
+};
+
+var whitelist = {
+    create: {
+        title: true,
+        location: {
+            lat: true,
+            long: true
+        },
+
+        start: true,
+        end: true,
+        description: true,
+        needed: true,
+        rate: true,
+        equipmentProvided: true,
+        equipmentRequired: true,
+        perks: true
+    },
+
+    edit: {
+        title: true,
+        location: {
+            lat: true,
+            long: true
+        },
+
+        description: true,
+        needed: true,
+        rate: true,
+        equipmentProvided: true,
+        equipmentRequired: true,
+        perks: true
+    },
+
+    view: {
+        _id: true,
+        poster: true,
+        title: true,
+        location: {
+            lat: true,
+            long: true
+        },
+
+        start: true,
+        end: true,
+        description: true,
+        needed: true,
+        rate: true,
+        equipmentProvided: true,
+        equipmentRequired: true,
+        perks: true,
+        created: true,
+        updated: true
+    }
+};

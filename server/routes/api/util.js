@@ -21,31 +21,6 @@ module.exports = {
         };
     },
 
-    /**
-     * Returns a new object that only contains whitelisted paths
-     * @param {Object} object
-     * @param {Object} list
-     * @return {Object}
-     */
-    whitelist: function whitelist(target, list) {
-
-        if (target === null || target === undefined) return target;
-
-        var obj = Object.create(null);
-
-        _.each(list, function(val, key) {
-            if (target[key] === void 0) return;
-
-            if (typeof list[key] === 'object') {
-                obj[key] = whitelist(target[key], val);
-            } else {
-                obj[key] = target[key];
-            }
-        });
-
-        return obj;
-    },
-
     //
     // Common validation
     //

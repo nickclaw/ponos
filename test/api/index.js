@@ -25,9 +25,11 @@ describe('scaffold apis', function() {
     require('./application');
 
     after(function() {
-        if (mongoose.connection) {
-            if (mongoose.connection.db) mongoose.connection.db.dropDatabase();
-            mongoose.connection.close();
-        }
+        stub.uninstall();
+        return Promise.all([
+            db.User.remove({}).exec(),
+            db.Job.remove({}).exec(),
+            db.Application.remove({}).exec()
+        ]);
     });
 });

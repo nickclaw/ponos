@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    screen = require('screener'),
     unique = require('../plugins/unique'),
     timestamp = require('../plugins/timestamp');
 
@@ -18,4 +19,22 @@ var schema = mongoose.Schema({
 schema.plugin(unique);
 schema.plugin(timestamp);
 
+schema.methods.render = function(user) {
+    return module.exports.screen('view', this.toObject());
+};
+
 module.exports = mongoose.model('Application', schema);
+
+module.exports.screen = function(action, data) {
+    return screen(data, whitelist[action]);
+};
+
+var whitelist = {
+    view: {
+        _id: true,
+        owner: true,
+        applicant: true,
+        blurb: true,
+        created: true
+    }
+};

@@ -60,9 +60,7 @@ router
                 };
 
                 apps.forEach(function(app) {
-                    obj[app.state].push(
-                        app.toObject() // TODO whitelist
-                    );
+                    obj[app.state].push( app.render(req.user) );
                 });
 
                 res.send(obj);

@@ -1,6 +1,4 @@
 var router = require('express').Router(),
-    userFilter = require('../../database/filters/user'),
-    jobFilter = require('../../database/filters/job'),
     _ = require('lodash'),
     vlad = require('vlad'),
     util = require('./util');
@@ -26,7 +24,6 @@ router
             .then(function(user) {
                 if (!user) throw db.NotFoundError("User not found.", id);
                 req.$user = user;
-                req.filter = userFilter.viewable;
             })
             .then(next, next);
     })
@@ -43,11 +40,11 @@ router
                 .limit(req.query.limit)
                 .skip(req.query.offset)
                 .exec().then(function(users) {
-                    req.$user = users;
-                    next();
+                    res.send(users.map(function(user) {
+                        return user.render(req.user);
+                    }))
                 }, next);
-        },
-        send
+        }
     )
 
     //
@@ -63,7 +60,7 @@ router
         owns,
         function(req, res, next) {
             // TODO remove protected data from body
-            req.$user.set(util.whitelist(req.body, userFilter.editable));
+            req.$user.set(db.User.screen('edit', req.body));
             req.$user.save(function(err, doc) {
                 if (err) return next(err);
                 next();
@@ -98,16 +95,16 @@ var userJobsQueryValidator = vlad.middleware({
     type: vlad.enum('filled', 'pending', 'open', 'old')
 });
 
-router.get('/:user/jobs/posted', userJobsQueryValidator, function(req, res, next) {
+router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
     db.Job
         .find({poster: req.user._id})
         .lean()
         .limit(req.query.offset)
         .skip(req.query.offset)
         .exec().then(function(jobs) {
-            req.$user = jobs;
-            req.filter = jobFilter.viewable;
-            next();
+            res.send(jobs.map(function(job) {
+                return job.render(req.user);
+            }));
         }, next);
 });
 
@@ -117,26 +114,10 @@ router.get('/:user/jobs/posted', userJobsQueryValidator, function(req, res, next
 //
 
 function send(req, res, next) {
-    var data = toJSON(req.$user, req.filter);
-    res.status(200).send(data);
+    res.send(req.$user.render(req.user));
 }
 
 function owns(req, res, next) {
     if (req.$user._id === req.user._id) return next();
     next(db.NotAllowedError());
-}
-
-function toJSON(data, list) {
-
-    if (data.toObject) {
-        return util.whitelist(data.toObject(), list);
-    }
-
-    if (Array.isArray(data)) {
-        return data.map(function(d) {
-            return toJSON(d, list);
-        });
-    }
-
-    return util.whitelist(data, list);
 }

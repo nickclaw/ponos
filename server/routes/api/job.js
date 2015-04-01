@@ -1,6 +1,4 @@
 var router = require('express').Router(),
-    jobFilter = require('../../database/filters/job'),
-    applicationFilter = require('../../database/filters/application'),
     vlad = require('vlad'),
     util = require('./util');
 
@@ -14,7 +12,6 @@ router
             })
             .then(function(job) {
                 if (!job) throw db.NotFoundError("Job not found.", id);
-                req.filter = jobFilter.viewable;
                 req.$job = job;
             })
             .then(next, next);
@@ -27,7 +24,7 @@ router
         db.Job.find({}).exec()
             .then(function(jobs) {
                 res.send(jobs.map(function(job) {
-                    return job.toObject();
+                    return job.render(req.user);
                 }));
             });
     })
@@ -39,12 +36,11 @@ router
         util.auth,
         util.role('employer'),
         function(req, res, next) {
-            var data = util.whitelist(req.body, jobFilter.createable);
+            var data = db.Job.screen('create', req.body);
             data.poster = req.user._id;
             data.applications = [];
 
             req.$job = new db.Job(data);
-            req.filter = jobFilter.viewable;
             req.$job.save(function(err, doc) {
                 if (err) return next(err);
                 next();
@@ -66,7 +62,7 @@ router
         owns,
         function(req, res, next) {
             // TODO remove protected data from body
-            req.$job.set(util.whitelist(req.body, jobFilter.editable));
+            req.$job.set(db.Job.screen('edit', req.body));
             req.$job.save(function(err, doc) {
                 if (err) return next(err);
                 next();
@@ -101,8 +97,7 @@ router
 //
 
 function send(req, res, next) {
-    var data = util.whitelist(req.$job.toObject(), req.filter);
-    res.status(200).send(data);
+    res.send(req.$job.render(req.user));
 }
 
 function owns(req, res, next) {

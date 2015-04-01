@@ -21,7 +21,7 @@ before(function() {
         });
 });
 
-describe.only('main application flow', function() {
+describe('main application flow', function() {
 
     var jobId, appId;
 
@@ -119,11 +119,11 @@ describe.only('main application flow', function() {
             .then(r.logout);
     });
 
-    it('should be impossible for the employer to review the worker before the date has passed', function() {
+    it.skip('should be impossible for the employer to review the worker before the date has passed', function() {
 
     });
 
-    it('should be impossible for the worker to review the employer before the date has passed', function() {
+    it.skip('should be impossible for the worker to review the employer before the date has passed', function() {
 
     });
 
@@ -131,11 +131,11 @@ describe.only('main application flow', function() {
     // Change time
     //
 
-    it('should now be possible for the worker to review the employer', function() {
+    it.skip('should now be possible for the worker to review the employer', function() {
 
     });
 
-    it('should now be possible for the employer to review the worker', function() {
+    it.skip('should now be possible for the employer to review the worker', function() {
 
     });
 
@@ -143,10 +143,12 @@ describe.only('main application flow', function() {
 
 
 after(function() {
-    if (mongoose.connection) {
-        if (mongoose.connection.db) mongoose.connection.db.dropDatabase();
-        mongoose.connection.close();
-    }
+    stub.uninstall();
+    return Promise.all([
+        db.User.remove({}).exec(),
+        db.Job.remove({}).exec(),
+        db.Application.remove({}).exec()
+    ]);
 });
 
 

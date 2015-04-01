@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     _ = require('lodash'),
+    screen = require('screener'),
     bcrypt = require('bcrypt'),
     vlad = require('vlad'),
     timestamp = require('../plugins/timestamp'),
@@ -89,6 +90,10 @@ schema.methods.checkPassword = function(password) {
     return bcrypt.compareSync(password, this.auth.local.password);
 };
 
+schema.methods.render = function(user) {
+    return module.exports.screen('view', this.toObject());
+};
+
 //
 // Validation
 //
@@ -140,3 +145,52 @@ var workerValidator = vlad(_.extend({
 
 var model = mongoose.model('User', schema);
 module.exports = model;
+
+module.exports.screen = function(action, data) {
+    return screen(data, whitelist[action]);
+};
+
+var whitelist = {
+    edit: {
+        firstName: true,
+        lastName: true,
+        phone: true,
+
+        worker: {
+            bio: true,
+            experience: true,
+            age: true,
+            gender: true
+        },
+
+        employer: {
+            bio: true,
+            url: true
+        }
+    },
+
+    view: {
+        _id: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        roles: true,
+
+        worker: {
+            bio: true,
+            experience: true,
+            age: true,
+            gender: true
+        },
+
+        employer: {
+            bio: true,
+            url: true
+        },
+
+        new: true,
+        finished: true,
+        created: true,
+        updated: true
+    }
+};
