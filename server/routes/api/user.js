@@ -108,6 +108,8 @@ router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
         }, next);
 });
 
+router.use('/:user/review', require('./review'));
+
 
 //
 // Util

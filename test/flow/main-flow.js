@@ -119,24 +119,51 @@ describe('main application flow', function() {
             .then(r.logout);
     });
 
-    it.skip('should be impossible for the employer to review the worker before the date has passed', function() {
+    var reviewData = {
+        comment: "This is a comment.",
+        a: 5,
+        b: 4,
+        c: 3
+    };
 
+    it('should be impossible for the employer to review the worker before the date has passed', function() {
+        r.login(employer);
+        return r.post('/api/user/' + worker._id + '/review?application=' + appId, reviewData).should.be.rejected
+            .then(r.logout);
     });
 
-    it.skip('should be impossible for the worker to review the employer before the date has passed', function() {
-
+    it('should be impossible for the worker to review the employer before the date has passed', function() {
+        r.login(worker);
+        return r.post('/api/user/' + employer._id + '/review?application=' + appId, reviewData).should.be.rejected
+            .then(r.logout);
     });
 
-    //
-    // Change time
-    //
-
-    it.skip('should now be possible for the worker to review the employer', function() {
-
+    it('', function() {
+        return db.Job.findByIdAndUpdate(jobId, {$set: {end: new Date()}}).exec();
     });
 
-    it.skip('should now be possible for the employer to review the worker', function() {
+    it('should now be possible for the worker to review the employer', function() {
+        r.login(worker);
+        return r.post('/api/user/' + employer._id + '/review?application=' + appId, reviewData).should.be.fulfilled
+            .then(r.logout);
+    });
 
+    it('should now be possible for the employer to review the worker', function() {
+        r.login(employer);
+        return r.post('/api/user/' + worker._id + '/review?application=' + appId, reviewData).should.be.fulfilled
+            .then(r.logout);
+    });
+
+    it('should be impossible for the employer to review the worker again', function() {
+        r.login(employer);
+        return r.post('/api/user/' + worker._id + '/review?application=' + appId, reviewData).should.be.rejected
+            .then(r.logout);
+    });
+
+    it('should be impossible for the worker to review the employer again', function() {
+        r.login(worker);
+        return r.post('/api/user/' + employer._id + '/review?application=' + appId, reviewData).should.be.rejected
+            .then(r.logout);
     });
 
 });

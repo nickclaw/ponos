@@ -32,24 +32,24 @@ global.db = require('../server/database/');
 
 var transports = [ ];
 
-if (C.APP.STDOUT) {
+if (C.LOGGING.CONSOLE.ENABLED) {
     transports.push(new winston.transports.Console({
-        level: 'verbose',
+        level: C.LOGGING.CONSOLE.LEVEL,
         colorize: true,
         prettyPrint: true,
         depth: 3
     }));
 }
 
-if (C.APP.LOGFILE) {
+if (C.LOGGING.FILE.ENABLED) {
     transports.push(new winston.transports.File({
-        level: 'silly',
+        level: C.LOGGING.FILE.LEVEL,
         colorize: false,
         timestamp: true,
         depth: 3,
         prettyPrint: true,
         json: false,
-        filename: path.resolve(__dirname, '..', C.APP.LOGFILE)
+        filename: path.resolve(__dirname, '..', C.LOGGING.FILE.NAME)
     }));
 }
 
