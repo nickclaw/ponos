@@ -2,9 +2,9 @@
     "APP": {
         "MAX_CPUS": 1,
         "REVIVE": false,
-        "STDOUT": false,
-        "LOGFILE": "output.log",
-        "SEED": "veryrandomseed"
+        "SEED": "veryrandomseed",
+        "RES_DIR": "public/src",
+        "LIB_DIR": "public/lib"
     },
 
     "SERVER": {
@@ -30,6 +30,18 @@
         "GOOGLE": {
             "ID": "very_random_id",
             "SECRET": "super_duper_secret"
+        }
+    },
+
+    "LOGGING": {
+        "CONSOLE": {
+            "ENABLED": true,
+            "LEVEL": "warn"
+        },
+        "FILE": {
+            "ENABLED": true,
+            "LEVEL": "silly",
+            "NAME": "output.log"
         }
     }
 }
