@@ -6,4 +6,5 @@ config/*.json
 !config/travis.json
 public/build/*
 .sass-cache
-*.log
+*.lo
+babel.jsong

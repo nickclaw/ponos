@@ -9,4 +9,5 @@ router
     })
     .use('/api', require('./api/'))
     .use('/auth', require('./auth/'))
-    .use('/admin', require('./admin/'));
+    .use('/admin', require('./admin/'))
+    

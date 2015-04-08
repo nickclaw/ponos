@@ -29,6 +29,10 @@ module.exports = function(app, passport) {
     // add dynamic routes
     app.use(router);
 
+    app.get('*' , function(req, res, next){
+        res.render('__dirname' + "/../../views/index.ejs");
+    });
+
     // listen for unmatched routes
     app.use(function(req, res) {
         Log.warn('Unmatched route: %s', req.url);

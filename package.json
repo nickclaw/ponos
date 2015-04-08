@@ -26,7 +26,7 @@
     "express": "^4.11.1",
     "flux": "^2.0.1",
     "lodash": "^2.4.1",
-    "mongoose": "^3.8.24",
+    "mongoose": "^4.0.1",
     "nconf": "^0.7.1",
     "passport": "^0.2.1",
     "passport-google-oauth": "^0.1.5",
