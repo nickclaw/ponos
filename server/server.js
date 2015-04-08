@@ -43,7 +43,7 @@ module.exports
     .then(function() {
         Log.info("Instance started.");
     })
-    .catch(function() {
+    .catch(function(err) {
         Log.error("Could not start instance.");
         Log.error(err.stack);
         process.exit();
