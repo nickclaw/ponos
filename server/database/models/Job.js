@@ -20,7 +20,7 @@ var schema = mongoose.Schema({
 
     equipmentProvided: { type: String },
     equipmentRequired: { type: String },
-    perks: { type: String }
+    perks: { type: String },
 });
 schema.plugin(unique);
 schema.plugin(timestamp);

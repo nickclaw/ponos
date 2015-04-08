@@ -112,6 +112,75 @@ router.use('/:user/review', require('./review'));
 
 
 //
+// Slow, terrible api calls for main page
+// Please forgive me...
+//
+
+//
+// Which jobs are upcoming and filled
+// employers only
+router.get('/:user/jobs/upcoming', function() {
+    db.Application
+        .find({owner: req.user.id})
+        .populate('job')
+        .exec()
+        .then(function(apps) {
+            var jobs = {};
+
+            apps.forEach(function(app) {
+                var job = app.job;
+                if (!jobs[job._id]) jobs[job._id] = 0;
+                if (typeof jobs[job._id] !== 'number') return;
+                jobs[job._id]++;
+                if (jobs[job._id] >= job.needed) jobs[job._id] = job;
+            });
+
+            jobs = _.filter(jobs, function(job) {
+                return typeof job !== 'number';
+            }).map(function(job) {
+                return db.Job.screen('view', job);
+            });
+
+            res.send(jobs);
+
+        }, next);
+});
+
+//
+// Which jobs are upcoming and open
+// employers only
+// router.get('/:user/jobs/open',
+//     util.auth,
+//     util.owns,
+//     function(req, res, next) {
+//
+//     }
+// );
+
+//
+// Which jobs have you been accepted to and are upcoming
+// workers only
+router.get('/:user/jobs/accepted', function() {
+
+});
+
+//
+// Which jobs are you waiting to hear back from and are upcoming
+// workers only
+router.get('/:user/jobs/pending', function() {
+
+});
+
+//
+// Which jobs need to be reviewed
+// everyone
+router.get('/:user/jobs/review', function() {
+
+});
+
+// router.get('/:user/jobs/')
+
+//
 // Util
 //
 
