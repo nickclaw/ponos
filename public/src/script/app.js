@@ -13,3 +13,10 @@ angular.module('scaffold', [
     }
 ])
 
+.run([
+    '$rootScope',
+    'profile',
+    function($rootScope, profile) {
+        $rootScope.profile = profile;
+    }
+]);

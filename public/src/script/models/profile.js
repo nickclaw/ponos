@@ -5,7 +5,8 @@ angular.module('scaffold').factory('profile', [
     function($http, $location, User) {
 
         // retrieve user object
-        var user = delete window['__user'];
+        var user = window['__user'];
+        delete window['__user'];
 
         // build user model
         var model = new User(user);
@@ -54,6 +55,7 @@ angular.module('scaffold').factory('profile', [
                         profile.__proto__ = new User(res.data);
                         profile.$error = null;
                         profile.$loggedIn = true;
+                        $location.url('/signup');
                     },
                     function(res) {
                         profile.$loggedIn = false;

@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 files: ["public/src/style/**/*.scss"],
                 tasks: ["sass:dev"],
                 options: {
-                    spawn: true
+                    spawn: false
                 }
             }
         },
@@ -19,10 +19,11 @@ module.exports = function(grunt) {
                 options: {
                     cwd: __dirname,
                     watch: ['config', 'server', 'index.js', 'Gruntfile.js'],
-                    ext: 'js,json,jsx,es,ejs',
+                    ext: 'js,json',
                     env: {
                         NODE_ENV: 'development'
-                    }
+                    },
+                    spawn: false
                 }
             }
         },

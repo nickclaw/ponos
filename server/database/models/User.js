@@ -31,15 +31,20 @@ var schema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     phone: { type: String },
+    birthdate: { type: Date },
+    male: { type: String },
 
-    roles: { type: [String] },  // in database, let users be worker and/or employer
+    roles: { type: [String], default: [] },  // in database, let users be worker and/or employer
 
     // worker specific data
     worker: {
         bio: { type: String },
-        experience: { type: String },
-        age: { type: String },
-        gender: { type: String, enum: ["male", "female"] },
+        experience: { type: [{
+            title: String,
+            start: Date,
+            end: Date,
+            description: String
+        }] },
 
         reviews: { type: [Review] }
     },

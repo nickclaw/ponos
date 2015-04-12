@@ -4,14 +4,16 @@
         <link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css" />
         <link href="/static/style/app.css" rel="stylesheet" type="text/css" />
         <base href="/" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </head>
     <body layout="row">
         <ng-include src="'/static/template/include/sidebar.html'"></ng-include>
-        <div id="main" flex>
+        <div id="main" layout="column" flex>
             <md-toolbar>
 
             </md-toolbar>
-            <main ng-view>
+            <main ng-view layout="column" flex>
 
             </main>
         </main>

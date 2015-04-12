@@ -4,7 +4,7 @@ angular.module('scaffold')
     '$routeProvider',
     function($routeProvider){
         $routeProvider.when('/search', {
-            templateUrl: '/static/template/search.html',
+            templateUrl: '/static/template/page/search.html',
             controller: 'SearchController'
         });
     }

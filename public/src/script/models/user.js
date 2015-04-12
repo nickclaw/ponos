@@ -37,5 +37,14 @@ angular.module('scaffold')
             return Reviews.create(review);
         }
 
-	}
+        User.prototype.$isWorker = function() {
+            return true;
+        };
+
+        User.prototype.$isEmployer = function() {
+            return true;
+        };
+
+        return User;
+    }
 ]);
