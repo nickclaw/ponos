@@ -1,13 +1,13 @@
 angular.module('scaffold')
 
 .config([
-	'$routeProvider',
-	function($routeProvider){
-		$routeProvider.when('/job/:job', {
-			templateUrl: '/static/template/page/view-job.html',
-			controller: 'ViewJobController'
-		});
-	}
+    '$routeProvider',
+    function($routeProvider){
+        $routeProvider.when('/job/:job', {
+            templateUrl: '/static/template/page/view-job.html',
+            controller: 'ViewJobController'
+        });
+    }
 ])
 
 .controller('ViewJobController', [

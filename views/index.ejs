@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html ng-app='scaffold'>
-	<head>
-		<link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css"/>
-		<base href="/" />
-	</head>
-	<div ng-view>
+    <head>
+        <link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css" />
+        <link href="/static/style/app.css" rel="stylesheet" type="text/css" />
+        <base href="/" />
+    </head>
+    <body layout="row">
 
 	</div>
 
 	<body>
 
-		<script>
-			window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
-		</script>
+        <script>
+            window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
+        </script>
 
-		<script type="text/javascript" src="/static/lib/angular/angular.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-material/angular-material.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-resource/angular-resource.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
-		<script type="text/javascript" src="/static/lib/moment/moment.js"></script>
+        <script type="text/javascript" src="/static/lib/angular/angular.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-material/angular-material.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-resource/angular-resource.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/static/lib/moment/moment.js"></script>
 
-		<script type="text/javascript" src="/static/script/app.js"></script>
-		<script type="text/javascript" src="/static/script/models/job.js"></script>
-		<script type="text/javascript" src="/static/script/models/user.js"></script>
-		<script type="text/javascript" src="/static/script/models/profile.js"></script>
-		<script type="text/javascript" src="/static/script/models/application.js"></script>
-		<script type="text/javascript" src="/static/script/routes/edit-user.js"></script>
-		<script type="text/javascript" src="/static/script/routes/index.js"></script>
-		<script type="text/javascript" src="/static/script/routes/modify-job.js"></script>
-		<script type="text/javascript" src="/static/script/routes/review-user.js"></script>
-		<script type="text/javascript" src="/static/script/routes/search.js"></script>
-		<script type="text/javascript" src="/static/script/routes/signup.js"></script>
-		<script type="text/javascript" src="/static/script/routes/view-job.js"></script>
-		<script type="text/javascript" src="/static/script/routes/view-user.js"></script>
-	</body>
+        <script type="text/javascript" src="/static/script/app.js"></script>
+        <script type="text/javascript" src="/static/script/models/job.js"></script>
+        <script type="text/javascript" src="/static/script/models/user.js"></script>
+        <script type="text/javascript" src="/static/script/models/profile.js"></script>
+        <script type="text/javascript" src="/static/script/models/application.js"></script>
+        <script type="text/javascript" src="/static/script/routes/edit-user.js"></script>
+        <script type="text/javascript" src="/static/script/routes/index.js"></script>
+        <script type="text/javascript" src="/static/script/routes/modify-job.js"></script>
+        <script type="text/javascript" src="/static/script/routes/review-user.js"></script>
+        <script type="text/javascript" src="/static/script/routes/search.js"></script>
+        <script type="text/javascript" src="/static/script/routes/signup.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-job.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-user.js"></script>
+    </body>
 </html>

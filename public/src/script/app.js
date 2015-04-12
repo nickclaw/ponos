@@ -1,15 +1,15 @@
 angular.module('scaffold', [
-	'ngRoute',
-	'ngMaterial',
-	'ngResource'
+    'ngRoute',
+    'ngMaterial',
+    'ngResource'
 ])
 
 .config([
-	'$locationProvider',
-	function($locationProvider){
-		$locationProvider
-			.html5Mode(true)
-			.hashPrefix('!');
-	}
+    '$locationProvider',
+    function($locationProvider){
+        $locationProvider
+            .html5Mode(true)
+            .hashPrefix('!');
+    }
 ])
 
