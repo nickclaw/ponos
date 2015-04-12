@@ -41,7 +41,15 @@
         </md-tab>
 
         <md-tab label="employer">
-
+            <md-input-container>
+                <label>Bio</label>
+                <input ng-model="user.employer.bio" />
+            </md-input-container>
+            <md-input-container>
+                <label>URL</label>
+                <input ng-model="user.employer.url" />
+            </md-input-container>
+            <md-button ng-click="save()">post job</md-button>
         </md-tab>
 
         <md-tab label="worker">
@@ -71,6 +79,7 @@
 
                 <md-button ng-click="removeExperience($index)">remove</md-button>
             </div>
+
             <md-button ng-click="addExperience()">add</md-button>
             <md-button ng-click="save()">find jobs</md-button>
         </md-tab>
