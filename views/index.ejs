@@ -6,10 +6,15 @@
         <base href="/" />
     </head>
     <body layout="row">
+        <ng-include src="'/static/template/include/sidebar.html'"></ng-include>
+        <div id="main" flex>
+            <md-toolbar>
 
-	</div>
+            </md-toolbar>
+            <main ng-view>
 
-	<body>
+            </main>
+        </main>
 
         <script>
             window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
