@@ -10,6 +10,10 @@
 
 	<body>
 
+		<script>
+			window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
+		</script>
+
 		<script type="text/javascript" src="/static/lib/angular/angular.js"></script>
 		<script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
 		<script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
@@ -19,6 +23,10 @@
 		<script type="text/javascript" src="/static/lib/moment/moment.js"></script>
 
 		<script type="text/javascript" src="/static/script/app.js"></script>
+		<script type="text/javascript" src="/static/script/models/job.js"></script>
+		<script type="text/javascript" src="/static/script/models/user.js"></script>
+		<script type="text/javascript" src="/static/script/models/profile.js"></script>
+		<script type="text/javascript" src="/static/script/models/application.js"></script>
 		<script type="text/javascript" src="/static/script/routes/search.js"></script>
 	</body>
 </html>
