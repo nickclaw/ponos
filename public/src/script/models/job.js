@@ -1,4 +1,4 @@
-angular.module('scaffold').factory([
+angular.module('scaffold').factory('Job', [
     '$resource',
     'Application',
     function($resource, Application) {

@@ -1,5 +1,10 @@
-angular.module('scaffold', ['ngRoute','ngMaterial','ngResource']);
-angular.module('scaffold').config([
+angular.module('scaffold', [
+	'ngRoute',
+	'ngMaterial',
+	'ngResource'
+])
+
+.config([
 	'$locationProvider',
 	function($locationProvider){
 		$locationProvider
@@ -7,3 +12,4 @@ angular.module('scaffold').config([
 			.hashPrefix('!');
 	}
 ])
+

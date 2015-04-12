@@ -2,7 +2,7 @@ angular.module('scaffold')
 .factory('User', [
 	'$resource',
 	'Job',
-	function($resource, Job){
+	function($resource, Job) {
 		var User = $resource(
 			'/api/user/:_id',
 			{
@@ -13,7 +13,7 @@ angular.module('scaffold')
 				save: {method: 'POST'},
 				delete: {method: 'DELETE'},
 				search: {method: 'GET', url: '/api/user', isArray: 'true'}
-			},
+			}
 		);
 
 		var Reviews = $resource(
@@ -23,7 +23,7 @@ angular.module('scaffold')
 				get: { method: 'GET' },
 				create: { method: 'POST' }
 			}
-		)
+		);
 
 		User.prototype.$getJobs = function(){
 			return Job.search({ owner: this._id }); // GET /api/job?owner=:id
