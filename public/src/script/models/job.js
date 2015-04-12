@@ -24,11 +24,8 @@ angular.module('scaffold').factory([
         };
 
         job.prototype.$apply = function(data) {
+            data.job = this._id;
             return Application.create(data);
-        };
-
-        job.prototype.$withdraw = function() {
-            return Application.delete(data)
         };
 
         return job;
