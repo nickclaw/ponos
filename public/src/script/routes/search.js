@@ -13,7 +13,13 @@ angular.module('scaffold')
 
 .controller('SearchController', [
 	'$scope',
-	function($scope){
-		$scope.hello = 'world';
+	'Job',
+	function($scope, Job){
+
+		$scope.searchOptions = {
+
+		};
+
+		$scope.results = Job.search($scope.searchOptions);
 	}
 ]);
