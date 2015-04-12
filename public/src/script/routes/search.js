@@ -1,7 +1,7 @@
 angular.module('scaffold')
 
 .config([
-	'$routeProvider', 
+	'$routeProvider',
 	function($routeProvider){
 		$routeProvider.when('/search', {
 			templateUrl: '/static/template/search.html',
@@ -17,5 +17,3 @@ angular.module('scaffold')
 		$scope.hello = 'world';
 	}
 ]);
-
-<div ng-repeat="job in jobs track by $index">

@@ -6,7 +6,10 @@ module.exports = function(grunt) {
         watch: {
             scss: {
                 files: ["public/src/style/**/*.scss"],
-                tasks: ["sass:dev"]
+                tasks: ["sass:dev"],
+                options: {
+                    spawn: true
+                }
             }
         },
 
@@ -96,8 +99,8 @@ module.exports = function(grunt) {
                 },
                 files:[{
                     expand: true,
-                    cwd: 'public/src/script',
-                    src: '**/*.html',
+                    cwd: 'public/src/script/',
+                    src: '**/*.js',
                     dest: 'public/build/script/'
                 }]
             }
