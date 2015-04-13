@@ -14,7 +14,7 @@ angular.module('scaffold')
     }
 ])
 
-.controller('ViewApplications', [
+.controller('ViewApplicationsController', [
     '$scope',
     'job',
     function($scope, job) {

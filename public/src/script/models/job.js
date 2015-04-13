@@ -3,7 +3,7 @@ angular.module('scaffold').factory('Job', [
     'Application',
     function($resource, Application) {
 
-        var job = $resource(
+        var Job = $resource(
             '/api/job/:_id',
             {
                 _id: '@_id'
@@ -17,17 +17,17 @@ angular.module('scaffold').factory('Job', [
             }
         );
 
-        job.prototype.$getApplications = function(options) {
-            return Application.search({
+        Job.prototype.$getApplications = function(options) {
+            return Application.browse({
                 job: this._id
             }, options);
         };
 
-        job.prototype.$apply = function(data) {
+        Job.prototype.$apply = function(data) {
             data.job = this._id;
             return Application.create(data);
         };
 
-        return job;
+        return Job;
     }
 ]);
