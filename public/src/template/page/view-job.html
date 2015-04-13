@@ -1,0 +1,10 @@
+<md-content>
+    <h1>View Job</h1>
+    <pre>
+{{job|json}}
+    </pre>
+
+    <md-button href="/job/{{job._id}}/edit">Edit</md-button>
+    <md-button href="/job/{{job._id}}/apply">Apply</md-button>
+    <md-button href="/user/{{job.poster}}">View User</md-button>
+<md-content>

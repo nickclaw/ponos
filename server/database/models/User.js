@@ -31,15 +31,20 @@ var schema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     phone: { type: String },
+    birthdate: { type: Date },
+    gender: { type: String },
 
-    roles: { type: [String] },  // in database, let users be worker and/or employer
+    roles: { type: [String], default: [] },  // in database, let users be worker and/or employer
 
     // worker specific data
     worker: {
         bio: { type: String },
-        experience: { type: String },
-        age: { type: String },
-        gender: { type: String, enum: ["male", "female"] },
+        experience: { type: [{
+            title: String,
+            start: Date,
+            end: Date,
+            description: String
+        }] },
 
         reviews: { type: [Review] }
     },
@@ -135,9 +140,12 @@ var employerValidator = vlad(_.extend({
 var workerValidator = vlad(_.extend({
     worker: vlad({
         bio: vlad.string.required,
-        experience: vlad.string,
-        age: vlad.number.required,
-        gender: vlad.enum(['male', 'female']).required
+        experience: vlad.array.of(vlad({
+            title: vlad.string,
+            start: vlad.string,
+            end: vlad.string,
+            description: vlad.string
+        })).max(3).min(1).required
     }),
     auth: authValidator
 }, propertyValidations));
@@ -154,33 +162,35 @@ var whitelist = {
     edit: {
         firstName: true,
         lastName: true,
+        birthdate: true,
+        gender: true,
         phone: true,
 
         worker: {
             bio: true,
-            experience: true,
-            age: true,
-            gender: true
+            experience: true
         },
 
         employer: {
             bio: true,
             url: true
-        }
+        },
+
+        roles: true
     },
 
     view: {
         _id: true,
         firstName: true,
         lastName: true,
+        birthdate: true,
+        gender: true,
         phone: true,
         roles: true,
 
         worker: {
             bio: true,
-            experience: true,
-            age: true,
-            gender: true
+            experience: true
         },
 
         employer: {

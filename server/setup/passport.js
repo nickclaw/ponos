@@ -78,18 +78,20 @@ module.exports = function(passport) {
         usernameField: 'email',
         passReqToCallback: true,
     }, function(req, email, password, done) {
-        db.createUser({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            phone: req.body.phone,
-
+        var user = new User({
+            firstName: "",
+            lastName: "",
+            phone: "",
+            roles: [],
             auth: {
                 local: {
-                    email: req.body.email,
-                    password: req.body.password
+                    email: email,
+                    password: password
                 }
             }
-        }).nodeify(done);
+        });
+
+        user.save(done);
     }));
 
     function resolve(promise, callback) {

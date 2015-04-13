@@ -8,10 +8,13 @@ var path = require('path'),
 
 module.exports = function(app, passport) {
 
-    // serve files
+    // serve static files
     app.use(compress());
     app.use('/static/lib', serve(path.join(__dirname, '../../public/lib')));
     app.use('/static', serve(path.join(__dirname, '../../public/src/')));
+    app.use('/static', function(req, res) {
+        res.send(404);
+    });
 
     // session
     app.use(bodyParser.json());
@@ -28,10 +31,6 @@ module.exports = function(app, passport) {
 
     // add dynamic routes
     app.use(router);
-
-    app.get('*' , function(req, res, next){
-        res.render('__dirname' + "/../../views/index.ejs");
-    });
 
     // listen for unmatched routes
     app.use(function(req, res) {

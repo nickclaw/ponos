@@ -1,42 +1,50 @@
 angular.module('scaffold')
-.factory(
-	'User',
-	[
-	'$resource',
-	'Job',
-		function($resource, Job){
-			var User = $resource(
-				'/api/user/:_id',
-				{
-					_id:'@_id'
-				},
-				{
-					get: {method: 'GET'},
-					save: {method: 'POST'},
-					delete: {method: 'DELETE'},
-					search: {method: 'GET', url: '/api/user', isArray: 'true'}
-				},
-			)
+.factory('User', [
+    '$resource',
+    'Job',
+    function($resource, Job) {
+        var User = $resource(
+            '/api/user/:_id',
+            {
+                _id:'@_id'
+            },
+            {
+                get: {method: 'GET'},
+                save: {method: 'POST'},
+                delete: {method: 'DELETE'},
+                search: {method: 'GET', url: '/api/user', isArray: 'true'}
+            }
+        );
 
-			User.prototype.$getJobs = function(){
-				return Job.search({ owner: this._id }); // GET /api/job?owner=:id
-			}	
-		}
-	]
-)
+        var Reviews = $resource(
+            '/api/user/:_id/review',
+            {},
+            {
+                get: { method: 'GET' },
+                create: { method: 'POST' }
+            }
+        );
 
-// GET /api/user - search
-// POST /api/user - create
-// GET /api/user/:id - get
-// POST /api/user/:id - update
-// DELETE /api/user/:id - delete
+        User.prototype.$getJobs = function(){
+            return Job.search({ owner: this._id }); // GET /api/job?owner=:id
+        }
 
-var users = User.search();
+        User.prototype.$getReviews = function() {
+            return Reviews.get({_id: this._id});
+        }
 
-users.$promise.then(function() {
+        User.prototype.$review = function(review) {
+            return Reviews.create(review);
+        }
 
+        User.prototype.$isWorker = function() {
+            return true;
+        };
 
-	var user = users[0];
+        User.prototype.$isEmployer = function() {
+            return true;
+        };
 
-	var jobs = user.$getJobs();
-});
+        return User;
+    }
+]);

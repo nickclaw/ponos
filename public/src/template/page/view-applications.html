@@ -1,0 +1,31 @@
+<md-content>
+    <h1>View Applications</h1>
+    <h2>Job: {{job.title}}</h2>
+
+    <md-tabs>
+        <md-tab label="accepted">
+            <md-list>
+                <md-item ng-repeat="application in applications.accepted">
+                    <h3>{{application.blurb}}</h3>
+                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
+                </md-item>
+            </md-list>
+        </md-tab>
+        <md-tab label="pending">
+            <md-list>
+                <md-item ng-repeat="application in applications.pending">
+                    <h3>{{application.blurb}}</h3>
+                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
+                </md-item>
+            </md-list>
+        </md-tab>
+        <md-tab label="waiting">
+            <md-list>
+                <md-item ng-repeat="application in applications.waiting">
+                    <h3>{{application.blurb}}</h3>
+                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
+                </md-item>
+            </md-list>
+        </md-tab>
+    </md-tabs>
+</md-content>

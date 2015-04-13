@@ -1,19 +1,25 @@
 angular.module('scaffold')
 
 .config([
-	'$routeProvider', 
-	function($routeProvider){
-		$routeProvider.when('/search', {
-			templateUrl: '/static/template/search.html',
-			controller: 'SearchController'
-		});
-	}
+    '$routeProvider',
+    function($routeProvider){
+        $routeProvider.when('/search', {
+            templateUrl: '/static/template/page/search.html',
+            controller: 'SearchController'
+        });
+    }
 ])
 
 
 .controller('SearchController', [
-	'$scope',
-	function($scope){
-		$scope.hello = 'world';
-	}
+    '$scope',
+    'Job',
+    function($scope, Job){
+
+        $scope.searchOptions = {
+
+        };
+
+        $scope.jobs = Job.search($scope.searchOptions);
+    }
 ]);

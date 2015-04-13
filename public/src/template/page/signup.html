@@ -1,0 +1,87 @@
+<md-content>
+    <h1>Signup</h1>
+
+    <md-tabs md-selected="selectedIndex">
+        <md-tab label="basic">
+            <form>
+                <h3>Basic Info</h3>
+
+                <md-input-container>
+                    <label>First Name</label>
+                    <input ng-model="user.firstName" />
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Last Name</label>
+                    <input ng-model="user.lastName" />
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Phone</label>
+                    <input ng-model="user.phone" />
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Birthday</label>
+                    <input ng-model="user.birthdate" type="datetime" />
+                </md-input-container>
+
+                <md-radio-group ng-model="user.gender">
+                    <md-radio-button value="male">Male</md-radio-button>
+                    <md-radio-button value="female">Female</md-radio-button>
+                    <md-radio-button value="other">Other</md-radio-button>
+                </md-radio-group>
+
+                <div>
+                    <md-button ng-click="isWorker()">Worker</md-button>
+                    <md-button ng-click="isEmployer()">Employer</md-button>
+                </div>
+            </form>
+
+        </md-tab>
+
+        <md-tab label="employer">
+            <md-input-container>
+                <label>Bio</label>
+                <input ng-model="user.employer.bio" />
+            </md-input-container>
+            <md-input-container>
+                <label>URL</label>
+                <input ng-model="user.employer.url" />
+            </md-input-container>
+            <md-button ng-click="save()">post job</md-button>
+        </md-tab>
+
+        <md-tab label="worker">
+            <md-input-container>
+                <label>Bio</label>
+                <input ng-model="user.worker.bio" />
+            </md-input-container>
+
+            <div ng-repeat="exp in user.worker.experience">
+                <hr />
+                <md-input-container>
+                    <label>Title</label>
+                    <input ng-model="exp.title" />
+                </md-input-container>
+                <md-input-container>
+                    <label>Start</label>
+                    <input ng-model="exp.start" />
+                </md-input-container>
+                <md-input-container>
+                    <label>End</label>
+                    <input ng-model="exp.end" />
+                </md-input-container>
+                <md-input-container>
+                    <label>Description</label>
+                    <input ng-model="exp.description" />
+                </md-input-container>
+
+                <md-button ng-click="removeExperience($index)">remove</md-button>
+            </div>
+
+            <md-button ng-click="addExperience()">add</md-button>
+            <md-button ng-click="save()">find jobs</md-button>
+        </md-tab>
+    </md-tabs>
+</md-content>

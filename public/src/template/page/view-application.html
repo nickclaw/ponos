@@ -1,0 +1,11 @@
+<md-content>
+    <h1>View Application</h1>
+    <pre>
+{{app|json}}
+    </pre>
+
+    <md-button href="/user/{{app.applicant}}">View User</md-button>
+    <md-button ng-click="accept()">Accept</md-button>
+    <md-button ng-click="reject()">Reject</md-button>
+    <md-button ng-click="cancel()">Cancel</md-button>
+</md-content>

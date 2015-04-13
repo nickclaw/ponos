@@ -19,7 +19,6 @@ var schema = mongoose.Schema({
     rate: { type: Number },
 
     equipmentProvided: { type: String },
-    equipmentRequired: { type: String },
     perks: { type: String },
 });
 schema.plugin(unique);

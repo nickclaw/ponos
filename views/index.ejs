@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html ng-app='scaffold'>
-	<head>
-		<link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css"/>
-		<base href="/" />
-	</head>
+    <head>
+        <link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css" />
+        <link href="/static/style/app.css" rel="stylesheet" type="text/css" />
+        <base href="/" />
 
-	<body>
-		<md-content>
-			<md-toolbar>
-				
-			</md-toolbar>
-			<div ng-view>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    </head>
+    <body layout="row">
+        <ng-include src="'/static/template/include/sidebar.html'"></ng-include>
+        <div id="main" layout="column" flex>
+            <md-toolbar>
 
-			</div>
-		</md-content>
-		<script type="text/javascript" src="/static/lib/angular/angular.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-material/angular-material.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-resource/angular-resource.js"></script>
-		<script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
-		<script type="text/javascript" src="/static/lib/moment/moment.js"></script>
+            </md-toolbar>
+            <main ng-view layout="column" flex>
 
-		<script type="text/javascript" src="/static/script/app.js"></script>
-		<script type="text/javascript" src="/static/script/routes/search.js"></script>
-	</body>
+            </main>
+        </main>
+        
+        <script>
+            window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
+        </script>
+
+        <script type="text/javascript" src="/static/lib/angular/angular.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-material/angular-material.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-resource/angular-resource.js"></script>
+        <script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/static/lib/moment/moment.js"></script>
+
+        <script type="text/javascript" src="/static/script/app.js"></script>
+        <script type="text/javascript" src="/static/script/models/job.js"></script>
+        <script type="text/javascript" src="/static/script/models/user.js"></script>
+        <script type="text/javascript" src="/static/script/models/profile.js"></script>
+        <script type="text/javascript" src="/static/script/models/application.js"></script>
+        <script type="text/javascript" src="/static/script/services/resolve.js"></script>
+        <script type="text/javascript" src="/static/script/routes/edit-user.js"></script>
+        <script type="text/javascript" src="/static/script/routes/index.js"></script>
+        <script type="text/javascript" src="/static/script/routes/modify-job.js"></script>
+        <script type="text/javascript" src="/static/script/routes/review-user.js"></script>
+        <script type="text/javascript" src="/static/script/routes/search.js"></script>
+        <script type="text/javascript" src="/static/script/routes/signup.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-job.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-user.js"></script>
+        <script type="text/javascript" src="/static/script/routes/apply-job.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-applications.js"></script>
+        <script type="text/javascript" src="/static/script/routes/view-application.js"></script>
+    </body>
 </html>

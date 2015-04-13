@@ -1,0 +1,37 @@
+<md-content>
+    <h1>Edit User</h1>
+
+    <h3>Basic Info</h3>
+
+    <form ng-submit="save()">
+        <md-input-container>
+            <label>First Name</label>
+            <input ng-model="user.firstName" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Last Name</label>
+            <input ng-model="user.lastName" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Phone</label>
+            <input ng-model="user.phone" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Birthday</label>
+            <input ng-model="user.birthdate" type="datetime" />
+        </md-input-container>
+
+        <md-radio-group ng-model="user.gender">
+            <md-radio-button value="male">Male</md-radio-button>
+            <md-radio-button value="female">Female</md-radio-button>
+            <md-radio-button value="other">Other</md-radio-button>
+        </md-radio-group>
+
+        <md-button ng-click="cancel()">Cancel</md-button>
+        <md-button type="submit">Save</md-button>
+    </form>
+
+</md-content>
