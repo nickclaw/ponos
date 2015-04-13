@@ -33,20 +33,3 @@ angular.module('scaffold')
 			}
 		}
 	])
-
-	//
-	<item-list ...>
-		<h3This is the title</h3>
-	</item-list>
-
-
-	//
-	// templateUrl
-	//
-
-	<div layout="row">
-		<picture></picture>
-		<div flex class="fuck">
-			<ng-transclude></ng-transclude>
-		</div>
-	</div>

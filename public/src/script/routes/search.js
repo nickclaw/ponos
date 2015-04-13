@@ -17,5 +17,3 @@ angular.module('scaffold')
 		$scope.hello = 'world';
 	}
 ]);
-
-<div ng-repeat="job in jobs track by $index">
