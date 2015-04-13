@@ -162,13 +162,13 @@ var whitelist = {
     edit: {
         firstName: true,
         lastName: true,
+        birthdate: true,
+        gender: true,
         phone: true,
 
         worker: {
             bio: true,
-            experience: true,
-            age: true,
-            gender: true
+            experience: true
         },
 
         employer: {
@@ -183,14 +183,14 @@ var whitelist = {
         _id: true,
         firstName: true,
         lastName: true,
+        birthdate: true,
+        gender: true,
         phone: true,
         roles: true,
 
         worker: {
             bio: true,
-            experience: true,
-            age: true,
-            gender: true
+            experience: true
         },
 
         employer: {

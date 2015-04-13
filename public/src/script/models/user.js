@@ -30,7 +30,7 @@ angular.module('scaffold')
         }
 
         User.prototype.$getReviews = function() {
-            return Reviews.get(this);
+            return Reviews.get({_id: this._id});
         }
 
         User.prototype.$review = function(review) {
