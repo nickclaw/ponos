@@ -14,5 +14,16 @@ angular.module('scaffold').constant('resolve', {
         function(User, $route) {
             return User.get({_id: $route.current.params.user}).$promise;
         }
+    ],
+
+    application: [
+        'Application',
+        '$route',
+        function(Application, $route) {
+            return Application.get({
+                job: $route.current.params.job,
+                _id: $route.current.params.application
+            }).$promise;
+        }
     ]
 });

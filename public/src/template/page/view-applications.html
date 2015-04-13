@@ -1,0 +1,9 @@
+<md-content>
+    <h1>View Applications</h1>
+    <h2>Job: {{job.title}}</h2>
+    <md-list>
+        <md-item ng-repeat="application in applications">
+            <h3>{{application.blurb}}</h3>
+        </md-item>
+    </md-list>
+</md-content>
