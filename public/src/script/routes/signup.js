@@ -20,6 +20,7 @@ angular.module('scaffold')
         // Scope
         //
         $scope.user = new User($scope.profile.__proto__);
+        $scope.user.gender = "other";
         $scope.selectedIndex = 0;
 
         $scope.isEmployer = isEmployer;

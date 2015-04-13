@@ -7,7 +7,11 @@
 
     </md-toolbar>
 
-    <md-content>
+    <md-content layout="column">
         <md-button href="/">Home</md-button>
+        <md-button href="/job">Create Job</md-button>
+        <md-button href="/search">Search jobs</md-button>
+        <md-divider></md-divider>
+        <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
     </md-content>
 </md-sidenav>

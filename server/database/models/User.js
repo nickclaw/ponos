@@ -32,7 +32,7 @@ var schema = mongoose.Schema({
     lastName: { type: String },
     phone: { type: String },
     birthdate: { type: Date },
-    male: { type: String },
+    gender: { type: String },
 
     roles: { type: [String], default: [] },  // in database, let users be worker and/or employer
 
@@ -140,9 +140,12 @@ var employerValidator = vlad(_.extend({
 var workerValidator = vlad(_.extend({
     worker: vlad({
         bio: vlad.string.required,
-        experience: vlad.string,
-        age: vlad.number.required,
-        gender: vlad.enum(['male', 'female']).required
+        experience: vlad.array.of(vlad({
+            title: vlad.string,
+            start: vlad.string,
+            end: vlad.string,
+            description: vlad.string
+        })).max(3).min(1).required
     }),
     auth: authValidator
 }, propertyValidations));

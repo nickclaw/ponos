@@ -49,8 +49,8 @@ angular.module('scaffold')
 
         function save() {
             $scope.job.$save().then(
-                function(res) {
-                    $location.url('/job/' + res.data._id);
+                function(job) {
+                    $location.url('/job/' + job._id);
                 },
                 function() {
                     console.error('TODO');
