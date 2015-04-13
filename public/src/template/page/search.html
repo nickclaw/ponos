@@ -1,5 +1,9 @@
-<md-content layout="row">
-    <div style="background-color: red;" flex>Hello world</div>
-    <div style="background-color: blue;" flex>Hello world</div>
-    <div style="background-color: green;" flex>Hello world</div>
+<md-content>
+    <h1>Search</h1>
+    <md-list>
+        <md-item ng-repeat="job in jobs">
+            <h2>{{job.title}}</h2>
+            <md-button ng-href="/job/{{job._id}}">View</md-button>
+        </md-item>
+    </md-list>
 </md-content>

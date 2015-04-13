@@ -13,6 +13,6 @@ angular.module('scaffold')
 .controller('EditUserController', [
     '$scope',
     function($scope) {
-
+        
     }
 ]);

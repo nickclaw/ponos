@@ -20,6 +20,6 @@ angular.module('scaffold')
 
         };
 
-        $scope.results = Job.search($scope.searchOptions);
+        $scope.jobs = Job.search($scope.searchOptions);
     }
 ]);

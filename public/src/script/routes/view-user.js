@@ -2,17 +2,23 @@ angular.module('scaffold')
 
 .config([
     '$routeProvider',
-    function($routeProvider) {
+    'resolve',
+    function($routeProvider, resolve) {
         $routeProvider.when('/user/:user', {
             templateUrl: '/static/template/page/view-user.html',
-            controller: 'ViewUserController'
+            controller: 'ViewUserController',
+            resolve: {
+                user: resolve.user
+            }
         });
     }
 ])
 
 .controller('ViewUserController', [
     '$scope',
-    function($scope) {
-
+    'user',
+    function($scope, user) {
+        $scope.user = user;
+        $scope.reviews = user.$getReviews();
     }
 ]);
