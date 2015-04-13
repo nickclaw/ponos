@@ -1,1 +1,58 @@
-<h1>Modify Job</h1>
+<md-content>
+    <h1>Modify Job</h1>
+
+    <form ng-submit="save()">
+        <md-input-container>
+            <label>Title</label>
+            <input ng-model="job.title" />
+        </md-input-container>
+
+        <div layout="row">
+            <md-input-container>
+                <label>Latitude</label>
+                <input ng-model="job.location.lat" />
+            </md-input-container>
+            <md-input-container>
+                <label>Longitude</label>
+                <input ng-model="job.location.long" />
+            </md-input-container>
+        </div>
+
+        <md-input-container>
+            <label>Start</label>
+            <input ng-model="job.start" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>End</label>
+            <input ng-model="job.end" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Description</label>
+            <input ng-model="job.description" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Needs</label>
+            <input ng-model="job.needed" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Rate</label>
+            <input ng-model="job.rate" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Equipment Required</label>
+            <input ng-model="job.equipmentRequired" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Perks</label>
+            <input ng-model="job.perks" />
+        </md-input-container>
+
+        <md-button type="submit">Post</md-button>
+    </form>
+</md-content>

@@ -22,8 +22,7 @@ module.exports = function(grunt) {
                     ext: 'js,json',
                     env: {
                         NODE_ENV: 'development'
-                    },
-                    spawn: false
+                    }
                 }
             }
         },

@@ -171,7 +171,9 @@ var whitelist = {
         employer: {
             bio: true,
             url: true
-        }
+        },
+
+        roles: true
     },
 
     view: {
