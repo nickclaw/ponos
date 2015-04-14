@@ -89,14 +89,11 @@ router
 
     .get('/:application',
         util.auth,
-        util.role('employer', 'worker'),
         function(req, res, next) {
             if (isOwner(req) || isApplicant(req)) return next();
             next(db.NotFoundError());
         },
-        function(req, res, next) {
-            res.send($req.$app.render());
-        }
+        send
     )
 
     //
@@ -121,14 +118,12 @@ router
             }
 
             if (save) {
-                req.$app.save(function(err) {
-                    if (err) return next(err);
-                    res.sendStatus(200);
-                });
+                req.$app.save(next);
             } else {
                 next(db.NotAllowedError());
             }
-        }
+        },
+        send
     )
 
     //
@@ -142,11 +137,9 @@ router
         isApplicantMiddleware,
         state('pending', 'rejected', 'waiting'),
         function(req, res, next) {
-            req.$app.remove(function(err) {
-                if (err) return next(err);
-                res.sendStatus(200);
-            });
-        }
+            req.$app.remove(next);
+        },
+        send
     )
 
     //
@@ -161,11 +154,9 @@ router
         state('pending', 'waiting'),
         function(req, res, next) {
             req.$app.state = 'rejected';
-            req.$app.save(function(err){
-                if (err) return next(err);
-                res.sendStatus(200);
-            });
-        }
+            req.$app.save(next);
+        },
+        send
     );
 
 
@@ -199,6 +190,10 @@ function isApplicantMiddleware(req, res, next) {
 
 function hasState(req, state) {
     return req.$app.state === state;
+}
+
+function send(req, res) {
+    res.send(req.$app.render(req.user));
 }
 
 /**

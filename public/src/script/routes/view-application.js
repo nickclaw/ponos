@@ -36,7 +36,7 @@ angular.module('scaffold')
         function accept() {
             app.$accept().then(
                 function() {
-                    $location.url('/job/' + app.job._id + '/applications');
+                    $location.url('/job/' + app.job + '/applications');
                 },
                 function(err) {
                     console.error('TODO');
@@ -47,7 +47,7 @@ angular.module('scaffold')
         function reject() {
             app.$reject().then(
                 function() {
-                    $location.url('/job/' + app.job._id + '/applications');
+                    $location.url('/job/' + app.job + '/applications');
                 },
                 function(err) {
                     console.error('TODO');

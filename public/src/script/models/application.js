@@ -5,7 +5,8 @@ angular.module('scaffold').factory('Application', [
         var application = $resource(
             '/api/job/:job/application/:_id',
             {
-                _id: '@_id'
+                _id: '@_id',
+                job: '@job'
             },
             {
                 apply: { method: 'POST', url: '/api/job/:job/application' },
