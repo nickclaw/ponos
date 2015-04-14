@@ -145,7 +145,7 @@ var workerValidator = vlad(_.extend({
             start: vlad.string,
             end: vlad.string,
             description: vlad.string
-        })).max(3).min(1).required
+        })).max(3).min(0).required
     }),
     auth: authValidator
 }, propertyValidations));
