@@ -30,6 +30,11 @@
         "GOOGLE": {
             "ID": "",
             "SECRET": ""
+        },
+
+        "FACEBOOK": {
+            "ID": "",
+            "SECRET": ""
         }
     },
 

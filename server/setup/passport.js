@@ -1,5 +1,6 @@
 var User = db.User,
     GoogleAuth = require('passport-google-oauth').OAuth2Strategy,
+    FacebookAuth = require('passport-facebook').Stategy,
     LocalAuth = require('passport-local').Strategy;
 
 module.exports = function(passport) {
@@ -44,9 +45,12 @@ module.exports = function(passport) {
         callbackURL: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/google/signup/callback",
         scope: 'profile'
     }, function(accessToken, refreshToken, profile, done) {
-        User.create({
+        var user = new User({
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
+            birthdate: null,
+            gender: null,
+            picture: profile._json.picture,
             role: null,
             worker: {},
             employer: {},
@@ -57,7 +61,46 @@ module.exports = function(passport) {
 
             new: true,
             finished: false
-        }, done);
+        });
+
+        user.save(done);
+    }));
+
+    //
+    // Facebook auth
+    //
+    passport.use('facebook-login', new FacebookAuth({
+        clientID: C.AUTH.FACEBOOK.ID,
+        clientSecret: C.AUTH.FACEBOOK.SECRET,
+        callbackURL: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/facebook/login/callback",
+        enableProof: true
+    }, function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'auth.facebook_id': profile.id }, done);
+    }));
+
+    passport.use('facebook-signup', new FacebookAuth({
+        clientID: C.AUTH.FACEBOOK.ID,
+        clientSecret: C.AUTH.FACEBOOK.SECRET,
+        callbackURL: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/facebook/signup/callback",
+        enableProof: true,
+        profileFields: ['id', 'displayName', 'picture.type(large)', 'profileUrl']
+    }, function(accessToken, refreshToken, profile, done) {
+        var user = new User({
+            new: true,
+            role: null,
+            firstName: "",
+            lastName: "",
+            phone: "",
+            birthdate: null,
+            gender: null,
+            picture: !profile._json.picture.data.is_silhouette ? profile._json.picture.data.url : undefined,,
+
+            auth: {
+                facebook_id: profile.id
+            }
+        };
+
+        user.save(done);
     }));
 
 
@@ -93,8 +136,4 @@ module.exports = function(passport) {
 
         user.save(done);
     }));
-
-    function resolve(promise, callback) {
-        Promise.resolve(promise).nodeify(callback);
-    }
 }

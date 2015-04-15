@@ -33,6 +33,7 @@ var schema = mongoose.Schema({
     phone: { type: String },
     birthdate: { type: Date },
     gender: { type: String },
+    picture: { type: String },
 
     role: { type: String, default: null },
 
@@ -65,7 +66,8 @@ var schema = mongoose.Schema({
             confirmation: { type: String }
         },
 
-        google_id: { type: String, unique: true, sparse: true }
+        google_id: { type: String, unique: true, sparse: true },
+        facebook_ud: { type: String, unique: true, sparse: true }
     },
 
     // metadata
@@ -115,6 +117,7 @@ var propertyValidations = {
     lastName: vlad.string.min(2).required,
     phone: vlad.string,
     role: vlad.string.default(null),
+    picture: vlad.string,
     new: vlad.boolean.required,
     finished: vlad.boolean.required
 };
@@ -165,6 +168,7 @@ var whitelist = {
         birthdate: true,
         gender: true,
         phone: true,
+        picture: true,
 
         worker: {
             bio: true,
@@ -187,6 +191,7 @@ var whitelist = {
         gender: true,
         phone: true,
         role: true,
+        picture: true,
 
         worker: {
             bio: true,
