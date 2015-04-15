@@ -14,7 +14,7 @@ describe('user endpoint', function() {
         });
 
         it('should only show public properties', function() {
-            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'finished', 'new', 'roles', 'employer', 'updated', 'created'])
+            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'birthdate', 'gender', 'finished', 'new', 'roles', 'employer', 'updated', 'created'])
             expect(ret.worker.reviews).to.be.undefined;
             expect(ret.employer.reviews).to.be.undefined;
         });

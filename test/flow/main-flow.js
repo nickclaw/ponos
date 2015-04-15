@@ -62,7 +62,7 @@ describe('main application flow', function() {
 
     it('should be impossible for the worker to accept the application', function() {
         r.login(worker);
-        return r.post('/api/job/' + jobId + '/application/accept').should.be.rejected
+        return r.post('/api/job/' + jobId + '/application/' + appId + '/accept').should.be.rejected
             .then(r.logout);
     });
 
@@ -89,7 +89,7 @@ describe('main application flow', function() {
 
     it('should be possible for the employer to accept the job application', function() {
         r.login(employer);
-        return r.post('/api/job/' + jobId + '/application/accept').should.be.fulfilled
+        return r.post('/api/job/' + jobId + '/application/' + appId + '/accept').should.be.fulfilled
             .then(r.logout);
     });
 
@@ -99,7 +99,7 @@ describe('main application flow', function() {
 
     it('should be possible for the worker to now accept the job application', function() {
         r.login(worker);
-        return r.post('/api/job/' + jobId + '/application/accept').should.be.fulfilled
+        return r.post('/api/job/' + jobId + '/application/' + appId + '/accept').should.be.fulfilled
             .then(r.logout);
     });
 
@@ -109,13 +109,13 @@ describe('main application flow', function() {
 
     it('should now be impossible for the worker to withdraw their application', function() {
         r.login(worker);
-        return r.post('/api/job/' + jobId + '/application/withdraw').should.be.rejected
+        return r.post('/api/job/' + jobId + '/application/' + appId + '/withdraw').should.be.rejected
             .then(r.logout);
     });
 
     it('should now be impossible for the employer to reject the application', function() {
         r.login(employer);
-        return r.post('/api/job/' + jobId + '/application/reject').should.be.rejected
+        return r.post('/api/job/' + jobId + '/application/' + appId + '/reject').should.be.rejected
             .then(r.logout);
     });
 
