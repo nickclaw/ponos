@@ -7,16 +7,14 @@ describe('user endpoint', function() {
         it('should retrieve the user', function() {
             this.timeout(5000);
             return r
-                .get('/api/user/' + U.user._id).should.be.fulfilled
+                .get('/api/user/' + U.worker._id).should.be.fulfilled
                 .then(function(body) {
                     ret = body;
                 });
         });
 
         it('should only show public properties', function() {
-            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'birthdate', 'gender', 'finished', 'new', 'roles', 'employer', 'updated', 'created'])
-            expect(ret.worker.reviews).to.be.undefined;
-            expect(ret.employer.reviews).to.be.undefined;
+            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'birthdate', 'gender', 'finished', 'new', 'role', 'employer', 'updated', 'created'])
         });
 
         it('should return 404 with an unknown id', function() {
@@ -26,7 +24,7 @@ describe('user endpoint', function() {
         });
     });
 
-    describe('POST /api/user/:id', function() {
+    describe('POST /api/user/:id - editing', function() {
         var data = {
                 _id: "abcdefgasdf",
                 firstName: "New",
@@ -39,7 +37,7 @@ describe('user endpoint', function() {
 
         it('should return 401 if you are not logged in', function() {
             return r
-                .post('/api/user/' + U.user._id, data).should.be.rejected
+                .post('/api/user/' + U.worker._id, data).should.be.rejected
                 .then(r.hasStatus(401));
         });
 
@@ -47,7 +45,7 @@ describe('user endpoint', function() {
         it('should return 403 if you are not the user', function() {
             r.login(U.worker);
             return r
-                .post('/api/user/' + U.user._id, data).should.be.rejected
+                .post('/api/user/' + U.worker2._id, data).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
@@ -59,17 +57,17 @@ describe('user endpoint', function() {
         });
 
         it('should return 400 for invalid input', function() {
-            r.login(U.user);
+            r.login(U.worker);
             return r
-                .post('/api/user/' + U.user._id, badData).should.be.rejected
+                .post('/api/user/' + U.worker._id, badData).should.be.rejected
                 .then(r.hasStatus(400))
                 .then(r.logout);
         });
 
         it('should update the user', function() {
-            r.login(U.user);
+            r.login(U.worker);
             return r
-                .post('/api/user/' + U.user._id, data).should.be.fulfilled
+                .post('/api/user/' + U.worker._id, data).should.be.fulfilled
                 .then(function(body) {
                     ret = body;
                     r.logout();
@@ -77,7 +75,7 @@ describe('user endpoint', function() {
         });
 
         it('should only update editable properties', function() {
-            expect(ret._id).to.equal(U.user._id);
+            expect(ret._id).to.equal(U.worker._id);
             expect(ret.firstName).to.equal(data.firstName);
         });
 
@@ -88,7 +86,7 @@ describe('user endpoint', function() {
         var newUser;
 
         before(function() {
-            newUser = require('../fixtures/users').user;
+            newUser = require('../fixtures/users').worker;
             newUser._id = 'throwaway';
             newUser.auth.local.email = 'throwaway@example.com';
             return db.User.create(newUser)
@@ -138,7 +136,7 @@ describe('user endpoint', function() {
     describe('METHOD /api/user/me', function() {
 
         it('should act on the logged in user', function() {
-            var id = U.user._id;
+            var id = U.worker._id;
             return db.User.findById(id).exec()
                 .then(function(user) {
                     r.login(user);

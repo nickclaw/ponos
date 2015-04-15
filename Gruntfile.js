@@ -112,8 +112,7 @@ module.exports = function(grunt) {
                 limit: 6
             },
 
-            dev: ['watch:scss', 'nodemon:dev'],
-            prod: ['htmlmin:prod', 'imagemin:prod', 'style:prod', 'uglify:prod']
+            dev: ['watch:scss', 'nodemon:dev']
         }
 
     });
@@ -131,5 +130,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['develop']);
     grunt.registerTask('develop', ['concurrent:dev']);
-    grunt.registerTask('build', ['concurrent:prod']);
+    grunt.registerTask('build', ['htmlmin:prod', 'imagemin:prod', 'style:prod', 'uglify:prod']);
 }

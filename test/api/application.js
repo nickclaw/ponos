@@ -70,13 +70,13 @@ describe('application endpoint', function() {
         });
 
         it('should return 403 for non-job owners', function() {
-            r.login(U.user);
+            r.login(U.employer2);
             return r.get('/api/job/' + id + '/application').should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
 
-        it.skip('should be able to return all the applications', function() {
+        it('should be able to return all the applications', function() {
             r.login(U.employer);
             return r.get('/api/job/' + id + '/application').should.be.fulfilled
                 .then(r.logout)
@@ -101,7 +101,7 @@ describe('application endpoint', function() {
         });
 
         it('should return 403 after the application has been accepted', function() {
-            r.login(U.user);
+            r.login(U.worker2);
             return db.Application.update({}, {state: 'accepted'}).exec()
                 .then(function() {
                     return r.post('/api/job/' + id + '/application/' + appId + '/withdraw');
@@ -111,7 +111,7 @@ describe('application endpoint', function() {
         });
 
         it('should withdraw the application', function() {
-            r.login(U.user);
+            r.login(U.worker2);
             return r.post('/api/job/' + id + '/application/' + appId + '/withdraw').should.be.fulfilled
                 .then(r.logout);
         });
@@ -154,14 +154,14 @@ describe('application endpoint', function() {
         describe('as a worker', function() {
 
             it('should return 403 if not waiting', function() {
-                r.login(U.user);
+                r.login(U.worker2);
                 return r.post('/api/job/' + id + '/application/' + appId + '/accept').should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
             });
 
             it('should accept the application', function() {
-                r.login(U.user);
+                r.login(U.worker2);
                 return db.Application.update({}, {state: 'waiting'}).exec()
                     .then(function() {
                         return r.post('/api/job/' + id + '/application/' + appId + '/accept');
@@ -180,7 +180,7 @@ describe('application endpoint', function() {
         });
 
         it('should return 403 for anyone but the job owner', function() {
-            r.login(U.worker);
+            r.login(U.employer2);
             return r.post('/api/job/' + id + '/application/' + appId + '/reject').should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);

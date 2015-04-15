@@ -16,7 +16,7 @@ module.exports = {
      */
     role: function(role) {
         return function hasRole(req, res, next) {
-            if (req.user.roles.includes(role)) return next();
+            if (req.user.role === role) return next();
             next(new db.NotAllowedError("Wrong role."));
         };
     },

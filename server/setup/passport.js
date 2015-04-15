@@ -47,7 +47,7 @@ module.exports = function(passport) {
         User.create({
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            roles: [],
+            role: null,
             worker: {},
             employer: {},
 
@@ -82,7 +82,7 @@ module.exports = function(passport) {
             firstName: "",
             lastName: "",
             phone: "",
-            roles: [],
+            role: null,
             auth: {
                 local: {
                     email: email,

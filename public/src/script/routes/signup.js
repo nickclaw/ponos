@@ -35,8 +35,7 @@ angular.module('scaffold')
         // Watchers
         //
 
-        $scope.$watch('user.roles', function(roles) {
-            var role = (roles || [])[0];
+        $scope.$watch('user.role', function(role) {
             $scope.selectedIndex = role ? (role === 'worker' ? 2 : 1) : 0;
         }, true);
 
@@ -46,7 +45,7 @@ angular.module('scaffold')
         //
 
         function isEmployer() {
-            $scope.user.roles.push('employer');
+            $scope.user.role = 'employer';
             $scope.user.employer = {
                 bio: "",
                 url: ""
@@ -54,7 +53,7 @@ angular.module('scaffold')
         }
 
         function isWorker() {
-            $scope.user.roles.push('worker');
+            $scope.user.role = 'worker';
             $scope.user.worker = {
                 bio: "",
                 experience: []
@@ -63,7 +62,7 @@ angular.module('scaffold')
         }
 
         function goBack() {
-            $scope.user.roles = [];
+            $scope.user.role = null;
         }
 
         function addExperience() {

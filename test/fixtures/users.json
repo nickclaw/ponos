@@ -1,21 +1,19 @@
 {
-    "user": {
-        "_id": "iamauser",
+    "worker": {
+        "_id": "iamaworker",
         "firstName": "Test",
         "lastName": "User",
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
-        "roles": ["worker", "employer"],
+        "role": "worker",
 
         "worker": {
             "bio": "This is a worker bio.",
             "experience": []
         },
 
-        "employer": {
-            "bio": "This is an employer bio."
-        },
+        "employer": {},
 
         "auth": {
             "local": {
@@ -29,14 +27,14 @@
         "created": "2015-03-08T02:40:40.195Z"
     },
 
-    "worker": {
-        "_id": "iamaworker",
+    "worker2": {
+        "_id": "iamaworker2",
         "firstName": "Test",
         "lastName": "User",
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
-        "roles": ["worker"],
+        "role": "worker",
 
         "worker": {
             "bio": "This is a worker bio.",
@@ -64,7 +62,7 @@
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
-        "roles": ["employer"],
+        "role": "employer",
 
         "worker": {},
 
@@ -75,6 +73,33 @@
         "auth": {
             "local": {
                 "email": "test3@example.com",
+                "password": "password"
+            }
+        },
+
+        "new": true,
+        "finished": false,
+        "created": "2015-03-08T02:40:40.195Z"
+    },
+
+    "employer2": {
+        "_id": "iamanemployer2",
+        "firstName": "Test",
+        "lastName": "User",
+        "phone": "1 555 555 5555",
+        "birthdate": "12312313",
+        "gender": "male",
+        "role": "employer",
+
+        "worker": {},
+
+        "employer": {
+            "bio": "This is an employer bio."
+        },
+
+        "auth": {
+            "local": {
+                "email": "test4@example.com",
                 "password": "password"
             }
         },

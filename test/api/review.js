@@ -32,21 +32,21 @@ module.exports = describe('review endpoint', function() {
 
         it('should return 401 if not logged in', function() {
             r.login(U.anon);
-            return r.post('/api/user/' + U.worker._id + '/review', goodReview).should.be.rejected
+            return r.post('/api/user/' + U.worker2._id + '/review', goodReview).should.be.rejected
                 .then(r.hasStatus(401))
                 .then(r.logout);
         });
 
         it('should return 404 if no application is provided', function() {
             r.login(U.employer);
-            return r.post('/api/user/' + U.worker._id + '/review', goodReview).should.be.rejected
+            return r.post('/api/user/' + U.worker2._id + '/review', goodReview).should.be.rejected
                 .then(r.hasStatus(404))
                 .then(r.logout);
         });
 
         it('should return 404 if an unknown application is provided', function() {
             r.login(U.employer);
-            return r.post('/api/user/' + U.worker._id + '/review?application=helloworld', goodReview).should.be.rejected
+            return r.post('/api/user/' + U.worker2._id + '/review?application=helloworld', goodReview).should.be.rejected
                 .then(r.hasStatus(404))
                 .then(r.logout);
         });
@@ -60,21 +60,21 @@ module.exports = describe('review endpoint', function() {
 
         it('should return 403 if a worker tries to review another worker', function() {
             r.login(U.worker);
-            return r.post('/api/user/' + U.worker._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+            return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
 
         it('should return 403 if a worker tries to review an unrelated employer', function() {
-            r.login(U.worker);
-            return r.post('/api/user/' + U.user._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+            r.login(U.worker2);
+            return r.post('/api/user/' + U.employer2._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
 
         it('should return 403 if an employer tries to review an unrelated worker', function() {
             r.login(U.employer);
-            return r.post('/api/user/' + U.user._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+            return r.post('/api/user/' + U.worker._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                 .then(r.hasStatus(403))
                 .then(r.logout);
         });
@@ -82,7 +82,7 @@ module.exports = describe('review endpoint', function() {
         describe('before job, unaccepted', function() {
 
             it('should return 403 if a worker tries to review an employer', function() {
-                r.login(U.worker);
+                r.login(U.worker2);
                 return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
@@ -90,7 +90,7 @@ module.exports = describe('review endpoint', function() {
 
             it('should return 403 if an employer tries to review a worker', function() {
                 r.login(U.employer);
-                return r.post('/api/user/' + U.worker._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+                return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
             });
@@ -103,7 +103,7 @@ module.exports = describe('review endpoint', function() {
             });
 
             it('should return 403 if a worker tries to review an employer', function() {
-                r.login(U.worker);
+                r.login(U.worker2);
                 return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
@@ -111,7 +111,7 @@ module.exports = describe('review endpoint', function() {
 
             it('should return 403 if an employer tries to review a worker ', function() {
                 r.login(U.employer);
-                return r.post('/api/user/' + U.worker._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+                return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
             });
@@ -127,7 +127,7 @@ module.exports = describe('review endpoint', function() {
             });
 
             it('should return 403 if a worker tries to review an employer', function() {
-                r.login(U.worker);
+                r.login(U.worker2);
                 return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
@@ -135,7 +135,7 @@ module.exports = describe('review endpoint', function() {
 
             it('should return 403 if an employer tries to review a worker', function() {
                 r.login(U.employer);
-                return r.post('/api/user/' + U.worker._id + '/review?application=iamanapplication', goodReview).should.be.rejected
+                return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', goodReview).should.be.rejected
                     .then(r.hasStatus(403))
                     .then(r.logout);
             });
@@ -155,7 +155,7 @@ module.exports = describe('review endpoint', function() {
             });
 
             it('should return 400 if a worker provides invalid data', function() {
-                r.login(U.user);
+                r.login(U.worker2);
                 return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', badReview).should.be.rejected
                     .then(r.hasStatus(400))
                     .then(r.logout);
@@ -163,20 +163,20 @@ module.exports = describe('review endpoint', function() {
 
             it('should return 400 if an employer provides invalid data', function() {
                 r.login(U.employer);
-                return r.post('/api/user/' + U.user._id + '/review?application=iamanapplication', badReview).should.be.rejected
+                return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', badReview).should.be.rejected
                     .then(r.hasStatus(400))
                     .then(r.logout);
             });
 
             it('should let the employer review the worker', function() {
                 r.login(U.employer);
-                return r.post('/api/user/' + U.user._id + '/review?application=iamanapplication', goodReview).catch(console.log).should.be.fulfilled
+                return r.post('/api/user/' + U.worker2._id + '/review?application=iamanapplication', goodReview).should.be.fulfilled
                     .then(r.logout);
             });
 
             it('should let the worker review the employer', function() {
-                r.login(U.user);
-                return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', goodReview).catch(console.log).should.be.fulfilled
+                r.login(U.worker2);
+                return r.post('/api/user/' + U.employer._id + '/review?application=iamanapplication', goodReview).should.be.fulfilled
                     .then(r.logout);
             });
         });

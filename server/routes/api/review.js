@@ -19,7 +19,7 @@ router
     .get('/', function(req, res, next) {
         var averages = {a: 0, b: 0, c: 0},
             comments = [],
-            reviews = req.$user[req.$user.roles[0]].reviews,
+            reviews = req.$user[req.$user.role].reviews,
             length = reviews.length;
 
         reviews.forEach(function(review, i) {

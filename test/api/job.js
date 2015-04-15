@@ -44,7 +44,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 400 if invalid data', function() {
-            r.login(U.user);
+            r.login(U.employer);
             return r
                 .post('/api/job', badData).should.be.rejected
                 .then(r.hasStatus(400))
@@ -52,7 +52,7 @@ describe('job endpoint', function() {
         });
 
         it('should create a job', function() {
-            r.login(U.user);
+            r.login(U.employer);
             return r
                 .post('/api/job', data).should.be.fulfilled
                 .then(function(j) {
@@ -63,7 +63,7 @@ describe('job endpoint', function() {
 
         it('should only allow settable properties to be set', function() {
             expect(ret.not_a_property).to.be.undefined;
-            expect(ret.poster).to.equal(U.user._id);
+            expect(ret.poster).to.equal(U.employer._id);
             expect(ret.rate).to.equal(data.rate);
         });
 
@@ -111,7 +111,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if not users job', function() {
-            r.login(U.user);
+            r.login(U.employer2);
             return r
                 .post('/api/job/' + job._id, data).should.be.rejected
                 .then(r.hasStatus(403))
@@ -159,7 +159,7 @@ describe('job endpoint', function() {
         });
 
         it('should return 403 if user doesnt own job', function() {
-            r.login(U.user);
+            r.login(U.employer2);
             return r
                 .del('/api/job/' + job._id).should.be.rejected
                 .then(r.hasStatus(403))

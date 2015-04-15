@@ -34,7 +34,7 @@ var schema = mongoose.Schema({
     birthdate: { type: Date },
     gender: { type: String },
 
-    roles: { type: [String], default: [] },  // in database, let users be worker and/or employer
+    role: { type: String, default: null },
 
     // worker specific data
     worker: {
@@ -105,8 +105,8 @@ schema.methods.render = function(user) {
 schema.methods.validate = function validate(callback) {
     var validator = propertyValidator;
     if (this.isNew) validator = newValidator;
-    if (this.roles.includes('worker')) validator = workerValidator;
-    if (this.roles.includes('employer')) validator = employerValidator;
+    if (this.role === 'worker') validator = workerValidator;
+    if (this.role === 'employer') validator = employerValidator;
 
     return validator(this).nodeify(callback);
 }
@@ -114,7 +114,7 @@ var propertyValidations = {
     firstName: vlad.string.min(2).required,
     lastName: vlad.string.min(2).required,
     phone: vlad.string,
-    roles: vlad.array.required,
+    role: vlad.string.default(null),
     new: vlad.boolean.required,
     finished: vlad.boolean.required
 };
@@ -176,7 +176,7 @@ var whitelist = {
             url: true
         },
 
-        roles: true
+        role: true
     },
 
     view: {
@@ -186,7 +186,7 @@ var whitelist = {
         birthdate: true,
         gender: true,
         phone: true,
-        roles: true,
+        role: true,
 
         worker: {
             bio: true,

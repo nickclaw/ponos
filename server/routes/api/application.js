@@ -13,7 +13,7 @@ router
 
     .param('application', function(req, res, next, id) {
         if (!req.user) return next(db.NotAuthorizedError());
-        var prop = req.user.roles[0] === 'worker' ? 'applicant' : 'owner';
+        var prop = req.user.role === 'worker' ? 'applicant' : 'owner';
 
         db.Application.findOne({
             _id: id,

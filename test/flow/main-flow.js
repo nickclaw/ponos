@@ -139,12 +139,7 @@ describe('main application flow', function() {
     });
 
     it('', function() {
-        return db.Job.findByIdAndUpdate(jobId, {$set: {end: new Date()}}).exec()
-            .then(function() {
-                return new Promise(function(res) {
-                    setTimeout(function(){res()}, 1000);
-                })
-            });
+        return db.Job.findByIdAndUpdate(jobId, {$set: {end: new Date()}}).exec();
     });
 
     it('should now be possible for the worker to review the employer', function() {
