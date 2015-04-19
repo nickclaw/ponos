@@ -49,10 +49,19 @@ router
         // We require an application ID as a query parameter
         // intercept the request and fill req.$app with
         function(req, res, next) {
-            if (!req.query.application) return next(db.NotFoundError("Application not found."));
+            if (!req.query.job) return next(db.NotFoundError("Application not found."));
 
             db.Application
-                .findById(req.query.application)
+                .findOne({ $or: [
+                    {
+                        owner: req.$user.id,
+                        job: req.query.job
+                    },
+                    {
+                        applicant: req.$user.id,
+                        job: req.query.job
+                    }
+                ]})
                 .populate('job')
                 .exec()
                 .then(function(app) {

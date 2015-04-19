@@ -1,1 +1,24 @@
-<h1>Review User</h1>
+<md-content>
+    <h1>Review User {{user.firstName}}</h1>
+
+    <form>
+        <md-input-container>
+            <label>Comment</label>
+            <input ng-model="review.comment" />
+        </md-input-container>
+
+        <h3>A</h3>
+        <md-slider ng-model="review.a" step="1" md-discrete min="0" max="5"></md-slider>
+
+        <h3>B</h3>
+        <md-slider ng-model="review.b" step="1" md-discrete min="0" max="5" ></md-slider>
+
+        <h3>C</h3>
+        <md-slider ng-model="review.c" step="1" md-discrete min="0" max="5"></md-slider>
+
+        <div layout="row">
+            <md-button ng-click="cancel()">Cancel</md-button>
+            <md-button ng-click="submit()">Submit</md-button>
+        </div>
+    </form>
+</md-content>

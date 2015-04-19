@@ -2,17 +2,52 @@ angular.module('scaffold')
 
 .config([
     '$routeProvider',
-    function($routeProvider) {
+    'resolve',
+    function($routeProvider, resolve) {
         $routeProvider.when('/user/:user/review/:job', {
             templateUrl: '/static/template/page/review-user.html',
-            controller: 'ReviewUserController'
+            controller: 'ReviewUserController',
+            resolve: {
+                user: resolve.user,
+                job: resolve.job
+            }
         });
     }
 ])
 
 .controller('ReviewUserController', [
     '$scope',
-    function($scope) {
+    '$http',
+    '$location',
+    'user',
+    'job',
+    function($scope, $http, $location, user, job) {
 
+        $scope.user = user;
+        $scope.job = job;
+        $scope.review = {
+            comment: "",
+            a: undefined,
+            b: undefined,
+            c: undefined
+        };
+        $scope.submit = review;
+        $scope.cancel = cancel;
+
+        function review() {
+            $http.post('/api/user/' + user._id + '/review/?job=' + job._id, $scope.review)
+                .then(
+                    function() {
+                        $location.url('/user/' + user._id);
+                    },
+                    function() {
+                        console.error('TODO');
+                    }
+                );
+        }
+
+        function cancel() {
+            $location.url('/'):
+        }
     }
 ]);

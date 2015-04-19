@@ -8,4 +8,14 @@
     <md-button ng-click="accept()">Accept</md-button>
     <md-button ng-click="reject()">Reject</md-button>
     <md-button ng-click="cancel()">Cancel</md-button>
+
+    <md-button ng-if="profile._id === app.applicant"
+        ng-href="/user/{{app.owner}}/review/{{app.job}}" >
+        Review Poster
+    </md-button>
+
+    <md-button ng-if="profile._id === app.owner"
+        ng-href="/user/{{app.applicant}}/review/{{app.job}}" >
+        Review Applicant
+    </md-button>
 </md-content>
