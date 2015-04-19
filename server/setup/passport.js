@@ -1,7 +1,8 @@
 var User = db.User,
     GoogleAuth = require('passport-google-oauth').OAuth2Strategy,
-    FacebookAuth = require('passport-facebook').Stategy,
-    LocalAuth = require('passport-local').Strategy;
+    FacebookAuth = require('passport-facebook').Strategy,
+    LocalAuth = require('passport-local').Strategy,
+    LinkedAuth = require('passport-linkedin-oauth2').Strategy;
 
 module.exports = function(passport) {
 
@@ -93,14 +94,36 @@ module.exports = function(passport) {
             phone: "",
             birthdate: null,
             gender: null,
-            picture: !profile._json.picture.data.is_silhouette ? profile._json.picture.data.url : undefined,,
+            picture: !profile._json.picture.data.is_silhouette ? profile._json.picture.data.url : undefined,
 
             auth: {
                 facebook_id: profile.id
             }
-        };
+        });
 
         user.save(done);
+    }));
+
+
+    //
+    // Linkin auth
+    //
+    passport.use('linkedin-login', new LinkedAuth({
+        clientID: C.AUTH.LINKEDIN.ID,
+        clientSecret: C.AUTH.LINKEDIN.SECRET,
+        callbackUrl: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/linkedin/login/callback",
+        scope: ['r_emailaddress', 'r_basicprofile']
+    }, function() {
+
+    }));
+
+    passport.use('linkedin-signup', new LinkedAuth({
+        clientID: C.AUTH.LINKEDIN.ID,
+        clientSecret: C.AUTH.LINKEDIN.SECRET,
+        callbackUrl: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/linkedin/signup/callback",
+        scope: ['r_emailaddress', 'r_basicprofile']
+    }, function() {
+
     }));
 
 

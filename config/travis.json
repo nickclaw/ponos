@@ -30,6 +30,16 @@
         "GOOGLE": {
             "ID": "very_random_id",
             "SECRET": "super_duper_secret"
+        },
+
+        "FACEBOOK": {
+            "ID": "im_so_random_lol",
+            "SECRET": "shhhhhhhhhhhh"
+        },
+
+        "LINKEDIN": {
+            "ID": "id_ego_superego",
+            "SECRET": "makes_no_fun_hurts_everyone"
         }
     },
 

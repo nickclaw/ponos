@@ -36,11 +36,11 @@ Taken from `config/default.json`. You will need to fill out config files for the
 ```javascript
 {
     "APP": {
-        "MAX_CPUS": 4, // maximum number of clusters
-        "REVIVE": true, // fork a new process after one exits
-        "STDOUT": true, // log to stdout
-        "LOGFILE": "output.log", // relative to project root, leave empty for no file logging
-        "SEED": "veryrandomseed"
+        "MAX_CPUS": 4,
+        "REVIVE": true,
+        "SEED": "veryrandomseed",
+        "RES_DIR": "public/src",
+        "LIB_DIR": "public/lib"
      },
 
     "SERVER": {
@@ -71,6 +71,28 @@ Taken from `config/default.json`. You will need to fill out config files for the
         "GOOGLE": {
             "ID": "",
             "SECRET": ""
+        },
+
+        "FACEBOOK": {
+            "ID": "",
+            "SECRET": ""
+        },
+
+        "LINKEDIN": {
+            "ID": "",
+            "SECRET": ""
+        }
+    },
+
+    "LOGGING": {
+        "CONSOLE": {
+            "ENABLED": true,
+            "LEVEL": "silly"
+        },
+        "FILE": {
+            "ENABLED": true,
+            "LEVEL": "silly",
+            "NAME": "output.log"
         }
     }
 }

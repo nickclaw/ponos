@@ -6,6 +6,7 @@
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
+        "picture": "",
         "role": "worker",
 
         "worker": {
@@ -34,6 +35,7 @@
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
+        "picture": "",
         "role": "worker",
 
         "worker": {
@@ -62,6 +64,7 @@
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
+        "picture": "",
         "role": "employer",
 
         "worker": {},
@@ -89,6 +92,7 @@
         "phone": "1 555 555 5555",
         "birthdate": "12312313",
         "gender": "male",
+        "picture": "",
         "role": "employer",
 
         "worker": {},

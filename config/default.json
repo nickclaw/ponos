@@ -35,6 +35,11 @@
         "FACEBOOK": {
             "ID": "",
             "SECRET": ""
+        },
+
+        "LINKEDIN": {
+            "ID": "",
+            "SECRET": ""
         }
     },
 
