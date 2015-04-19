@@ -14,7 +14,7 @@ describe('user endpoint', function() {
         });
 
         it('should only show public properties', function() {
-            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'birthdate', 'gender', 'finished', 'new', 'role', 'employer', 'updated', 'created'])
+            expect(ret).to.have.keys(['_id', 'worker', 'firstName', 'lastName', 'phone', 'birthdate', 'gender', 'finished', 'new', 'role', 'picture', 'employer', 'updated', 'created'])
         });
 
         it('should return 404 with an unknown id', function() {

@@ -52,20 +52,15 @@ router
             if (!req.query.job) return next(db.NotFoundError("Application not found."));
 
             db.Application
-                .findOne({ $or: [
-                    {
-                        owner: req.$user.id,
-                        job: req.query.job
-                    },
-                    {
-                        applicant: req.$user.id,
-                        job: req.query.job
-                    }
-                ]})
+                .findOne({
+                    job: req.query.job
+                })
                 .populate('job')
                 .exec()
                 .then(function(app) {
                     if (!app) return next(db.NotFoundError("Application not found."));
+                    if (req.user.role === 'worker' && app.applicant !== req.user.id) return next(db.NotAllowedError());
+                    if (req.user.role === 'employer' && app.owner !== req.user.id) return next(db.NotAllowedError());
                     req.$app = app;
                     next();
                 }, next);
