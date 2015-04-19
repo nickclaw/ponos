@@ -1,7 +1,8 @@
 angular.module('scaffold').factory('Job', [
     '$resource',
+    '$rootScope',
     'Application',
-    function($resource, Application) {
+    function($resource, $rootScope, Application) {
 
         var Job = $resource(
             '/api/job/:_id',
@@ -16,6 +17,10 @@ angular.module('scaffold').factory('Job', [
                 search: { method: 'GET', url: '/api/job', isArray: true }
             }
         );
+
+        Job.prototype.$owned = function() {
+            return $rootScope.profile && $rootScope.profile._id === this.poster;
+        }
 
         Job.prototype.$getApplications = function(options) {
             return Application.browse({

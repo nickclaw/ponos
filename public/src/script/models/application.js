@@ -1,6 +1,7 @@
 angular.module('scaffold').factory('Application', [
     '$resource',
-    function($resource) {
+    '$rootScope',
+    function($resource, $rootScope) {
 
         var application = $resource(
             '/api/job/:job/application/:_id',

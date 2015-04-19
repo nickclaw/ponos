@@ -1,8 +1,9 @@
 angular.module('scaffold')
 .factory('User', [
     '$resource',
+    '$rootScope',
     'Job',
-    function($resource, Job) {
+    function($resource, $rootScope, Job) {
         var User = $resource(
             '/api/user/:_id',
             {
@@ -25,6 +26,10 @@ angular.module('scaffold')
             }
         );
 
+        User.prototype.$owned = function() {
+            return $rootScope.profile && $rootScope.profile._id === this._id;
+        }
+
         User.prototype.$getJobs = function(){
             return Job.search({ owner: this._id }); // GET /api/job?owner=:id
         }
@@ -38,12 +43,16 @@ angular.module('scaffold')
         }
 
         User.prototype.$isWorker = function() {
-            return true;
+            return this.role === 'worker';
         };
 
         User.prototype.$isEmployer = function() {
-            return true;
+            return this.role === 'employer';
         };
+
+        User.prototype.$isNew = function() {
+            return !this.role || this.new;
+        }
 
         return User;
     }
