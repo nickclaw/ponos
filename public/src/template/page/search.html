@@ -1,21 +1,21 @@
 <md-content>
+	<md-toolbar>
+    	<h1>Open Jobs</h1>
+    </md-toolbar>
 	<div layout="column">
-	    <h1>Open Jobs</h1>
 	    <md-list>
-	        <md-list-item ng-repeat="job in jobs">
-	        	<md-divider ng-inset></md-divider>
-	      		<img src="/static/image/paint_icon.png" />
-	            <h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
-	            <p>
-	            	<span>Date:</span> {{job.start}} to {{job.end}}
-	            </p>
-	            <p>
-	            	<span>Location:</span> {{job.location}}
-	            </p>
-	            <p>
-	            	<span>Rate:</span> {{job.rate}}
-	            <p>
-	        </md-list-item>
+	        <list-item ng-repeat="job in jobs">
+	        	<h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
+				<p>
+			        <span>Date:</span> {{job.start}} to {{job.end}}
+			    </p>
+			    <p>
+			        <span>Location:</span> {{job.location}}
+			    </p>
+			    <p>
+			        <span>Rate:</span> {{job.rate}}
+			    </p>
+	        </list-item>
 	    </md-list>
 	</div>
 </md-content>

@@ -1,14 +1,7 @@
 <md-list-item>
-	<md-divider ></md-divider>
-	<img src="http://cdn.flaticon.com/png/256/61972.png" />
-    <a ng-href="/job/{{job._id}}"><h2>{{job.title}}</h2></a>
-    <p>
-    	<span>Time:</span> {{job.start}} to {{job.end}}
-    </p>
-    <p>
-    	<span>Location:</span> {{job.location}}
-    </p>
-    <p>
-    	<span>Rate:</span> {{job.rate}}
-    <p>
+    <md-divider ng-inset></md-divider>
+    <img src="/static/image/paint_icon.png" />
+    <div ng-transclude>
+        <!-- List Item Content will appear here -->
+    </div>
 </md-list-item>

@@ -7,11 +7,12 @@ angular.module('scaffold')
 			return {
 				restrict:'E',
 				replace:'true',
+				transclude:'true',
+				scope:'true',
 				templateUrl:'/static/template/directive/list-item.html',
-				scope:{
-					item:'=obj',
-					type:'@'
+				link: function ($scope) {
+					console.log($scope);
 				}
 			}
 		}
-	])
+	]);

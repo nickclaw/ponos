@@ -1,17 +1,17 @@
-<h1>Index</h1>
-
-<div ng-if="!profile.$loggedIn">
+<div ng-if="!profile.$loggedIn" layout="column">
     <h4>Login</h4>
-    <a href="/login">link</a>
-    <a href="/auth/facebook/login" target="_self">facebook</a>
-    <a href="/auth/google/login" target="_self">google</a>
-    <a href="/auth/linkedin/login" target="_self">linkedin</a>
-
+    <div layout="row">
+        <a href="/login">link</a>
+        <a href="/auth/facebook/login" target="_self">facebook</a>
+        <a href="/auth/google/login" target="_self">google</a>
+        <a href="/auth/linkedin/login" target="_self">linkedin</a>
+    </div>
     <h4>Signup</h4>
+    <div layout="row">
     <a href="/auth/facebook/login/signup" target="_self">facebook</a>
     <a href="/auth/google/login/signup" target="_self">google</a>
     <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
-
+    </div>
     <form ng-submit="signup()">
         <md-input-container>
             <label>Email</label>

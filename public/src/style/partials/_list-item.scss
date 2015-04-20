@@ -1,5 +1,6 @@
 md-content div {
 	width: 75%;
+	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 
@@ -29,27 +30,28 @@ md-list-item {
 		margin-top: -15px;
 		margin-left: 5px;
 	}
+	div {
+		h2 {
+			padding-top: 10px;
+			padding-left: 10px;
+			margin: 0;
 
-	h2 {
-		padding-left: 65px;
-		padding-top: 10px;
-		margin: 0;
-		a {
-			color: $scaffold-blue;
-			text-decoration: none;
+			a {
+				color: $scaffold-blue;
+				text-decoration: none;
+			}
 		}
 
-	}
-
-	p {
-		color: $scaffold-gray;
-		margin: 0;
-		position: relative;
-		clear: left;
-		left: 10%;
-		span {
-			font-weight: bold;
-			color: black;
+		p {
+			color: $scaffold-gray;
+			margin: 0;
+			position: relative;
+			clear: left;
+			left: 10%;
+			span {
+				font-weight: bold;
+				color: black;
+			}
 		}
 	}
 
