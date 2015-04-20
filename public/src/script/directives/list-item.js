@@ -6,29 +6,11 @@ angular.module('scaffold')
 
 			return {
 				restrict:'E',
-				templateUrl:'',
+				replace:'true',
+				templateUrl:'/static/template/directive/list-item.html',
 				scope:{
 					item:'=obj',
-					onChange:'&',
 					type:'@'
-				},
-				transclude: true,
-				link: function($scope, elem, attr) {
-
-					$scope.item === obj;
-
-					$scope.onChange();
-
-					$scope.type === 'jobpost';
-
-					$scope.$watch('item.id', function(newId, oldId) {
-
-					});
-
-					document.addEventListener('load', function() {
-						$scope.src = "asdfasfds";
-						$scope.$digest();
-					});
 				}
 			}
 		}
