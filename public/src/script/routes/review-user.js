@@ -47,7 +47,7 @@ angular.module('scaffold')
         }
 
         function cancel() {
-            $location.url('/'):
+            $location.url('/');
         }
     }
 ]);

@@ -1,27 +1,58 @@
-<h1>Index</h1>
+<md-content>
+    <h1>Index</h1>
 
-<div ng-if="!profile.$loggedIn">
-    <h4>Login</h4>
-    <a href="/login">link</a>
-    <a href="/auth/facebook/login" target="_self">facebook</a>
-    <a href="/auth/google/login" target="_self">google</a>
-    <a href="/auth/linkedin/login" target="_self">linkedin</a>
+    <!-- case: logged out -->
+    <div ng-if="!profile.$loggedIn">
+        <h4>Login</h4>
+        <a href="/login">link</a>
+        <a href="/auth/facebook/login" target="_self">facebook</a>
+        <a href="/auth/google/login" target="_self">google</a>
+        <a href="/auth/linkedin/login" target="_self">linkedin</a>
 
-    <h4>Signup</h4>
-    <a href="/auth/facebook/login/signup" target="_self">facebook</a>
-    <a href="/auth/google/login/signup" target="_self">google</a>
-    <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
+        <h4>Signup</h4>
+        <a href="/auth/facebook/login/signup" target="_self">facebook</a>
+        <a href="/auth/google/login/signup" target="_self">google</a>
+        <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
 
-    <form ng-submit="signup()">
-        <md-input-container>
-            <label>Email</label>
-            <input ng-model="auth.email" />
-        </md-input-container>
+        <form ng-submit="signup()">
+            <md-input-container>
+                <label>Email</label>
+                <input ng-model="auth.email" />
+            </md-input-container>
 
-        <md-input-container>
-            <label>Password</label>
-            <input ng-model="auth.password" type="password" />
-        </md-input-container>
-        <md-button type="submit">Login</md-button>
-    </form>
-</div>
+            <md-input-container>
+                <label>Password</label>
+                <input ng-model="auth.password" type="password" />
+            </md-input-container>
+            <md-button type="submit">Login</md-button>
+        </form>
+    </div>
+
+    <!-- case: is worker -->
+    <div ng-if="profile.$isWorker()">
+        <md-tabs md-selected="d.selectedIndex">
+            <md-tab id="user-jobs">My Jobs</md-tab>
+            <md-tab id="user-pending">Pending</md-tab>
+            <md-tab id="user-review">Review</md-tab>
+        </md-tabs>
+        <md-list>
+            <md-item ng-repeat="result in results">
+
+            </md-item>
+        </md-list>
+    </div>
+
+    <!-- case: is employer -->
+    <div ng-if="profile.$isEmployer()">
+        <md-tabs md-selected="selectedIndex">
+            <md-tab id="user-filled">Filled</md-tab>
+            <md-tab id="user-open">Open</md-tab>
+            <md-tab id="user-review">Review</md-tab>
+        </md-tabs>
+        <md-list>
+            <md-item ng-repeat="result in results">
+
+            </md-item>
+        </md-list>
+    </div>
+</md-content>
