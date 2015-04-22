@@ -1,0 +1,63 @@
+md-content div {
+  width: 75%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto; }
+  md-content div h1 {
+    margin-left: auto;
+    margin-right: auto; }
+  md-content div img {
+    height: 50px;
+    width: 50px;
+    bottom: 40px; }
+
+md-list-item {
+  display: block;
+  margin-bottom: 20px; }
+  md-list-item img {
+    height: 50px;
+    width: 50px;
+    float: left;
+    overflow: hidden;
+    margin-top: -15px;
+    margin-left: 5px; }
+  md-list-item div h2 {
+    padding-top: 10px;
+    padding-left: 10px;
+    margin: 0; }
+    md-list-item div h2 a {
+      color: #009AB0;
+      text-decoration: none; }
+  md-list-item div p {
+    color: #808080;
+    margin: 0;
+    position: relative;
+    clear: left;
+    left: 10%; }
+    md-list-item div p span {
+      font-weight: bold;
+      color: black; }
+
+md-sidenav md-toolbar img {
+  height: 100px;
+  width: 80%;
+  margin: auto;
+  padding-top: 10px; }
+md-sidenav md-content {
+  margin-top: 15px; }
+  md-sidenav md-content md-divider {
+    margin-top: 15px; }
+
+body {
+  font-family: Roboto, Helvetica, sans-serif; }
+
+#main md-toolbar {
+  height: 100px; }
+  #main md-toolbar h1 {
+    color: white;
+    margin: auto;
+    margin-bottom: 20%; }
+#main md-content > div {
+  padding-top: 5%; }
+
+/*# sourceMappingURL=app.css.map */

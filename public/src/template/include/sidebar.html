@@ -3,14 +3,14 @@
     class="md-sidenav-left md-whiteframe-z2"
     style="height: 100vh;" >
 
-    <md-toolbar >
-
+    <md-toolbar>
+        <img src='/static/image/header-logo.png' />
     </md-toolbar>
 
     <md-content layout="column">
-        <md-button href="/">Home</md-button>
-        <md-button href="/job">Create Job</md-button>
-        <md-button href="/search">Search jobs</md-button>
+        <md-button class="md-warn" href="/">Home</md-button>
+        <md-button class="md-warn" href="/job">Create Job</md-button>
+        <md-button class="md-warn" href="/search">Search jobs</md-button>
         <md-divider></md-divider>
         <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
     </md-content>

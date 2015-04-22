@@ -1,9 +1,21 @@
 <md-content>
-    <h1>Search</h1>
-    <md-list>
-        <md-item ng-repeat="job in jobs">
-            <h2>{{job.title}}</h2>
-            <md-button ng-href="/job/{{job._id}}">View</md-button>
-        </md-item>
-    </md-list>
+	<md-toolbar>
+    	<h1>Open Jobs</h1>
+    </md-toolbar>
+	<div layout="column">
+	    <md-list>
+	        <list-item ng-repeat="job in jobs">
+	        	<h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
+				<p>
+			        <span>Date:</span> {{job.start}} to {{job.end}}
+			    </p>
+			    <p>
+			        <span>Location:</span> {{job.location}}
+			    </p>
+			    <p>
+			        <span>Rate:</span> {{job.rate}}
+			    </p>
+	        </list-item>
+	    </md-list>
+	</div>
 </md-content>

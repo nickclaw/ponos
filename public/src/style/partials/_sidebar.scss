@@ -1,0 +1,20 @@
+md-sidenav {
+	md-toolbar {
+
+		img {
+			height: 100px;
+			width: 80%;
+			margin: auto;
+			padding-top: 10px;
+		}
+	}
+	md-content {
+		margin-top: 15px;
+		md-button {
+
+		}
+		md-divider {
+			margin-top: 15px;
+		}
+	}
+}
