@@ -43,27 +43,18 @@ angular.module('scaffold')
             var profile = $scope.profile,
                 role = profile.role;
 
-            if (!role) return;
-
             $scope.results = [];
-            $http.get(indexes[role][index])
+            $http.get(indexes[index])
                 .then(function(results) {
                     $scope.results = results;
                 });
         }
 
         // how to get tab content
-        var indexes = {
-            worker: [
-                '/api/user/me/my',
-                '/api/user/me/pending',
-                '/api/user/me/review'
-            ],
-            employer: [
-                '/api/user/me/filled',
-                '/api/user/me/open',
-                '/api/user/me/review'
-            ]
-        }
+        var indexes = [
+            '/api/user/me/jobs/upcoming',
+            '/api/user/me/jobs/pending',
+            '/api/user/me/jobs/review'
+        ];
     }
 ]);

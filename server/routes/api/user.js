@@ -119,66 +119,58 @@ router.use('/:user/review', require('./review'));
 //
 // Which jobs are upcoming and filled
 // employers only
-router.get('/:user/jobs/upcoming', function() {
-    db.Application
-        .find({owner: req.user.id})
-        .populate('job')
-        .exec()
-        .then(function(apps) {
-            var jobs = {};
+router.get('/:user/jobs/upcoming',
+    function(req, res, next) {
+        var query = req.user.role === 'employer' ?
+            {
+                owner: req.user.id
+            }
+        :
+            {
 
-            apps.forEach(function(app) {
-                var job = app.job;
-                if (!jobs[job._id]) jobs[job._id] = 0;
-                if (typeof jobs[job._id] !== 'number') return;
-                jobs[job._id]++;
-                if (jobs[job._id] >= job.needed) jobs[job._id] = job;
-            });
+            }
+        ;
 
-            jobs = _.filter(jobs, function(job) {
-                return typeof job !== 'number';
-            }).map(function(job) {
-                return db.Job.screen('view', job);
-            });
+        db.Application
+            .find(query)
+            .populate('job')
+            .exec()
+            .then(function(apps) {
+                var jobs = {};
 
-            res.send(jobs);
+                apps.forEach(function(app) {
+                    var job = app.job;
+                    if (!jobs[job._id]) jobs[job._id] = 0;
+                    if (typeof jobs[job._id] !== 'number') return;
+                    jobs[job._id]++;
+                    if (jobs[job._id] >= job.needed) jobs[job._id] = job;
+                });
 
-        }, next);
-});
+                jobs = _.filter(jobs, function(job) {
+                    return typeof job !== 'number';
+                }).map(function(job) {
+                    return db.Job.screen('view', job);
+                });
 
-//
-// Which jobs are upcoming and open
-// employers only
-// router.get('/:user/jobs/open',
-//     util.auth,
-//     util.owns,
-//     function(req, res, next) {
-//
-//     }
-// );
+                res.send(jobs);
 
-//
-// Which jobs have you been accepted to and are upcoming
-// workers only
-router.get('/:user/jobs/accepted', function() {
+            }, next);
+    }
+);
 
-});
 
-//
-// Which jobs are you waiting to hear back from and are upcoming
-// workers only
-router.get('/:user/jobs/pending', function() {
+router.get('/:user/jobs/open',
+    function(req, res, next) {
 
-});
+    }
+);
 
-//
-// Which jobs need to be reviewed
-// everyone
-router.get('/:user/jobs/review', function() {
+router.get('/:user/jobs/review',]
+    function(req, res, next) {
 
-});
+    }
+);
 
-// router.get('/:user/jobs/')
 
 //
 // Util
