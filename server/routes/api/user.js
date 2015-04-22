@@ -95,81 +95,81 @@ var userJobsQueryValidator = vlad.middleware({
     type: vlad.enum('filled', 'pending', 'open', 'old')
 });
 
-router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
-    db.Job
-        .find({poster: req.user._id})
-        .lean()
-        .limit(req.query.offset)
-        .skip(req.query.offset)
-        .exec().then(function(jobs) {
-            res.send(jobs.map(function(job) {
-                return job.render(req.user);
-            }));
-        }, next);
-});
-
-router.use('/:user/review', require('./review'));
-
-
+// router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
+//     db.Job
+//         .find({poster: req.user._id})
+//         .lean()
+//         .limit(req.query.offset)
+//         .skip(req.query.offset)
+//         .exec().then(function(jobs) {
+//             res.send(jobs.map(function(job) {
+//                 return job.render(req.user);
+//             }));
+//         }, next);
+// });
 //
-// Slow, terrible api calls for main page
-// Please forgive me...
+// router.use('/:user/review', require('./review'));
 //
-
 //
-// Which jobs are upcoming and filled
-// employers only
-router.get('/:user/jobs/upcoming',
-    function(req, res, next) {
-        var query = req.user.role === 'employer' ?
-            {
-                owner: req.user.id
-            }
-        :
-            {
-
-            }
-        ;
-
-        db.Application
-            .find(query)
-            .populate('job')
-            .exec()
-            .then(function(apps) {
-                var jobs = {};
-
-                apps.forEach(function(app) {
-                    var job = app.job;
-                    if (!jobs[job._id]) jobs[job._id] = 0;
-                    if (typeof jobs[job._id] !== 'number') return;
-                    jobs[job._id]++;
-                    if (jobs[job._id] >= job.needed) jobs[job._id] = job;
-                });
-
-                jobs = _.filter(jobs, function(job) {
-                    return typeof job !== 'number';
-                }).map(function(job) {
-                    return db.Job.screen('view', job);
-                });
-
-                res.send(jobs);
-
-            }, next);
-    }
-);
-
-
-router.get('/:user/jobs/open',
-    function(req, res, next) {
-
-    }
-);
-
-router.get('/:user/jobs/review',]
-    function(req, res, next) {
-
-    }
-);
+// //
+// // Slow, terrible api calls for main page
+// // Please forgive me...
+// //
+//
+// //
+// // Which jobs are upcoming and filled
+// // employers only
+// router.get('/:user/jobs/upcoming',
+//     function(req, res, next) {
+//         var query = req.user.role === 'employer' ?
+//             {
+//                 owner: req.user.id
+//             }
+//         :
+//             {
+//
+//             }
+//         ;
+//
+//         db.Application
+//             .find(query)
+//             .populate('job')
+//             .exec()
+//             .then(function(apps) {
+//                 var jobs = {};
+//
+//                 apps.forEach(function(app) {
+//                     var job = app.job;
+//                     if (!jobs[job._id]) jobs[job._id] = 0;
+//                     if (typeof jobs[job._id] !== 'number') return;
+//                     jobs[job._id]++;
+//                     if (jobs[job._id] >= job.needed) jobs[job._id] = job;
+//                 });
+//
+//                 jobs = _.filter(jobs, function(job) {
+//                     return typeof job !== 'number';
+//                 }).map(function(job) {
+//                     return db.Job.screen('view', job);
+//                 });
+//
+//                 res.send(jobs);
+//
+//             }, next);
+//     }
+// );
+//
+//
+// router.get('/:user/jobs/open',
+//     function(req, res, next) {
+//
+//     }
+// );
+//
+// router.get('/:user/jobs/review',]
+//     function(req, res, next) {
+//
+//     }
+// );
 
 
 //
