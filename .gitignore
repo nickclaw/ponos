@@ -1,10 +1,16 @@
+# deps
 node_modules/*
 public/lib/*
-npm-debug.log
+
+# config
 config/*.json
 !config/default.json
 !config/travis.json
+
+# generated
+*.log
 public/build/*
 .sass-cache
-*.log
 babel.json
+*.css
+*.map

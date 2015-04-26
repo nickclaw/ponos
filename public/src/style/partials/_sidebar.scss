@@ -1,18 +1,20 @@
 md-sidenav {
-	md-toolbar {
+	width: 250px;
 
-		img {
-			height: 100px;
-			width: 80%;
-			margin: auto;
-			padding-top: 10px;
-		}
+	md-toolbar .md-button {
+		background-image: url(../image/header-logo.png);
+		background-size: contain;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		flex: 1;
 	}
 	md-content {
 		margin-top: 15px;
-		md-button {
 
+		.md-button {
+			display: block;
 		}
+
 		md-divider {
 			margin-top: 15px;
 		}

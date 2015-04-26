@@ -3,12 +3,16 @@ $scaffold-orange: #F7911E;
 $scaffold-blue: #009AB0;
 $scaffold-gray: #808080;
 
-@import "partials/_list-item.scss";
-@import "partials/_sidebar.scss";
-
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	display: relative;
+}
 
 body {
 	font-family: $font-stack;
+	text-rendering: optimize-legibility;
 }
 
 #main {
@@ -24,3 +28,6 @@ body {
 		padding-top: 5%;
 	}
 }
+
+@import "partials/_list-item.scss";
+@import "partials/_sidebar.scss";
