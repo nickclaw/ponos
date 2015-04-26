@@ -1,0 +1,31 @@
+.info {
+
+    h1 {
+        text-align: center;
+        display: block;
+        margin: 4px;
+    }
+
+    .detail {
+        padding: 10px 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        label {
+            color: $scaffold-orange;
+            &:after {
+                content: ":";
+            }
+        }
+
+        span {
+            color: black;
+        }
+    }
+
+    .item {
+        border-bottom: 1px solid $scaffold-gray;
+    }
+
+}

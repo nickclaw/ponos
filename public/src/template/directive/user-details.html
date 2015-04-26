@@ -1,0 +1,18 @@
+<div class="user-details">
+
+    <!-- case: error -->
+    <div ng-if="errored" layout="row" layout-align="center center">
+
+    </div>
+
+    <!-- case: loading -->
+    <div ng-if="!loaded" layout="row" layout-align="center center">
+        <md-progress-circular></md-progress-circular>
+    </div>
+
+    <!-- case: loaded -->
+    <div ng-if="loaded && !errored" layout="row">
+        <icon src="{{user.picture}}"></icon>
+    </div>
+
+</div>
