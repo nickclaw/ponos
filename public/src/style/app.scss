@@ -7,7 +7,7 @@ $scaffold-gray: #808080;
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
-	display: relative;
+	position: relative;
 }
 
 body {
@@ -16,17 +16,7 @@ body {
 }
 
 #main {
-	md-toolbar {
-		height: 100px;
-		h1 {
-			color: white;
-			margin: auto;
-			margin-bottom: 20%;
-		}
-	}
-	md-content > div{
-		padding-top: 5%;
-	}
+
 }
 
 @import "partials/_list-item.scss";

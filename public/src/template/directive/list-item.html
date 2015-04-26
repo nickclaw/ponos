@@ -1,7 +1,11 @@
-<md-list-item>
+<md-list-item class="list-item">
     <md-divider ng-inset></md-divider>
-    <img src="/static/image/paint_icon.png" />
-    <div ng-transclude>
-        <!-- List Item Content will appear here -->
+    <div layout="row">
+        <div class="list-item-icon">
+            <img src="/static/image/paint_icon.png" />
+        </div>
+        <div class="list-item-content" ng-transclude>
+            <!-- List Item Content will appear here -->
+        </div>
     </div>
 </md-list-item>

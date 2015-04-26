@@ -10,11 +10,14 @@
     <body layout="row">
         <ng-include src="'/static/template/include/sidebar.html'"></ng-include>
         <div id="main" layout="column" flex>
+            <md-toolbar>
+                <h1 class="md-toolbar-tools">Scaffold</h1>
+            </md-toolbar>
             <main ng-view layout="column" flex>
 
             </main>
         </main>
-        
+
         <script>
             window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
         </script>
