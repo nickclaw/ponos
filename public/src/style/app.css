@@ -48,6 +48,40 @@ md-sidenav md-content {
   md-sidenav md-content md-divider {
     margin-top: 15px; }
 
+#main {
+  /*
+  something screwy is going with the login buttons 
+  	(this is a mess right now) ~ still a mess
+  */ }
+  #main md-content > div {
+    padding-top: 5%;
+    margin-bottom: 5%; }
+    #main md-content > div h4 {
+      margin: auto;
+      padding: 20px; }
+    #main md-content > div div > div {
+      width: 100%;
+      padding: 10px; }
+      #main md-content > div div > div button {
+        height: 50px;
+        width: 170px; }
+  #main .signin-logo {
+    width: 100%;
+    max-height: 50px;
+    min-width: 130px;
+    max-width: 180px; }
+  #main .logo {
+    height: 40px;
+    width: 40px; }
+  #main [layout-sm~=column] {
+    padding-bottom: 0px;
+    padding-top: 0px; }
+  #main button {
+    background-color: #009AB0;
+    color: white; }
+  #main button[type~=submit] {
+    width: 100%; }
+
 body {
   font-family: Roboto, Helvetica, sans-serif; }
 
@@ -57,7 +91,25 @@ body {
     color: white;
     margin: auto;
     margin-bottom: 20%; }
-#main md-content > div {
-  padding-top: 5%; }
+
+/* Show/Hide mobile toolbar */
+@media screen and (min-width: 0px) and (max-width: 600px) {
+  #mobile-toolbar {
+    display: inherit;
+    width: 100%;
+    padding: 10px; }
+    #mobile-toolbar img {
+      height: 100px;
+      width: 50%;
+      padding-top: 10px; }
+
+  .page-title {
+    display: none; } }
+@media screen and (min-width: 601px) and (max-width: 3000px) {
+  #mobile-toolbar {
+    display: none; }
+
+  .page-title {
+    display: inline-block; } }
 
 /*# sourceMappingURL=app.css.map */

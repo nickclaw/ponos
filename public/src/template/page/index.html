@@ -1,32 +1,44 @@
 <md-content>
-    <h1>Index</h1>
-
+    <md-toolbar>
+        <!-- probably should be a directive -->
+        <div layout="row" layout-align="space-between center" id="mobile-toolbar">
+            <a href="">Menu</a>
+            <img src="/static/image/header-logo.png">
+            <a href="/search">Jobs</a>
+        </div>
+    </md-toolbar>
     <!-- case: logged out -->
     <div ng-if="!profile.$loggedIn">
+        <div layout="column">
+            <h4>Returning to Scaffold?</h4>
+            <div layout="row" layout-align="space-between center" layout-sm="column">
+                <a href="/login"><md-button>Login</md-button></a>
+                <a href="/auth/facebook/login" target="_self"><img src="/static/image/facebook_login.png" class="signin-logo"></a>
+            </div>
+            <div layout="row" layout-align="space-between center" layout-sm="column">
+                <a href="/auth/google/login" target="_self"><img src="/static/image/google_login.png" class="signin-logo"></a>
+                <a href="/auth/linkedin/login" target="_self"><img src="/static/image/linkedin_login.png" class="signin-logo"></a>
+            </div>
+            <md-divider></md-divider>
+            <h4>New to Scaffold?</h4>
+            <div layout="row" layout-align="space-between center">
+                <a href="/auth/facebook/login/signup" target="_self"><img src="/static/image/facebook_logo.png" class="logo"></a>
+                <a href="/auth/google/login/signup" target="_self"><img src="/static/image/google_logo.png" class="logo"></a>
+                <a href="/auth/linkedin/login/signup" target="_self"><img src="/static/image/linkedin_logo.png" class="logo"></a>
+            </div>
+            <form ng-submit="signup()" layout="column" layout-align="center">
+                <md-input-container>
+                    <label>Email</label>
+                    <input ng-model="auth.email" />
+                </md-input-container>
 
-        <h4>Login</h4>
-        <a href="/login">link</a>
-        <a href="/auth/facebook/login" target="_self">facebook</a>
-        <a href="/auth/google/login" target="_self">google</a>
-        <a href="/auth/linkedin/login" target="_self">linkedin</a>
-
-        <h4>Signup</h4>
-        <a href="/auth/facebook/login/signup" target="_self">facebook</a>
-        <a href="/auth/google/login/signup" target="_self">google</a>
-        <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
-
-        <form ng-submit="signup()">
-            <md-input-container>
-                <label>Email</label>
-                <input ng-model="auth.email" />
-            </md-input-container>
-
-            <md-input-container>
-                <label>Password</label>
-                <input ng-model="auth.password" type="password" />
-            </md-input-container>
-            <md-button type="submit">Login</md-button>
-        </form>
+                <md-input-container>
+                    <label>Password</label>
+                    <input ng-model="auth.password" type="password" />
+                </md-input-container>
+                <md-button type="submit">Sign Up</md-button>
+            </form>
+        </div>
     </div>
 
     <!-- case: is worker -->
