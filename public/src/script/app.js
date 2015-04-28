@@ -36,9 +36,18 @@ angular.module('scaffold', [
 
 .run([
     '$rootScope',
+    '$mdSidenav',
     'profile',
-    function($rootScope, profile) {
+    function($rootScope, $mdSidenav, profile) {
         $rootScope.profile = profile;
+
+        $rootScope.toggleNav = function() {
+           $mdSidenav('nav').toggle();
+           
+        };
+
+        $rootScope.$on('$routeChangeStart', function() {
+           $mdSidenav('nav').close();
+        });
     }
 ]);
-
