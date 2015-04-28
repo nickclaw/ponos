@@ -84,6 +84,8 @@ router
         send
     );
 
+router.use('/:user/review', require('./review'));
+
 
 //
 // Search users jobs
@@ -108,7 +110,6 @@ var userJobsQueryValidator = vlad.middleware({
 //         }, next);
 // });
 //
-// router.use('/:user/review', require('./review'));
 //
 //
 // //

@@ -27,9 +27,9 @@ angular.module('scaffold')
         $scope.job = job;
         $scope.review = {
             comment: "",
-            a: undefined,
-            b: undefined,
-            c: undefined
+            a: 0,
+            b: 0,
+            c: 0
         };
         $scope.submit = review;
         $scope.cancel = cancel;
