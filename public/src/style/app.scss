@@ -15,8 +15,8 @@ body {
 	text-rendering: optimize-legibility;
 }
 
-#main {
-
+.md-button[type ~= submit] {
+	flex: 2;
 }
 
 @import "partials/list-item";

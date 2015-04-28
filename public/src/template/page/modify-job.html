@@ -23,19 +23,21 @@
                 <input ng-model="job.end" />
             </md-input-container>
         </div>
+
+        <div layout="row">
+            <md-input-container>
+                <label>Needs</label>
+                <input ng-model="job.needed" />
+            </md-input-container>
+
+            <md-input-container>
+                <label>Rate</label>
+                <input ng-model="job.rate" />
+            </md-input-container>
+        </div>
         <md-input-container>
             <label>Description</label>
             <textarea ng-model="job.description"></textarea>
-        </md-input-container>
-
-        <md-input-container>
-            <label>Needs</label>
-            <input ng-model="job.needed" />
-        </md-input-container>
-
-        <md-input-container>
-            <label>Rate</label>
-            <input ng-model="job.rate" />
         </md-input-container>
 
         <md-input-container>
