@@ -1,0 +1,48 @@
+.image-upload {
+    width: 100%;
+
+    .image-upload-drop-zone {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        display: none;
+        background-color: rgba(255, 255, 255, .8);
+        pointer-events: none;
+        border: dashed 4px rgb(20, 113, 250);
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:after {
+            content: "Drop image here.";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+    }
+
+    .image-upload-image {
+        width: 60%;
+        height: 0px;
+        padding-top: 60%;
+        margin: 0 auto;
+        border-radius: 50%;
+
+        background-color: rgb(200,200,200);
+        background-size: fill;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .image-upload-options {
+        margin: 10px 0px 0px 0px;
+    }
+}
+
+.image-upload.dragover .image-upload-drop-zone {
+    display: block;
+}

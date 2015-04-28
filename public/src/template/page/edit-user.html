@@ -3,7 +3,10 @@
 
     <h3>Basic Info</h3>
 
+    <image-upload ng-model="user.picture"></image-upload>
+
     <form ng-submit="save()">
+
         <md-input-container>
             <label>First Name</label>
             <input ng-model="user.firstName" />

@@ -14,3 +14,7 @@ public/build/*
 babel.json
 *.css
 *.map
+
+# user added
+public/src/upload/*
+!public/src/upload/.gitkeep
