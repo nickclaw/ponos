@@ -1,13 +1,18 @@
-<md-content>
-    <h1>View User</h1>
-    <pre>
-{{user|json}}
-    </pre>
+<md-content class="info">
+
+    <user-details user="user"></user-details>
+
+    <div class="detail item long">
+        <label>Bio</label>
+        <span>{{user.$isWorker() ? user.worker.bio : user.employer.bio}}</span>
+    </div>
 
     <h3>Reviews</h3>
-    <pre>
-{{reviews|json}}
-    </pre>
+    <div class="detail item" ng-repeat="review in reviews.comments">
+        {{review}}
+    </div>
 
-    <md-button href="/user/{{user._id}}/edit">Edit</md-button>
+    <div class="buttons" ng-if="user.$owned()">
+        <md-button class="md-accent md-raised" href="/user/{{user._id}}/edit">Edit</md-button>
+    </div>
 </md-content>

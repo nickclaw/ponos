@@ -10,9 +10,10 @@ angular.module('scaffold').directive('userDetails', [
             },
             link: function($scope, elem, attr) {
                 $scope.short = false;
-                $scope.loaded = false;
+                $scope.loaded = true;
                 $scope.errored = false;
                 $scope.user = $scope._user;
+                $scope.reviews = null;
 
                 $scope.$watch('user', function(user) {
                     $scope.errored = false;
@@ -42,7 +43,10 @@ angular.module('scaffold').directive('userDetails', [
                     }
 
                     // case: user object!
-                    // do nothing..
+                    // just retrieve reviews
+
+                    $scope.review = $scope.user.$getReviews();
+
                 });
             }
         };

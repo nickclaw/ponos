@@ -13,6 +13,16 @@
     <!-- case: loaded -->
     <div ng-if="loaded && !errored" layout="row">
         <icon src="user.picture"></icon>
+        <div layout="column" flex>
+            <h3>{{user.firstName}} {{user.lastName}}</h3>
+            <div layout="row" flex layout-align="end center">
+                <div class="star" ng-class="{disabled: review.a < 1}" ></div>
+                <div class="star" ng-class="{disabled: review.a < 2}" ></div>
+                <div class="star" ng-class="{disabled: review.a < 3}" ></div>
+                <div class="star" ng-class="{disabled: review.a < 4}" ></div>
+                <div class="star" ng-class="{disabled: review.a < 5}" ></div>
+            </div>
+        </div>
     </div>
 
 </div>
