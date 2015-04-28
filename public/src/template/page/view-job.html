@@ -2,7 +2,7 @@
 
     <h1 class="item">{{job.title}}</h1>
 
-    <user-details class="item" user="job.poster"></user-details>
+    <user-details class="item detail" user="job.poster"></user-details>
 
     <div class="detail item">
         <label>Rate</label>
@@ -19,7 +19,24 @@
         <span>{{job.location|json}}</span>
     </div>
 
-    <md-button href="/job/{{job._id}}/edit">Edit</md-button>
-    <md-button href="/job/{{job._id}}/apply">Apply</md-button>
-    <md-button href="/user/{{job.poster}}">View User</md-button>
+    <div ng-if="job.description" class="detail long item">
+        <label>Description</label>
+        <span>{{job.description}}</span>
+    </div>
+
+    <div ng-if="job.required" class="detail long item">
+        <label>Equipment Required</label>
+        <span>{{job.required}}</span>
+    </div>
+
+    <div ng-if="job.perks" class="detail long item">
+        <label>Perks</label>
+        <span>{{job.perks}}</span>
+    </div>
+
+    <div class="buttons">
+        <md-button class="md-accent md-raised" ng-if="job.$owned(profile)" href="/job/{{job._id}}/edit">Edit</md-button>
+        <md-button class="md-accent md-raised" ng-if="profile.$isWorker()" href="/job/{{job._id}}/apply">Apply</md-button>
+    </div>
+
 <md-content>
