@@ -1,5 +1,7 @@
-<md-content>
+<md-content class="info">
     <h1>Modify Job</h1>
+
+    <image-upload ng-model="job.picture"></image-upload>
 
     <form ng-submit="save()">
         <md-input-container>
@@ -7,16 +9,11 @@
             <input ng-model="job.title" />
         </md-input-container>
 
-        <div layout="row">
-            <md-input-container>
-                <label>Latitude</label>
-                <input ng-model="job.location.lat" />
-            </md-input-container>
-            <md-input-container>
-                <label>Longitude</label>
-                <input ng-model="job.location.long" />
-            </md-input-container>
-        </div>
+        <md-input-container>
+            <label>Location</label>
+            <input ng-model="job.location.name" />
+        </md-input-container>
+
         <div layout="row">
             <md-input-container>
                 <label>Start</label>
@@ -53,6 +50,8 @@
             <input ng-model="job.perks" />
         </md-input-container>
 
-        <md-button type="submit">Post</md-button>
+        <div class="buttons">
+            <md-button class="md-accent md-raised" type="submit">Post</md-button>
+        </div>
     </form>
 </md-content>
