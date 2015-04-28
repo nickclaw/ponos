@@ -35,7 +35,7 @@
     </div>
 
     <div class="buttons">
-        <md-button class="md-accent md-raised" ng-if="job.$owned(profile)" href="/job/{{job._id}}/edit">Edit</md-button>
+        <md-button class="md-accent md-raised" ng-if="job.$owned()" href="/job/{{job._id}}/edit">Edit</md-button>
         <md-button class="md-accent md-raised" ng-if="profile.$isWorker()" href="/job/{{job._id}}/apply">Apply</md-button>
     </div>
 

@@ -3,16 +3,19 @@ angular.module('scaffold').directive('icon', [
         return {
             restrict: "E",
             scope: {
-                src: "@"
+                src: "="
             },
             link: function($scope, elem) {
-                var img = new Image();
-                img.src = $scope.src;
-                img.onload = function() {
-                    elem.css('backgroundImage', 'url(' + $scope.src + ')');
-                    elem.addClass('loaded');
-                    img.onload = null;
-                };
+
+                $scope.$watch('src', function() {
+                    var img = new Image();
+                    img.src = $scope.src;
+                    img.onload = function() {
+                        elem.css('backgroundImage', 'url(' + $scope.src + ')');
+                        elem.addClass('loaded');
+                        img.onload = null;
+                    };
+                });
             }
         }
     }

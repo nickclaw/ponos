@@ -6,12 +6,13 @@ angular.module('scaffold').directive('userDetails', [
             templateUrl: '/static/template/directive/user-details.html',
             replace: true,
             scope: {
-                user: '='
+                _user: '=user'
             },
             link: function($scope, elem, attr) {
                 $scope.short = false;
                 $scope.loaded = false;
                 $scope.errored = false;
+                $scope.user = $scope._user;
 
                 $scope.$watch('user', function(user) {
                     $scope.errored = false;

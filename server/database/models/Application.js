@@ -36,6 +36,7 @@ var whitelist = {
         owner: true,
         applicant: true,
         blurb: true,
-        created: true
+        created: true,
+        state: true
     }
 };

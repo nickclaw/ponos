@@ -1,30 +1,59 @@
 <md-content>
-    <h1>View Applications</h1>
-    <h2>Job: {{job.title}}</h2>
+
+    <div class="info">
+        <h2>{{job.title}}</h2>
+        <div class="detail item">
+            <h4>{{job.description}}</h4>
+        </div>
+        <div class="detail item">
+            <h4>{{job.start}} to {{job.end}}</h4>
+        </div>
+    </div>
 
     <md-tabs>
         <md-tab label="accepted">
             <md-list>
-                <md-item ng-repeat="application in applications.accepted">
-                    <h3>{{application.blurb}}</h3>
-                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
-                </md-item>
+                <!-- case: empty -->
+                <md-list-item ng-if="!applications.accepted.length" layout="row" layout-align="center center">
+                    No applications..
+                </md-list-item>
+
+                <!-- case: -->
+                <app-item ng-repeat="app in applications.accepted" app="app">
+                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                    <p>{{app.blurb}}</p>
+                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
+                </app-item>
             </md-list>
         </md-tab>
         <md-tab label="pending">
             <md-list>
-                <md-item ng-repeat="application in applications.pending">
-                    <h3>{{application.blurb}}</h3>
-                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
-                </md-item>
+                <!-- case: empty -->
+                <md-list-item ng-if="!applications.pending.length" layout="row" layout-align="center center">
+                    No applications..
+                </md-list-item>
+
+                <!-- case: -->
+                <app-item ng-repeat="app in applications.pending" app="app">
+                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                    <p>{{app.blurb}}</p>
+                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
+                </app-item>
             </md-list>
         </md-tab>
         <md-tab label="waiting">
             <md-list>
-                <md-item ng-repeat="application in applications.waiting">
-                    <h3>{{application.blurb}}</h3>
-                    <md-button href="/job/{{application.job._id}}/applications/{{application._id}}">Review</md-button>
-                </md-item>
+                <!-- case: empty -->
+                <md-list-item ng-if="!applications.waiting.length" layout="row" layout-align="center center">
+                    No applications..
+                </md-list-item>
+
+                <!-- case: -->
+                <app-item ng-repeat="app in applications.waiting" app="app">
+                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                    <p>{{app.blurb}}</p>
+                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
+                </app-item>
             </md-list>
         </md-tab>
     </md-tabs>

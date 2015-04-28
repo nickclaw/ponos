@@ -1,13 +1,13 @@
-<md-content>
-    <h1>Apply Job</h1>
-
+<md-content class="info">
     <form ng-submit="apply()">
         <md-input-container>
             <label>Blurb</label>
             <textarea ng-model="application.blurb"></textarea>
         </md-input-container>
 
-        <md-button ng-click="cancel()">Cancel</md-button>
-        <md-button type="submit">Apply</md-button>
+        <div class="buttons">
+            <md-button ng-click="cancel()">Cancel</md-button>
+            <md-button class="md-accent md-raised" type="submit">Apply</md-button>
+        </div>
     </form>
 </md-content>

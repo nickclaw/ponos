@@ -1,21 +1,30 @@
-<md-content>
-    <h1>View Application</h1>
-    <pre>
-{{app|json}}
-    </pre>
+<md-content class="info">
+    <user-details user="app.applicant"></user-details>
+    <div class="detail item long">
+        <label>Statement</label>
+        <span>{{app.blurb}}</span>
+    </div>
 
-    <md-button href="/user/{{app.applicant}}">View User</md-button>
-    <md-button ng-click="accept()">Accept</md-button>
-    <md-button ng-click="reject()">Reject</md-button>
-    <md-button ng-click="cancel()">Cancel</md-button>
+    <!-- case: is applicant -->
+    <div ng-if="profile._id === app.applicant" class="buttons">
+        <md-button ng-click="cancel()">Cancel</md-button>
+        <md-button ng-if="app.state === 'waiting'" class="md-accent" ng-click="reject()">Withdraw</md-button>
+        <md-button ng-if="app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
 
-    <md-button ng-if="profile._id === app.applicant"
-        ng-href="/user/{{app.owner}}/review/{{app.job}}" >
-        Review Poster
-    </md-button>
+        <md-button ng-if="app.state === 'accepted'"
+            ng-if="profile._id === app.applicant"
+            ng-href="/user/{{app.owner}}/review/{{app.job}}"> Review Poster
+        </md-button>
+    </div>
 
-    <md-button ng-if="profile._id === app.owner"
-        ng-href="/user/{{app.applicant}}/review/{{app.job}}" >
-        Review Applicant
-    </md-button>
+    <!-- case: is poster -->
+    <div ng-if="profile._id === app.owner" class="buttons">
+        <md-button ng-click="cancel()">Cancel</md-button>
+        <md-button ng-if="app.state === 'pending'" class="md-accent" ng-click="reject()">Reject</md-button>
+        <md-button ng-if="app.state === 'pending' || app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
+
+        <md-button ng-if="app.state === 'accepted'"
+            ng-href="/user/{{app.applicant}}/review/{{app.job}}"> Review Applicant
+        </md-button>
+    </div>
 </md-content>
