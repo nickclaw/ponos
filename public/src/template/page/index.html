@@ -1,30 +1,59 @@
 <md-content>
+
     <!-- case: logged out -->
-    <div ng-if="!profile.$loggedIn">
+    <div ng-if="!profile.$loggedIn" class="info">
 
-        <h4>Login</h4>
-        <a href="/login">link</a>
-        <a href="/auth/facebook/login" target="_self">facebook</a>
-        <a href="/auth/google/login" target="_self">google</a>
-        <a href="/auth/linkedin/login" target="_self">linkedin</a>
+        <div ng-if="login">
+            <div class="item detail">
+                <h4>Login</h4>
+                <a href="/auth/facebook/login" target="_self">facebook</a>
+                <a href="/auth/google/login" target="_self">google</a>
+                <a href="/auth/linkedin/login" target="_self">linkedin</a>
+            </div>
 
-        <h4>Signup</h4>
-        <a href="/auth/facebook/login/signup" target="_self">facebook</a>
-        <a href="/auth/google/login/signup" target="_self">google</a>
-        <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
+            <form ng-submit="login()">
+                <md-input-container>
+                    <label>Email</label>
+                    <input ng-model="auth.email" />
+                </md-input-container>
 
-        <form ng-submit="signup()">
-            <md-input-container>
-                <label>Email</label>
-                <input ng-model="auth.email" />
-            </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input ng-model="auth.password" type="password" />
+                </md-input-container>
 
-            <md-input-container>
-                <label>Password</label>
-                <input ng-model="auth.password" type="password" />
-            </md-input-container>
-            <md-button type="submit">Login</md-button>
-        </form>
+                <div class="buttons">
+                    <md-button ng-click="toggle()">Signup?</md-button>
+                    <md-button class="md-raised md-accent" type="submit">Login</md-button>
+                </div>
+            </form>
+        </div>
+
+        <div ng-if="!login">
+            <div class="item detail">
+                <h4>Signup</h4>
+                <a href="/auth/facebook/login/signup" target="_self">facebook</a>
+                <a href="/auth/google/login/signup" target="_self">google</a>
+                <a href="/auth/linkedin/login/signup" target="_self">linkedin</a>
+            </div>
+
+            <form ng-submit="signup()">
+                <md-input-container>
+                    <label>Email</label>
+                    <input ng-model="auth.email" />
+                </md-input-container>
+
+                <md-input-container>
+                    <label>Password</label>
+                    <input ng-model="auth.password" type="password" />
+                </md-input-container>
+
+                <div class="buttons">
+                    <md-button ng-click="toggle()">Login?</md-button>
+                    <md-button class="md-raised md-accent" type="submit">Signup</md-button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- case: is worker -->

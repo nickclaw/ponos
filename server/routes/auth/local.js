@@ -3,7 +3,7 @@ var router = require('express').Router(),
 
 router.post('/login', passport.authenticate('local-login'),
     function(req, res, next) {
-        res.redirect(req.user.toObject());
+        res.send(req.user.toObject());
     });
 
 //

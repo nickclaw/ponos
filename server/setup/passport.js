@@ -142,8 +142,7 @@ module.exports = function(passport) {
 
     passport.use('local-signup', new LocalAuth({
         usernameField: 'email',
-        passReqToCallback: true,
-    }, function(req, email, password, done) {
+    }, function(email, password, done) {
         var user = new User({
             firstName: "",
             lastName: "",

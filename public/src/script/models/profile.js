@@ -15,8 +15,8 @@ angular.module('scaffold').factory('profile', [
         profile.$loggedIn = !!profile._id;
         profile.$error = null;
 
-        profile.$login = function(email, password) {
-            return $http.post('/auth/local/login', {email: email, password: password})
+        profile.$login = function(data) {
+            return $http.post('/auth/local/login', {email: data.email, password: data.password})
                 .then(
                     function(res) {
                         profile.__proto__ = new User(res.data);

@@ -24,7 +24,9 @@ angular.module('scaffold')
         };
         $scope.d = {selectedIndex: 0};
         $scope.signup = signup;
+        $scope.login = login;
         $scope.results = [];
+        $scope.toggle = function() { $scope.login = !$scope.login };
         // $scope.profile gets inherited from $rootScope
 
         $scope.$watch('d.selectedIndex', onTabChange);
@@ -37,6 +39,12 @@ angular.module('scaffold')
             $scope.profile.$signup($scope.auth).catch(function(err) {
                 $scope.error = err;
             })
+        }
+
+        function login() {
+            $scope.profile.$login($scope.auth).catch(function(err) {
+                $scope.error = err;
+            });
         }
 
         function onTabChange(index, lastIndex) {
