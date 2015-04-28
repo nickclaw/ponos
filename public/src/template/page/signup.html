@@ -1,10 +1,9 @@
-<md-content>
-    <h1>Signup</h1>
-
-    <md-tabs md-selected="selectedIndex">
-        <md-tab label="basic">
+<md-content ng-switch="user.role">
+        <div ng-switch-default class="info" >
             <form>
-                <h3>Basic Info</h3>
+                <h2>Basic Info</h2>
+
+                <image-upload ng-model="user.picture"></image-upload>
 
                 <md-input-container>
                     <label>First Name</label>
@@ -32,34 +31,47 @@
                     <md-radio-button value="other">Other</md-radio-button>
                 </md-radio-group>
 
-                <div>
-                    <md-button ng-click="isWorker()">Worker</md-button>
-                    <md-button ng-click="isEmployer()">Employer</md-button>
+                <div class="buttons">
+                    <md-button class="md-accent md-raised" ng-click="isWorker()">Worker</md-button>
+                    <md-button class="md-accent md-raised" ng-click="isEmployer()">Employer</md-button>
                 </div>
             </form>
+        </div>
 
-        </md-tab>
-
-        <md-tab label="employer">
+        <div ng-switch-when="employer" class="info" >
+            <h2>Employer Info</h2>
             <md-input-container>
                 <label>Bio</label>
-                <input ng-model="user.employer.bio" />
+                <textarea ng-model="user.employer.bio"></textarea>
             </md-input-container>
             <md-input-container>
                 <label>URL</label>
                 <input ng-model="user.employer.url" />
             </md-input-container>
-            <md-button ng-click="save()">post job</md-button>
-        </md-tab>
 
-        <md-tab label="worker">
+            <div class="buttons">
+                <md-button ng-click="back()">go back</md-button>
+                <md-button class="md-accent md-raised" ng-click="save()">post job</md-button>
+            </div>
+        </div>
+
+        <div ng-switch-when="worker" class="info" >
+            <h2>Worker Info</h2>
             <md-input-container>
                 <label>Bio</label>
-                <input ng-model="user.worker.bio" />
+                <textarea ng-model="user.worker.bio"></textarea>
             </md-input-container>
 
-            <div ng-repeat="exp in user.worker.experience">
-                <hr />
+            <h2 style="margin-top: 30px; margin-bottom: -30px; text-align: center;">Experience</h2>
+
+            <!-- case: no experience -->
+            <div ng-if="!user.worker.experience.length" layout="row" layout-align="center center" style="margin-top: 30px;">
+                <span>You haven't added any experience</span>
+                <md-button ng-click="addExperience()" class="md-accent md-raised">add</md-button>
+            </div>
+
+            <!-- case: experience -->
+            <div class="info" ng-repeat="exp in user.worker.experience">
                 <md-input-container>
                     <label>Title</label>
                     <input ng-model="exp.title" />
@@ -77,11 +89,18 @@
                     <input ng-model="exp.description" />
                 </md-input-container>
 
-                <md-button ng-click="removeExperience($index)">remove</md-button>
-            </div>
+                <div layout="row" layout-align="end center">
+                    <md-button ng-click="removeExperience($index)">remove</md-button>
+                    <md-button ng-if="$index === user.worker.experience.length - 1"
+                        ng-click="addExperience()"
+                        class="md-accent md-raised">add</md-button>
+                </div>
 
-            <md-button ng-click="addExperience()">add</md-button>
-            <md-button ng-click="save()">find jobs</md-button>
-        </md-tab>
+            </div>
+            <div class="buttons">
+                <md-button ng-click="back()">go back</md-button>
+                <md-button class="md-accent md-raised" ng-click="save()">find jobs</md-button>
+            </div>
+        </div>
     </md-tabs>
 </md-content>

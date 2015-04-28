@@ -25,10 +25,11 @@ angular.module('scaffold')
 
         $scope.isEmployer = isEmployer;
         $scope.isWorker = isWorker;
-        $scope.goBack = goBack;
+        $scope.back = back;
         $scope.addExperience = addExperience;
         $scope.removeExperience = removeExperience;
         $scope.save = save;
+        $scope.currentIndex = 0;
 
 
         //
@@ -61,8 +62,9 @@ angular.module('scaffold')
             addExperience();
         }
 
-        function goBack() {
+        function back() {
             $scope.user.role = null;
+            $scope.user.worker = $scope.user.employer = null;
         }
 
         function addExperience() {
