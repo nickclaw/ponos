@@ -113,8 +113,7 @@ var propertyValidations = {
     lastName: vlad.string.min(2).required,
     phone: vlad.string,
     role: vlad.string.default(null),
-    picture: vlad.string,
-    finished: vlad.boolean.required
+    picture: vlad.string
 };
 
 var propertyValidator = vlad(propertyValidations);
