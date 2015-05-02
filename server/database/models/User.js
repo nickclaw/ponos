@@ -68,11 +68,7 @@ var schema = mongoose.Schema({
 
         google_id: { type: String, unique: true, sparse: true },
         facebook_ud: { type: String, unique: true, sparse: true }
-    },
-
-    // metadata
-    new: { type: Boolean, default: true }, // flag for newly created users
-    finished: { type: Boolean, default: false} // flag for users without a full profile
+    }
 });
 schema.plugin(unique);
 schema.plugin(timestamp);
@@ -118,7 +114,6 @@ var propertyValidations = {
     phone: vlad.string,
     role: vlad.string.default(null),
     picture: vlad.string,
-    new: vlad.boolean.required,
     finished: vlad.boolean.required
 };
 
@@ -148,7 +143,7 @@ var workerValidator = vlad(_.extend({
             start: vlad.string,
             end: vlad.string,
             description: vlad.string
-        })).max(3).min(0).required
+        })).min(0).required
     }),
     auth: authValidator
 }, propertyValidations));
@@ -203,8 +198,6 @@ var whitelist = {
             url: true
         },
 
-        new: true,
-        finished: true,
         created: true,
         updated: true
     }

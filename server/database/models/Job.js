@@ -9,8 +9,9 @@ var schema = mongoose.Schema({
 
     title: { type: String },
     location: {
-        lat: { type: Number },
-        long: { type: Number }
+        name: { type: String },
+        lat: { type: Number, default: 0.0 },
+        long: { type: Number, default: 0.0 }
     },
     start: { type: Date },
     end: { type: Date },
@@ -39,6 +40,7 @@ schema.methods.validate = function validate(done) {
 var jobValidator = vlad({
     title: vlad.string.required.within(5, 140),
     location: vlad({
+        name: vlad.string,
         lat: vlad.number.required.within(-90, 90),
         long: vlad.number.required.within(-180, 180)
     }),
@@ -64,6 +66,7 @@ var whitelist = {
     create: {
         title: true,
         location: {
+            name: true,
             lat: true,
             long: true
         },
@@ -81,6 +84,7 @@ var whitelist = {
     edit: {
         title: true,
         location: {
+            name: true,
             lat: true,
             long: true
         },
@@ -98,6 +102,7 @@ var whitelist = {
         poster: true,
         title: true,
         location: {
+            name: true,
             lat: true,
             long: true
         },
