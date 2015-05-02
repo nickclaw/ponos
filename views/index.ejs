@@ -9,23 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </head>
     <body layout="row">
-        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')"
-            md-component-id="nav"
-            class="md-sidenav-left md-whiteframe-z2"
-            style="height: 100vh;" >
-
-            <md-toolbar>
-                <md-button></md-button>
-            </md-toolbar>
-
-            <md-content>
-                <md-button class="md-warn" href="/">Home</md-button>
-                <md-button class="md-warn" href="/job">Create Job</md-button>
-                <md-button class="md-warn" href="/search">Search jobs</md-button>
-                <md-divider></md-divider>
-                <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
-            </md-content>
-        </md-sidenav>
+        <ng-include style="height: 100vh; width: 100vh; position: absolute;" src="::'/static/template/include/sidebar.html'" layout="row"></ng-include>
 
         <div  style="z-index: 0;" id="main" layout="column" flex>
             <md-toolbar layout="row" layout-align="space-between center">
