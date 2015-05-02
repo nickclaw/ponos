@@ -4,7 +4,8 @@ var router = require('express').Router(),
     path = require('path'),
     fs = require('fs'),
     gm = require('gm'),
-    multi = require('multiparty');
+    multi = require('multiparty'),
+    geocoder = require('node-geocoder')('openstreetmap', 'http');
 
 module.exports = router;
 
@@ -93,6 +94,23 @@ router
                     });
                 }
             );
+        }
+    )
+
+    .get('/address',
+        util.auth,
+        vlad.middleware('query', {
+            address: vlad.string.required.min(1)
+        }),
+        function(req, res, next) {
+            geocoder.geocode(req.query.address)
+                .then(
+                    function(coords) {
+                        if (!coords.length) return next(db.NotFoundError());
+                        res.send(coords[0]);
+                    },
+                    next
+                );
         }
     )
 ;
