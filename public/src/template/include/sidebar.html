@@ -4,14 +4,21 @@
     style="height: 100vh;" >
 
     <md-toolbar>
-        <md-button></md-button>
+        <md-button href="/"></md-button>
     </md-toolbar>
 
     <md-content>
-        <md-button class="md-warn" href="/">Home</md-button>
-        <md-button class="md-warn" href="/job">Create Job</md-button>
-        <md-button class="md-warn" href="/search">Search jobs</md-button>
+        <md-button ng-if="profile.$loggedIn" href="/user/me">profile</md-button>
+        <md-button ng-if="profile.$loggedIn" href="/messages">messages</md-button>
+        <md-button ng-if="profile.$loggedIn" href="/notifications">notifications</md-button>
         <md-divider></md-divider>
+
+        <md-button href="/search">Browse Jobs</md-button>
+        <md-button ng-if="profile.$isEmployer()" href="/job">Create Job</md-button>
+        <md-button ng-if="profile.$isEmployer()" href="/user/me/jobs">Your Jobs</md-button>
+        <md-button ng-if="profile.$isWorker()" href="/user/me/jobs">Your Experience</md-button>
+        <md-divider></md-divider>
+
         <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
     </md-content>
 </md-sidenav>
