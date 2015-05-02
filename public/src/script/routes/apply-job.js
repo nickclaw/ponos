@@ -3,11 +3,14 @@ angular.module('scaffold')
 .config([
     '$routeProvider',
     'resolve',
-    function($routeProvider, resolve) {
+    'ensure',
+    function($routeProvider, resolve, ensure) {
         $routeProvider.when('/job/:job/apply', {
             templateUrl: '/static/template/page/apply-job.html',
             controller: 'ApplyJobController',
             resolve: {
+                authenticated: ensure.isAuthenticated,
+                isWorker: ensure.hasRole('worker'),
                 job: resolve.job
             }
         });

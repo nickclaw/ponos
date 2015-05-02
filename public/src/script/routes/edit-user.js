@@ -3,12 +3,14 @@ angular.module('scaffold')
 .config([
     '$routeProvider',
     'resolve',
-    function($routeProvider, resolve) {
+    'ensure',
+    function($routeProvider, resolve, ensure) {
         $routeProvider.when('/user/:user/edit', {
             templateUrl: '/static/template/page/edit-user.html',
             controller: 'EditUserController',
             resolve: {
-                user: resolve.user
+                authenticated: ensure.isAuthenticated,
+                user: ensure.owns(resolve.user)
             }
         });
     }

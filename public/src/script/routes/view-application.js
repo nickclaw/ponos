@@ -8,6 +8,7 @@ angular.module('scaffold')
             templateUrl: '/static/template/page/view-application.html',
             controller: 'ViewApplicationController',
             resolve: {
+                authenticated: ensure.isAuthenticated,
                 application: resolve.application
             }
         });

@@ -3,11 +3,13 @@ angular.module('scaffold')
 .config([
     '$routeProvider',
     'resolve',
-    function($routeProvider, resolve) {
+    'ensure',
+    function($routeProvider, resolve, ensure) {
         $routeProvider.when('/user/:user/review/:job', {
             templateUrl: '/static/template/page/review-user.html',
             controller: 'ReviewUserController',
             resolve: {
+                authenticated: ensure.isAuthenticated,
                 user: resolve.user,
                 job: resolve.job
             }

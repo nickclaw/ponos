@@ -8,7 +8,9 @@ angular.module('scaffold')
             templateUrl: '/static/template/page/view-applications.html',
             controller: 'ViewApplicationsController',
             resolve: {
-                job: resolve.job
+                authenticated: ensure.isAuthenticated,
+                isEmployer: ensure.hasRole('employer'),
+                job: ensure.owns(resolve.job)
             }
         });
     }

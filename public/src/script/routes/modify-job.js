@@ -3,12 +3,15 @@ angular.module('scaffold')
 .config([
     '$routeProvider',
     'resolve',
-    function($routeProvider, resolve){
+    'ensure',
+    function($routeProvider, resolve, ensure){
         $routeProvider.when('/job/:job/edit', {
             templateUrl: '/static/template/page/modify-job.html',
             controller: 'ModifyJobController',
             resolve: {
-                job: resolve.job
+                authenticated: ensure.isAuthenticated,
+                isEmployer: ensure.hasRole('employer'),
+                job: ensure.owns(resolve.job)
             }
         });
 
@@ -16,6 +19,7 @@ angular.module('scaffold')
             templateUrl: '/static/template/page/modify-job.html',
             controller: 'ModifyJobController',
             resolve: {
+                isEmployer: ensure.hasRole('employer'),
                 job: [
                     'Job',
                     function(Job) {
