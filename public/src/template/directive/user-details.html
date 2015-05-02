@@ -16,11 +16,20 @@
         <div layout="column" flex>
             <h3>{{user.firstName}} {{user.lastName}}</h3>
             <div layout="row" flex layout-align="end center">
-                <div class="star" ng-class="{disabled: review.a < 1}" ></div>
-                <div class="star" ng-class="{disabled: review.a < 2}" ></div>
-                <div class="star" ng-class="{disabled: review.a < 3}" ></div>
-                <div class="star" ng-class="{disabled: review.a < 4}" ></div>
-                <div class="star" ng-class="{disabled: review.a < 5}" ></div>
+                <md-icon ng-if="stars < 1" class="star" md-font-icon="icon_star_outline"></md-icon>
+                <md-icon ng-if="stars >= 1" class="star" md-font-icon="icon_star"></md-icon>
+
+                <md-icon ng-if="stars < 2" class="star" md-font-icon="icon_star_outline"></md-icon>
+                <md-icon ng-if="stars >= 2" class="star" md-font-icon="icon_star"></md-icon>
+
+                <md-icon ng-if="stars < 3" class="star" md-font-icon="icon_star_outline"></md-icon>
+                <md-icon ng-if="stars >= 3" class="star" md-font-icon="icon_star"></md-icon>
+
+                <md-icon ng-if="stars < 4" class="star" md-font-icon="icon_star_outline"></md-icon>
+                <md-icon ng-if="stars >= 4" class="star" md-font-icon="icon_star"></md-icon>
+
+                <md-icon ng-if="stars < 5" class="star" md-font-icon="icon_star_outline"></md-icon>
+                <md-icon ng-if="stars >= 5" class="star" md-font-icon="icon_star"></md-icon>
             </div>
         </div>
     </div>

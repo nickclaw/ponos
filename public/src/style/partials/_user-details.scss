@@ -1,14 +1,10 @@
 .user-details {
 
     .star {
-        background-color: gold;
-        height: 20px;
-        width: 20px;
         margin: 5px;
 
-        &.disabled {
-            background-color: white;
-            border: solid 1px rgb(220,220,220);
+        span {
+            color: gold;
         }
     }
 }

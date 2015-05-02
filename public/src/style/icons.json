@@ -1,3 +1,6 @@
 [
-    "./public/lib/material-design-icons/navigation/svg/production/ic_menu_48px.svg"
+    "./public/lib/material-design-icons/navigation/svg/production/ic_menu_48px.svg",
+    "./public/lib/material-design-icons/toggle/svg/production/ic_star_24px.svg",
+    "./public/lib/material-design-icons/toggle/svg/production/ic_star_outline_24px.svg",
+    "./public/lib/material-design-icons/toggle/svg/production/ic_star_half_24px.svg"
 ]

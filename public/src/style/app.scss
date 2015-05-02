@@ -30,7 +30,7 @@ body {
 md-icon {
     vertical-align: inherit !important;
 
-    [class^="icon_"]:before, [class*=" icon_"]:before {
+    span {
 		color: white;
         font-size: 24px;
     }

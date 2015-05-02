@@ -13,7 +13,7 @@ angular.module('scaffold').directive('userDetails', [
                 $scope.loaded = true;
                 $scope.errored = false;
                 $scope.user = $scope._user;
-                $scope.reviews = null;
+                $scope.stars = null;
 
                 $scope.$watch('user', function(user) {
                     $scope.errored = false;
@@ -45,8 +45,15 @@ angular.module('scaffold').directive('userDetails', [
                     // case: user object!
                     // just retrieve reviews
 
-                    $scope.review = $scope.user.$getReviews();
-
+                    $scope.user.$getReviews().$promise
+                        .then(
+                            function(review) {
+                                $scope.stars = Math.floor((review.a + review.b + review.c) / 3);
+                            },
+                            function() {
+                                console.error('TODO');
+                            }
+                        )
                 });
             }
         };
