@@ -15,13 +15,23 @@ body {
 	text-rendering: optimize-legibility;
 }
 
-.md-button[type ~= submit] {
-	flex: 2;
-}
-
 @import "partials/list-item";
 @import "partials/sidebar";
 @import "partials/info";
 @import "partials/icon";
 @import "partials/image-upload";
 @import "partials/user-details";
+
+.md-button{ min-width: 0px; }
+.md-button[type ~= submit] {
+	flex: 2;
+}
+
+md-icon {
+    vertical-align: inherit !important;
+
+    [class^="icon_"]:before, [class*=" icon_"]:before {
+		color: white;
+        font-size: 24px;
+    }
+}
