@@ -14,6 +14,8 @@ public/build/*
 babel.json
 *.css
 *.map
+public/src/style/icons.*
+!public/src/style/icons.json
 
 # user added
 public/src/upload/*

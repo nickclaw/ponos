@@ -1,3 +1,5 @@
+var icons = require('./public/src/style/icons.json'),
+    path = require('path');
 
 module.exports = function(grunt) {
 
@@ -58,6 +60,43 @@ module.exports = function(grunt) {
             }
         },
 
+        webfont: {
+            dev: {
+                src: icons,
+                dest: 'public/src/style/',
+                options: {
+                    engine: 'node',
+                    normalize: true,
+                    syntax: 'bootstrap',
+                    rename: function(name) {
+                        name = path.basename(name, '.svg');
+                        name = name.substr(3, name.length - 8);
+                        return name;
+                    },
+                    templateOptions: {
+                        classPrefix: 'icon_'
+                    }
+                }
+            },
+            prod: {
+                src: icons,
+                dest: 'public/build/style',
+                options: {
+                    engine: 'node',
+                    normalize: true,
+                    syntax: 'bootstrap',
+                    rename: function(name) {
+                        name = path.basename(name, '.svg');
+                        name = name.substr(3, name.length - 8);
+                        return name;
+                    },
+                    templateOptions: {
+                        classPrefix: 'icon_'
+                    }
+                }
+            }
+        },
+
         sass: {
             dev: {
                 options: {
@@ -112,7 +151,7 @@ module.exports = function(grunt) {
                 limit: 6
             },
 
-            dev: ['watch:scss', 'nodemon:dev']
+            dev: ['webfont:dev', 'watch:scss', 'nodemon:dev']
         }
 
     });
@@ -124,11 +163,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-sass");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-webfont");
     grunt.loadNpmTasks("grunt-nodemon");
 
     grunt.registerTask('style:prod', ['sass:prod', 'autoprefixer:prod'])
 
     grunt.registerTask('default', ['develop']);
     grunt.registerTask('develop', ['concurrent:dev']);
-    grunt.registerTask('build', ['htmlmin:prod', 'imagemin:prod', 'style:prod', 'uglify:prod']);
+    grunt.registerTask('build', ['htmlmin:prod', 'imagemin:prod', 'style:prod', 'webfont:prod', 'uglify:prod']);
 }
