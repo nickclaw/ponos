@@ -3,10 +3,10 @@
         <list-item ng-repeat="job in jobs">
         	<h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
 			<p>
-		        <span>Date:</span> {{job.start}} to {{job.end}}
+		        <span>Date:</span> <span date="job.start"></span> -- <span date="job.end"></span>
 		    </p>
 		    <p>
-		        <span>Location:</span> {{job.location}}
+		        <span>Location:</span> {{job.location.name}}
 		    </p>
 		    <p>
 		        <span>Rate:</span> {{job.rate}}
