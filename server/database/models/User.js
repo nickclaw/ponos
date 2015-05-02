@@ -138,9 +138,9 @@ var workerValidator = vlad(_.extend({
     worker: vlad({
         bio: vlad.string.required,
         experience: vlad.array.of(vlad({
-            title: vlad.string,
-            start: vlad.string,
-            end: vlad.string,
+            title: vlad.string.required,
+            start: vlad.date.required,
+            end: vlad.date.required,
             description: vlad.string
         })).min(0).required
     }),

@@ -6,6 +6,9 @@ angular.module('scaffold').directive('locationInput', [
             restrict: 'E',
             replace: true,
             template: '<input ng-model="location.name" ng-class="{invalid: location.$error}" />',
+            scope: {
+                location: '='
+            },
             link: function($scope, elem, attr) {
                 var currentRequest;
 
