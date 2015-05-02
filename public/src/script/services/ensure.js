@@ -1,6 +1,6 @@
 angular.module('scaffold').constant('ensure', {
 
-    isAuthorized: [
+    isAuthenticated: [
         '$q',
         'profile',
         function($q, profile) {
@@ -14,7 +14,7 @@ angular.module('scaffold').constant('ensure', {
             'profile',
             function($q, profile) {
                 if (!profile.$loggedIn) return $q.reject("You must be signed in to access that page.");
-                if (profile.role !== role) return $q.reject("Only " + role + "s can access that page."));
+                if (profile.role !== role) return $q.reject("Only " + role + "s can access that page.");
             }
         ];
     },

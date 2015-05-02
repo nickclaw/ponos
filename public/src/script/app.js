@@ -37,17 +37,29 @@ angular.module('scaffold', [
 .run([
     '$rootScope',
     '$mdSidenav',
+    '$mdDialog',
+    '$history',
     'profile',
-    function($rootScope, $mdSidenav, profile) {
+    function($rootScope, $mdSidenav, $mdDialog, $history, profile) {
         $rootScope.profile = profile;
 
         $rootScope.toggleNav = function() {
            $mdSidenav('nav').toggle();
-           
+
         };
 
         $rootScope.$on('$routeChangeStart', function() {
            $mdSidenav('nav').close();
+        });
+
+        $rootScope.$on('$routeChangeError', function(evt, state, oldState, reason) {
+            $history.back('/');
+            var alert = $mdDialog.alert()
+                .title("Error")
+                .content(reason)
+                .ok("OK");
+
+            $mdDialog.show(alert);
         });
     }
 ]);

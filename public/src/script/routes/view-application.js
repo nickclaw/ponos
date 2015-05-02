@@ -3,7 +3,8 @@ angular.module('scaffold')
 .config([
     '$routeProvider',
     'resolve',
-    function($routeProvider, resolve) {
+    'ensure',
+    function($routeProvider, resolve, ensure) {
         $routeProvider.when('/job/:job/applications/:application', {
             templateUrl: '/static/template/page/view-application.html',
             controller: 'ViewApplicationController',
