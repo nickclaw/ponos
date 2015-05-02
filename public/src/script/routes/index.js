@@ -13,7 +13,8 @@ angular.module('scaffold')
 .controller('IndexController', [
     '$scope',
     '$http',
-    function($scope, $http) {
+    'profile',
+    function($scope, $http, profile) {
 
         //
         // Setup scope
@@ -60,8 +61,8 @@ angular.module('scaffold')
 
         // how to get tab content
         var indexes = [
-            '/api/user/me/jobs/upcoming',
-            '/api/user/me/jobs/pending',
+            profile.$isWorker() ? '/api/user/me/jobs/accepted' : '/api/user/me/jobs/upcoming',
+            profile.$isWorker() ? '/api/user/me/jobs/waiting' : '/api/user/me/jobs/pending',
             '/api/user/me/jobs/review'
         ];
     }

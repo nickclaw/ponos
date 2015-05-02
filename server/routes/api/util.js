@@ -14,9 +14,10 @@ module.exports = {
     /**
      * Make sure current user is of a certain role
      */
-    role: function(role) {
+    role: function(...roles) {
         return function hasRole(req, res, next) {
-            if (req.user.role === role) return next();
+            console.log(roles);
+            if (roles.includes(req.user.role)) return next();
             next(new db.NotAllowedError("Wrong role."));
         };
     },

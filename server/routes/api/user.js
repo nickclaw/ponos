@@ -190,35 +190,90 @@ router.get('/:user/jobs/pending',
 
 router.get('/:user/jobs/review',
     util.auth,
-    util.role('employer'),
+    util.role('worker', 'employer'),
     function(req, res, next) {
         db.Application
             .find({
-                owner: req.user.id,
+                [req.user.role === 'employer' ? 'owner': 'applicant']: req.user.id,
                 state: 'accepted'
             })
             .populate('job')
             .exec()
             .then(function(apps) {
                 var jobs = {};
+
                 apps.forEach(function(app) {
                     if (app.end > new Date()) return;
                     if (jobs[app.job._id]) return;
                     jobs[app.job._id] = app.job;
                 });
+
                 jobs = _.sortBy(jobs, function(a, b) {
                     return a.end > b.end;
                 });
+
                 res.send(jobs);
             }).then(null, next);
     }
 );
-//
-// router.get('/:user/jobs/review',]
-//     function(req, res, next) {
-//
-//     }
-// );
+
+router.get('/:user/jobs/accepted',
+    util.auth,
+    util.role('worker'),
+    function(req, res, next) {
+        db.Application
+            .find({
+                applicant: req.user.id,
+                state: 'accepted'
+            })
+            .populate('job')
+            .exec()
+            .then(function(apps) {
+                var jobs = {};
+
+                apps.forEach(function(app) {
+                    if (app.job.start <= new Date()) return;
+                    if (jobs[app.job._id]) return;
+                    jobs[app.job._id] = app.job;
+                });
+
+                jobs = _.sortBy(jobs, function(a, b) {
+                    return a.start > b.start;
+                });
+
+                res.send(jobs);
+            }).then(null, next);
+    }
+);
+
+router.get('/:user/jobs/waiting',
+    util.auth,
+    util.role('worker'),
+    function(req, res, next) {
+        db.Application
+            .find({
+                applicant: req.user.id
+            })
+            .populate('job')
+            .exec()
+            .then(function(apps) {
+                var jobs;
+
+                apps.forEach(function(app) {
+                    if (app.state !== 'pending' && app.state !== 'rejected') return;
+                    if (app.job.start <= new Date()) return;
+                    if (jobs[app.job._id]) return;
+                    jobs[app.job._id] = app.job;
+                });
+
+                jobs = _.sortBy(jobs, function(a, b) {
+                    return a.start > b.start;
+                });
+
+                res.send(jobs);
+            }).then(null, next);
+    }
+);
 
 
 //
