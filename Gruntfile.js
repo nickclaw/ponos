@@ -103,7 +103,8 @@ module.exports = function(grunt) {
                     style: 'nested'
                 },
                 files: {
-                    "public/src/style/app.css": "public/src/style/app.scss"
+                    "public/src/style/app.css": "public/src/style/app.scss",
+                    "public/src/style/splash.css": "public/src/style/splash.scss"
                 }
             },
             prod: {
@@ -111,7 +112,8 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    "public/build/style/app.css": "public/src/style/app.scss"
+                    "public/build/style/app.css": "public/src/style/app.scss",
+                    "public/build/style/splash.css": "public/src/style/splash.scss"
                 }
             }
         },

@@ -38,9 +38,10 @@ angular.module('scaffold', [
     '$rootScope',
     '$mdSidenav',
     '$mdDialog',
+    '$timeout',
     '$history',
     'profile',
-    function($rootScope, $mdSidenav, $mdDialog, $history, profile) {
+    function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, profile) {
         $rootScope.profile = profile;
 
         $rootScope.toggleNav = function() {
@@ -61,5 +62,9 @@ angular.module('scaffold', [
 
             $mdDialog.show(alert);
         });
+
+        $timeout(function() {
+            document.getElementById('splash').classList.add('ready');
+        }, 300);
     }
 ]);

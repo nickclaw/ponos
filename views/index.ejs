@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app='scaffold'>
     <head>
+        <link href="/static/style/splash.css" rel="stylesheet" type="text/css" />
         <link href="/static/lib/angular-material/angular-material.css" rel="stylesheet" type="text/css" />
         <link href="/static/style/app.css" rel="stylesheet" type="text/css" />
         <link href="/static/style/icons.css" rel="stylesheet" type="text/css" />
@@ -9,6 +10,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </head>
     <body layout="row">
+        <div id="splash">
+            <img src="/static/image/logo.png" />
+        </div>
+
         <ng-include style="height: 100vh; width: 100vh; position: absolute;" src="::'/static/template/include/sidebar.html'" layout="row"></ng-include>
 
         <div  style="z-index: 0;" id="main" layout="column" flex>
