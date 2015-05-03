@@ -14,11 +14,25 @@
         pointer-events: none;
     }
 
-    img {
+    #s {
         position: absolute;
         top: 50%;
-        width: 60%;
-        left: 20%;
-        transform: translateY(-50%);        
+        width: 100%;
+        transform: translateY(-50%);
+    }
+
+    #c {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        // animation: rotate;
+        transform: translate(5%, -39%);
+        animation-duration: .6s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes rotate {
+        0%   { transform: translate(5%, -39%) rotate(000deg); }
+        100% { transform: translate(5%, -39%) rotate(360deg); }
     }
 }

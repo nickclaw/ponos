@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         watch: {
             scss: {
                 files: ["public/src/style/**/*.scss"],
-                tasks: ["sass:dev"],
+                tasks: ["style:dev"],
                 options: {
                     spawn: false
                 }
@@ -119,6 +119,15 @@ module.exports = function(grunt) {
         },
 
         autoprefixer: {
+            dev: {
+                options: {
+                    browsers: ['last 3 versions']
+                },
+                expand: true,
+                flatten: true,
+                src: 'public/src/style/**/*.css',
+                dest: 'public/src/style/'
+            },
             prod: {
                 options: {
                     browsers: ['last 3 versions']
@@ -168,7 +177,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-webfont");
     grunt.loadNpmTasks("grunt-nodemon");
 
-    grunt.registerTask('style:prod', ['sass:prod', 'autoprefixer:prod'])
+    grunt.registerTask('style:dev', ['sass:dev', 'autoprefixer:dev']);
+    grunt.registerTask('style:prod', ['sass:prod', 'autoprefixer:prod']);
 
     grunt.registerTask('default', ['develop']);
     grunt.registerTask('develop', ['concurrent:dev']);

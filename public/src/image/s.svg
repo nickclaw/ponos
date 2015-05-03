@@ -1,0 +1,12 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="256px" height="256px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
+	<text transform="matrix(1 0 0 1 91.9023 182.2817)" fill="#F7931E" font-family="'AvenirNext-Medium'" font-size="120">S</text>
+	<g>
+		<line fill="none" stroke="#808080" stroke-width="3" stroke-miterlimit="10" x1="92.04" y1="81.601" x2="92.179" y2="182.709"/>
+		<line fill="none" stroke="#808080" stroke-width="3" stroke-miterlimit="10" x1="79.099" y1="94.529" x2="176.902" y2="81.601"/>
+		<path fill="#808080" d="M97.001,92.791c0,2.761-2.239,5-5,5s-5-2.239-5-5s2.239-5,5-5S97.001,90.03,97.001,92.791"/>
+		<path fill="#808080" d="M170.092,82.921c0,2.761-2.24,5-5,5c-2.762,0-5-2.239-5-5s2.238-5,5-5
+			C167.852,77.921,170.092,80.161,170.092,82.921"/>
+		<line fill="none" stroke="#808080" stroke-width="3" stroke-miterlimit="10" x1="164.68" y1="73.292" x2="164.68" y2="121.292"/>
+	</g>
+</svg>
