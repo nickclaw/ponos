@@ -1,0 +1,32 @@
+<div class="job-list">
+
+    <!-- case: loading -->
+    <div class="job-item" ng-if="!loaded">
+        Loading
+    </div>
+
+    <!-- case: errored -->
+    <div class="job-item" ng-if="errored && loaded">
+        Error
+    </div>
+
+    <!-- case: empty -->
+    <div class="job-item" ng-if="!jobs.length && loaded">
+        Empty
+    </div>
+
+    <!-- case: jobs loaded -->
+    <div class="job-item" ng-repeat="job in jobs">
+        <a ng-href="{{makeUrl(job)}}" layout="row" layout-align="center center">
+            <div flex>
+                <h2>{{job.title}}</h2>
+                <h4 date="job.start"></h4>
+            </div>
+            <div class="number">
+
+            </div>
+        </a>
+        <md-divider inset></md-divider>
+    </div>
+
+</div>

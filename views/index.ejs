@@ -37,9 +37,32 @@
             </svg>
         </div>
 
-        <ng-include class="container" src="::'/static/template/include/sidebar.html'" layout="row"></ng-include>
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')"
+            md-component-id="nav"
+            class="md-sidenav-left md-whiteframe-z2"
+            style="height: 100vh;" >
 
-        <div class="container" style="z-index: 0;" id="main" layout="column" flex>
+            <md-toolbar>
+                <md-button href="/"></md-button>
+            </md-toolbar>
+
+            <md-content>
+                <md-button ng-if="profile.$loggedIn" href="/user/me">profile</md-button>
+                <md-button ng-if="profile.$loggedIn" href="/messages">messages</md-button>
+                <md-button ng-if="profile.$loggedIn" href="/notifications">notifications</md-button>
+                <md-divider></md-divider>
+
+                <md-button href="/search">Browse Jobs</md-button>
+                <md-button ng-if="profile.$isEmployer()" href="/job">Create Job</md-button>
+                <md-button ng-if="profile.$isEmployer()" href="/user/me/jobs">Your Jobs</md-button>
+                <md-button ng-if="profile.$isWorker()" href="/user/me/jobs">Your Experience</md-button>
+                <md-divider></md-divider>
+
+                <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
+            </md-content>
+        </md-sidenav>
+
+        <div style="z-index: 0;" id="main" layout="column" flex>
             <md-toolbar layout="row" layout-align="space-between center">
                 <md-button ng-click="toggleNav()">
                     <md-icon md-font-icon="icon_menu"></md-icon>
@@ -90,5 +113,6 @@
         <script type="text/javascript" src="/static/script/directives/date.js"></script>
         <script type="text/javascript" src="/static/script/directives/image-upload.js"></script>
         <script type="text/javascript" src="/static/script/directives/location-input.js"></script>
+        <script type="text/javascript" src="/static/script/directives/job-list.js"></script>
     </body>
 </html>

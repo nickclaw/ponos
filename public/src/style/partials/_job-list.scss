@@ -1,0 +1,15 @@
+.job-list {
+
+    .job-item > a {
+        text-decoration: none;
+        color: inherit;
+        padding: 20px 30px;
+    }
+
+    .number {
+        width: 60px;
+        height: 60px;
+        background-color: rgb(50,50,50);
+        border-radius: 50%;
+    }
+}

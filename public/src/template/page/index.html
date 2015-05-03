@@ -62,30 +62,30 @@
     </div>
 
     <!-- case: is worker -->
-    <div ng-if="profile.$isWorker()">
-        <md-tabs md-selected="d.selectedIndex">
+    <div ng-if="profile.$isEmployer()">
+        <md-tabs md-selected="selectedTab">
             <md-tab id="user-jobs">My Jobs</md-tab>
             <md-tab id="user-pending">Pending</md-tab>
             <md-tab id="user-review">Review</md-tab>
         </md-tabs>
-        <md-list>
-            <md-item ng-repeat="result in results">
-
-            </md-item>
-        </md-list>
+        <div ng-switch="selectedTab">
+            <job-list ng-switch-when="0" endpoint="/api/user/me/jobs/upcoming" action="'/job/'+job+'/applications'"></job-list>
+            <job-list ng-switch-when="1" endpoint="/api/user/me/jobs/pending" action="'/job/'+job+'/applications'"></job-list>
+            <job-list ng-switch-when="2" endpoint="/api/user/me/jobs/review" action="'/user/'+applicant+'/review/'+job"></job-list>
+        </div>
     </div>
 
     <!-- case: is employer -->
-    <div ng-if="profile.$isEmployer()">
-        <md-tabs md-selected="d.selectedIndex">
+    <div ng-if="profile.$isWorker()">
+        <md-tabs md-selected="selectedTab">
             <md-tab id="user-filled">Filled</md-tab>
             <md-tab id="user-open">Open</md-tab>
             <md-tab id="user-review">Review</md-tab>
         </md-tabs>
-        <md-list>
-            <md-item ng-repeat="result in results">
-
-            </md-item>
-        </md-list>
+        <div ng-switch="selectedTab">
+            <job-list ng-switch-when="0" endpoint="/api/user/me/jobs/accepted" action="'/'"></job-list>
+            <job-list ng-switch-when="1" endpoint="/api/user/me/jobs/waiting" action="'/'"></job-list>
+            <job-list ng-switch-when="2" endpoint="/api/user/me/jobs/review" action="'/'"></job-list>
+        </div>
     </div>
 </md-content>
