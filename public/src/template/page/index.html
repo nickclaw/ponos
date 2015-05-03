@@ -5,9 +5,9 @@
 
         <div ng-if="login">
 
-            <div class="item detail">
+            <div class="item detail" layout="column" layout-align="center center">
                 <h4>Returning to Scaffold?</h4>
-                <div layout="row" layout-align="space-between center">
+                <div layout="row" layout-align="space-around center">
                     <a href="/auth/facebook/login" target="_self"><img src="/static/image/facebook_logo.png" class="logo"></a>
                     <a href="/auth/google/login" target="_self"><img src="/static/image/google_logo.png" class="logo"></a>
                     <a href="/auth/linkedin/login" target="_self"><img src="/static/image/linkedin_logo.png" class="logo"></a>
@@ -26,14 +26,14 @@
                 </md-input-container>
 
                 <div class="buttons">
-                    <md-button ng-click="toggle()">Signup?</md-button>
                     <md-button class="md-raised md-accent" type="submit">Login</md-button>
+                    <md-button class="md-raised md-warn" ng-click="toggle()">New to Scaffold?</md-button>
                 </div>
             </form>
         </div>
 
         <div ng-if="!login">
-            <div class="item detail">
+            <div class="item detail" layout="column" layout-align="center center">
                 <h4>New to Scaffold?</h4>
                 <div layout="row" layout-align="space-between center">
                     <a href="/auth/facebook/signup" target="_self"><img src="/static/image/facebook_logo.png" class="logo"></a>
@@ -54,8 +54,8 @@
                 </md-input-container>
 
                 <div class="buttons">
-                    <md-button ng-click="toggle()">Login?</md-button>
                     <md-button class="md-raised md-accent" type="submit">Signup</md-button>
+                    <md-button class="md-raised md-warn" ng-click="toggle()">Returning to Scaffold?</md-button>
                 </div>
             </form>
         </div>
