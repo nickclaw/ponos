@@ -37,9 +37,9 @@
             </svg>
         </div>
 
-        <ng-include style="height: 100vh; width: 100vh; position: absolute;" src="::'/static/template/include/sidebar.html'" layout="row"></ng-include>
+        <ng-include class="container" src="::'/static/template/include/sidebar.html'" layout="row"></ng-include>
 
-        <div  style="z-index: 0;" id="main" layout="column" flex>
+        <div class="container" style="z-index: 0;" id="main" layout="column" flex>
             <md-toolbar layout="row" layout-align="space-between center">
                 <md-button ng-click="toggleNav()">
                     <md-icon md-font-icon="icon_menu"></md-icon>
