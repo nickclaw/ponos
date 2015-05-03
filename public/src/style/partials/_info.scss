@@ -11,7 +11,6 @@
     .detail {
         padding: 15px 0px;
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
 
         &.long, &.long label {
@@ -28,6 +27,9 @@
         span {
             color: black;
         }
+        div {
+            justify-content: space-around;
+        }
     }
 
     .item {
@@ -36,13 +38,12 @@
 
     .buttons {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 30px;
+        flex-direction: column;
+        padding:0;
 
         .md-button {
             padding: 5px 10px;
+            margin-bottom: 10px;
         }
     }
 
@@ -55,4 +56,12 @@
         }
     }
 
+    md-radio-group {
+        display: inline-block;
+        padding-top: 15px;
+        label {
+            padding: 2px;
+            color: $scaffold-orange;
+        }
+    }
 }

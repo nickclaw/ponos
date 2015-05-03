@@ -19,6 +19,15 @@ body {
 	flex: 2;
 }
 
+md-list {
+	display: inline-block;
+	padding: 25px;
+}
+
+button {
+	color: white !important;
+}
+
 @import "partials/list-item";
 @import "partials/sidebar";
 @import "partials/info";
