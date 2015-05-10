@@ -1,4 +1,4 @@
-<a ng-href="">
+<a ng-href="/job/{{job._id}}" class="job-details">
 
     <!-- case: error -->
     <div ng-if="errored">
@@ -13,5 +13,6 @@
     <!-- case: loaded -->
     <div ng-if="loaded && !errored">
         <h3>{{job.title}}</h3>
+        <h4><span date="job.start"></span>--<span date="job.end"></span></h4>
     </div>
 </a>

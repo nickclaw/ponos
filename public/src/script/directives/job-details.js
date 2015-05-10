@@ -4,6 +4,7 @@ angular.module('scaffold').directive('jobDetails', [
         return {
             restrict: 'E',
             templateUrl: '/static/template/directive/job-details.html',
+            replace: true,
             scope: {
                 _job: '=job'
             },

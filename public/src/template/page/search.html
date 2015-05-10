@@ -1,16 +1,13 @@
 <md-content>
     <md-list>
         <list-item ng-repeat="job in jobs">
-        	<h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
-			<p>
-		        <span>Date:</span> <span date="job.start"></span> -- <span date="job.end"></span>
-		    </p>
-		    <p>
-		        <span>Location:</span> {{job.location.name}}
-		    </p>
-		    <p>
-		        <span>Rate:</span> {{job.rate}}
-		    </p>
+            <h2><a ng-href="/job/{{job._id}}">{{job.title}}</a></h2>
+            <p>
+                <span date="job.start" format="MMM DD, YYYY"></span>
+            </p>
+            <p>
+                <span>Rate:</span> {{job.rate}}
+            </p>
         </list-item>
-	</md-list>
+    </md-list>
 </md-content>

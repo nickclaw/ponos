@@ -69,7 +69,7 @@ angular.module('scaffold').directive('imageUpload', [
 	                evt.preventDefault();
                     elem.removeClass('dragover');
 
-                    var files = evt.target.files || evt.dataTransfer.files;
+                    var files = evt.target.files || evt.originalEvent.dataTransfer.files;
 
                     if (files.length) upload(files[0]);
                 });
