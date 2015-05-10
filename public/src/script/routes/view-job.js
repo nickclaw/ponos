@@ -19,5 +19,12 @@ angular.module('scaffold')
     'job',
     function($scope, job) {
         $scope.job = job;
+        $scope.mapOptions = {
+            center: {
+                lat: job.location.lat,
+                lon: job.location.long
+            },
+            zoom: 12
+        };
     }
 ])
