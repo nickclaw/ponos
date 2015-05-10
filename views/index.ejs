@@ -6,6 +6,9 @@
         <link href="/static/style/app.css" rel="stylesheet" type="text/css" />
         <link href="/static/style/icons.css" rel="stylesheet" type="text/css" />
         <link href="/static/lib/leaflet/dist/leaflet.css" rel="stylesheet" type="text/css" />
+        <link href="/static/lib/pickadate/lib/compressed/themes/default.css" rel="stylesheet" type="text/css" />
+        <link href="/static/lib/pickadate/lib/compressed/themes/default.date.css" rel="stylesheet" type="text/css" />
+        <link href="/static/lib/pickadate/lib/compressed/themes/default.time.css" rel="stylesheet" type="text/css" />
         <base href="/" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -78,6 +81,7 @@
             window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
         </script>
 
+        <script type="text/javascript" src="/static/lib/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="/static/lib/angular/angular.js"></script>
         <script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
         <script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
@@ -86,6 +90,9 @@
         <script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
         <script type="text/javascript" src="/static/lib/moment/moment.js"></script>
         <script type="text/javascript" src="/static/lib/leaflet/dist/leaflet.js"></script>
+        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.js"></script>
+        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.date.js"></script>
+        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.time.js"></script>
 
         <script type="text/javascript" src="/static/script/app.js"></script>
         <script type="text/javascript" src="/static/script/models/job.js"></script>
@@ -118,5 +125,7 @@
         <script type="text/javascript" src="/static/script/directives/location-input.js"></script>
         <script type="text/javascript" src="/static/script/directives/job-list.js"></script>
         <script type="text/javascript" src="/static/script/directives/map.js"></script>
+        <script type="text/javascript" src="/static/script/directives/date-picker.js"></script>
+        <script type="text/javascript" src="/static/script/directives/time-picker.js"></script>
     </body>
 </html>
