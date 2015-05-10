@@ -13,13 +13,18 @@ angular.module('scaffold').directive('map', [
                 var osm = new leaflet.TileLayer(osmUrl, {minZoom: 8, maxZoom: 12, attribution: osmAttrib});
                 map.addLayer(osm);
 
+                var marker;
                 $scope.$watch('options', function(options) {
                     var lat = options.center.lat || 0,
                         long = options.center.lon || 0,
                         zoom = options.zoom || 10;
 
+                    if (marker) {
+                        map.removeLayer(marker);
+                        marker = null;
+                    }
                     map.setView(new leaflet.LatLng(lat, long), zoom);
-                    leaflet.marker([lat, long]).addTo(map);
+                    marker = leaflet.marker([lat, long]).addTo(map);
                 });
             }
         };
