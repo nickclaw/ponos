@@ -9,16 +9,29 @@
             <label>Location</label>
             <location-input location="job.location"></location-input>
         </md-input-container>
+        <map options="mapOptions"></map>
 
         <div layout="row">
             <md-input-container>
-                <label>Start</label>
-                <input ng-model="job.start" />
+                <label>Start Date</label>
+                <input ng-model="start.date" date-picker />
             </md-input-container>
 
             <md-input-container>
-                <label>End</label>
-                <input ng-model="job.end" />
+                <label>Start Time</label>
+                <input ng-model="start.time" time-picker />
+            </md-input-container>
+        </div>
+
+        <div layout="row">
+            <md-input-container>
+                <label>End Date</label>
+                <input ng-model="end.date" date-picker />
+            </md-input-container>
+
+            <md-input-container>
+                <label>End Time</label>
+                <input ng-model="end.time" time-picker />
             </md-input-container>
         </div>
 

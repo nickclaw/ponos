@@ -43,13 +43,35 @@ angular.module('scaffold')
         // Scope
         //
         $scope.job = job;
-
         $scope.save = save;
-
+        $scope.mapOptions = {};
+        $scope.start = {date: "", time: ""};
+        $scope.end = {date: "", time: ""};
+        $scope.$watch('job.location', onLocationChange, true);
+        $scope.$watch('start', onStartChange, true);
+        $scope.$watch('end', onEndChange, true);
 
         //
         // Functions
         //
+
+        function onStartChange(start) {
+            job.start = new Date(start.date + start.time).toJSON();
+        }
+
+        function onEndChange(end) {
+            job.end = new Date(end.date + end.time).toJSON();
+        }
+
+        function onLocationChange(loc) {
+            $scope.mapOptions = {
+                center: {
+                    lat: loc.lat,
+                    lon: loc.long
+                },
+                zoom: 11
+            };
+        }
 
         function save() {
             $scope.job.$save().then(
