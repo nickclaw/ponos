@@ -5,6 +5,7 @@ angular.module('scaffold').directive('jobList', [
             restrict: 'E',
             templateUrl: '/static/template/directive/job-list.html',
             replace: true,
+            transclude: true,
             scope: {
                 endpoint: '@',
                 action: '&'
@@ -16,9 +17,8 @@ angular.module('scaffold').directive('jobList', [
                 $scope.errored = false;
                 $scope.makeUrl = function(job) {
                     return $scope.action({
-                        job: job._id,
-                        owner: job.poster
-                    })
+                        job: job
+                    });
                 };
 
                 $http.get($scope.endpoint).then(
@@ -30,7 +30,7 @@ angular.module('scaffold').directive('jobList', [
                     function(err) {
                         console.error('TODO');
                         $scope.loaded = true;
-                        $scope.errored = false;
+                        $scope.errored = true;
                     }
                 );
             }

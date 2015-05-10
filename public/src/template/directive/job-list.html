@@ -1,18 +1,19 @@
-<div class="job-list">
+<div class="job-list" flex layout="column">
 
     <!-- case: loading -->
-    <div class="job-item" ng-if="!loaded">
-        Loading
+    <div class="job-item temp" ng-if="!loaded" layout="column" flex layout-align="start center">
+        <md-progress-circular indeterminate></md-progress-circular>
     </div>
 
     <!-- case: errored -->
-    <div class="job-item" ng-if="errored && loaded">
-        Error
+    <div class="job-item temp" ng-if="errored && loaded" layout="column" flex layout-align="start center">
+        <h3>There was an error.<h3>
+        <h4>Please try again.</h4>
     </div>
 
     <!-- case: empty -->
-    <div class="job-item" ng-if="!jobs.length && loaded">
-        Empty
+    <div class="job-item temp" ng-if="!jobs.length && loaded && !errored" ng-transclude layout="column" flex layout-align="start center">
+
     </div>
 
     <!-- case: jobs loaded -->
@@ -26,7 +27,7 @@
 
             </div>
         </a>
-        <md-divider inset></md-divider>
+        <md-divider></md-divider>
     </div>
 
 </div>
