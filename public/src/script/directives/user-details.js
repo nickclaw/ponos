@@ -48,6 +48,9 @@ angular.module('scaffold').directive('userDetails', [
                     $scope.user.$getReviews().$promise
                         .then(
                             function(review) {
+                                if (review.a === null) review.a = 5;
+                                if (review.b === null) review.b = 5;
+                                if (review.c === null) review.c = 5;
                                 $scope.stars = Math.floor((review.a + review.b + review.c) / 3);
                             },
                             function() {
