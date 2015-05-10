@@ -9,6 +9,7 @@ angular.module('scaffold')
             templateUrl: '/static/template/page/edit-user.html',
             controller: 'EditUserController',
             resolve: {
+                ready: ensure.isReady,
                 authenticated: ensure.isAuthenticated,
                 user: ensure.owns(resolve.user)
             }

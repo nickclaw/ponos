@@ -9,6 +9,7 @@ angular.module('scaffold')
             templateUrl: '/static/template/page/review-user.html',
             controller: 'ReviewUserController',
             resolve: {
+                ready: ensure.isReady,
                 authenticated: ensure.isAuthenticated,
                 user: resolve.user,
                 job: resolve.job

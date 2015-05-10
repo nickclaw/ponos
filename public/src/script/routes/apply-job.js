@@ -10,6 +10,7 @@ angular.module('scaffold')
             controller: 'ApplyJobController',
             resolve: {
                 authenticated: ensure.isAuthenticated,
+                ready: ensure.isReady,
                 isWorker: ensure.hasRole('worker'),
                 job: resolve.job
             }

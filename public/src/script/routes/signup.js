@@ -2,10 +2,14 @@ angular.module('scaffold')
 
 .config([
     '$routeProvider',
-    function($routeProvider) {
+    'ensure',
+    function($routeProvider, ensure) {
         $routeProvider.when('/signup', {
             templateUrl: '/static/template/page/signup.html',
-            controller: 'SignupController'
+            controller: 'SignupController',
+            resolve: {
+                authenticated: ensure.isAuthenticated
+            }
         });
     }
 ])
