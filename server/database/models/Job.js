@@ -106,6 +106,8 @@ var whitelist = {
             lat: true,
             long: true
         },
+        applications: true,
+        application: true,
 
         start: true,
         end: true,

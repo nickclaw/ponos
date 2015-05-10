@@ -1,9 +1,10 @@
 <md-content class="info">
     <user-details class="detail item" user="user"></user-details>
+    <job-details class="detail item" job="job"></job-details>
     <form ng-submit="submit()">
         <md-input-container>
             <label>Comment</label>
-            <input ng-model="review.comment" />
+            <textarea ng-model="review.comment"></textarea>
         </md-input-container>
 
         <div class="detail item long">
