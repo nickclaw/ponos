@@ -1,0 +1,18 @@
+.md-button{ min-width: 0px; }
+.md-button[type ~= submit] {
+	flex: 2;
+}
+
+md-icon {
+    vertical-align: inherit !important;
+
+    span {
+		color: white;
+        font-size: 24px;
+    }
+}
+
+md-list {
+	display: inline-block;
+	padding: 25px;
+}

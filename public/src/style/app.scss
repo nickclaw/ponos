@@ -1,7 +1,4 @@
-$font-stack: Roboto, Helvetica, sans-serif;
-$scaffold-orange: #F7911E;
-$scaffold-blue: #009AB0;
-$scaffold-gray: #808080;
+@import "constants/import";
 
 * {
 	margin: 0px;
@@ -15,38 +12,14 @@ body {
 	text-rendering: optimize-legibility;
 }
 
-@import "partials/list-item";
-@import "partials/sidebar";
-@import "partials/info";
-@import "partials/icon";
-@import "partials/image-upload";
-@import "partials/user-details";
-@import "partials/job-list";
-@import "partials/map";
-
-.md-button{ min-width: 0px; }
-.md-button[type ~= submit] {
-	flex: 2;
-}
-
-md-icon {
-    vertical-align: inherit !important;
-
-    span {
-		color: white;
-        font-size: 24px;
-    }
-}
-
-md-list {
-	display: inline-block;
-	padding: 25px;
-}
 
 body, html {
 	width: 100%;
 	height: 100%;
 }
+
+@import "directive/import";
+@import "layout/import";
 
 .container {
 	position: absolute;
