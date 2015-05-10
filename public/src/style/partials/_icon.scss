@@ -1,11 +1,5 @@
 icon {
-    height: 75px;
-    width: 75px;
-    display: block;
-    margin: 5px;
-
     border-radius: 50%;
-
     background-color: $scaffold-gray;
     background-size: cover;
     background-position: 50% 50%;
@@ -13,6 +7,18 @@ icon {
     background-image: url(/* todo */);
 
     &.loaded {
-        
+
+    }
+}
+
+.icon, icon {
+    height: 75px;
+    width: 75px;
+    display: block;
+    margin: 5px;
+
+    &.small {
+        height: 45px;
+        width: 45px;
     }
 }

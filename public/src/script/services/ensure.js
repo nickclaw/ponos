@@ -8,6 +8,14 @@ angular.module('scaffold').constant('ensure', {
         }
     ],
 
+    isReady: [
+        '$location',
+        'profile',
+        function($location, profile) {
+            if (profile.$loggedIn && !profile.role) $location.url('/signup');
+        }
+    ],
+
     hasRole: function(role) {
         return [
             '$q',

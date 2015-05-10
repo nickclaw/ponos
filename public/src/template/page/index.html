@@ -7,11 +7,6 @@
 
             <div class="item detail" layout="column" layout-align="center center">
                 <h4>Returning to Scaffold?</h4>
-                <div layout="row" layout-align="space-around center">
-                    <a href="/auth/facebook/login" target="_self"><img src="/static/image/facebook_logo.png" class="logo"></a>
-                    <a href="/auth/google/login" target="_self"><img src="/static/image/google_logo.png" class="logo"></a>
-                    <a href="/auth/linkedin/login" target="_self"><img src="/static/image/linkedin_logo.png" class="logo"></a>
-                </div>
             </div>
 
             <form ng-submit="login()">
@@ -30,16 +25,17 @@
                     <md-button class="md-raised md-warn" ng-click="toggle()">New to Scaffold?</md-button>
                 </div>
             </form>
+
+            <div layout="row" layout-align="space-around center">
+                <a href="/auth/facebook/login" target="_self"><img src="/static/image/facebook_logo.png" class="icon small"></a>
+                <a href="/auth/google/login" target="_self"><img src="/static/image/google_logo.png" class="icon small"></a>
+                <a href="/auth/linkedin/login" target="_self"><img src="/static/image/linkedin_logo.png" class="icon small"></a>
+            </div>
         </div>
 
         <div ng-if="!login">
             <div class="item detail" layout="column" layout-align="center center">
                 <h4>New to Scaffold?</h4>
-                <div layout="row" layout-align="space-between center">
-                    <a href="/auth/facebook/signup" target="_self"><img src="/static/image/facebook_logo.png" class="logo"></a>
-                    <a href="/auth/google/signup" target="_self"><img src="/static/image/google_logo.png" class="logo"></a>
-                    <a href="/auth/linkedin/signup" target="_self"><img src="/static/image/linkedin_logo.png" class="logo"></a>
-                </div>
             </div>
 
             <form ng-submit="signup()">
@@ -58,6 +54,12 @@
                     <md-button class="md-raised md-warn" ng-click="toggle()">Returning to Scaffold?</md-button>
                 </div>
             </form>
+
+            <div layout="row" layout-align="space-around center">
+                <a href="/auth/facebook/signup" target="_self"><img src="/static/image/facebook_logo.png" class="icon small"></a>
+                <a href="/auth/google/signup" target="_self"><img src="/static/image/google_logo.png" class="icon small"></a>
+                <a href="/auth/linkedin/signup" target="_self"><img src="/static/image/linkedin_logo.png" class="icon small"></a>
+            </div>
         </div>
     </div>
 
@@ -69,9 +71,9 @@
             <md-tab id="user-review">Review</md-tab>
         </md-tabs>
         <div ng-switch="selectedTab">
-            <job-list ng-switch-when="0" endpoint="/api/user/me/jobs/upcoming" action="'/job/'+job+'/applications'"></job-list>
-            <job-list ng-switch-when="1" endpoint="/api/user/me/jobs/pending" action="'/job/'+job+'/applications'"></job-list>
-            <job-list ng-switch-when="2" endpoint="/api/user/me/jobs/review" action="'/user/'+applicant+'/review/'+job"></job-list>
+            <job-list ng-switch-when="0" endpoint="/api/user/me/jobs/upcoming" action="'/job/'+job._id+'/applications'"></job-list>
+            <job-list ng-switch-when="1" endpoint="/api/user/me/jobs/pending" action="'/job/'+job._id+'/applications'"></job-list>
+            <job-list ng-switch-when="2" endpoint="/api/user/me/jobs/review" action="'/user/'+job.application.applicant+'/review/'+job"></job-list>
         </div>
     </div>
 
