@@ -88,7 +88,7 @@ router
 
             if (req.$app.job.end > new Date()) return next(db.NotAllowedError("a"));
             if (req.$app.state !== 'accepted') return next(db.NotAllowedError("b"));
-            if (_.where(req.$user[role].reviews, {reviewer: req.user.id}).length) return next(db.NotAllowedError('c'));
+            if (_.where(req.$user[role].reviews, {reviewer: req.user.id, job: req.query.job}).length) return next(db.NotAllowedError('c'));
 
             req.$user[role].reviews.push({
                 reviewer: req.user,

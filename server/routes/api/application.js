@@ -36,7 +36,7 @@ router
         util.auth,
         util.role('worker'),
         function(req, res, next) {
-            db.Application.find({
+            db.Application.findOne({
                 job: req.$job.id,
                 applicant: req.user.id
             }).exec().then(function(app) {

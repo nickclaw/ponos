@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <!-- case: is worker -->
+    <!-- case: is employer -->
     <div ng-if="profile.$isEmployer()" layout="column" flex>
         <md-tabs md-selected="selectedTab">
             <md-tab id="user-jobs">My Jobs</md-tab>
@@ -74,23 +74,23 @@
         <div ng-switch="selectedTab" layout="column" flex>
             <div ng-switch-when="0" layout="column" flex>
                 <job-list endpoint="/api/user/me/jobs/upcoming" action="'/job/'+job._id+'/applications'">
-                    <h3>You have no upcoming jobs.</h3>
-                    <p>We'll show all your upcoming jobs that you've applied to and accepted right here.</p>
-                    <h4><a href="/search">Start applying</a></h4>
+                    <h3>You have no filled jobs</h3>
+                    <p>We'll list all upcoming jobs with some positions filled right here.</p>
+                    <h4><a href="/job">Start posting</a></h4>
                 </job-list>
             </div>
             <div ng-switch-when="1" layout="column" flex>
                 <job-list endpoint="/api/user/me/jobs/pending" action="'/job/'+job._id+'/applications'">
-                    <h3>You have no pending jobs.</h3>
-                    <p>All upcoming jobs you've applied to will display here. What are you waiting for?</p>
-                    <h4><a href="/search">Start applying</a></h4>
+                    <h3>You have no jobs pending</h3>
+                    <p>View all upcoming jobs people have applied to, view their applications and accept or reject them by clicking on the item.</p>
+                    <h4><a href="/job">Start posting</a></h4>
                 </job-list>
             </div>
             <div ng-switch-when="2" layout="column" flex>
-                <job-list  endpoint="/api/user/me/jobs/review" action="'/user/'+job.poster+'/review/' + job._id">
+                <job-list  endpoint="/api/user/me/jobs/review" action="'/job/'+job._id+'/applications'">
                     <h3>You have nobody to review</h3>
-                    <p>All jobs you have completed will be listed here for a time. Giving you a chance to anonymously review the person you did work for!</p>
-                    <h4><a href="/search">Start applying</a></h4>
+                    <p>All jobs you have completed will be listed here for a time. Giving you a chance to anonymously review the people who did work for you!</p>
+                    <h4><a href="/job">Start posting</a></h4>
                 </job-list>
             </div>
         </div>
@@ -99,30 +99,30 @@
     <!-- case: is employer -->
     <div ng-if="profile.$isWorker()" layout="column" flex>
         <md-tabs md-selected="selectedTab">
-            <md-tab id="user-filled">Filled</md-tab>
+            <md-tab id="user-filled">Upcoming</md-tab>
             <md-tab id="user-open">Open</md-tab>
             <md-tab id="user-review">Review</md-tab>
         </md-tabs>
         <div ng-switch="selectedTab" layout="column" flex>
             <div ng-switch-when="0" layout="column" flex>
-                <job-list endpoint="/api/user/me/jobs/accepted" action="'/'">
-                    <h3>You have no filled jobs</h3>
-                    <p>We'll list all upcoming jobs with some positions filled.</p>
-                    <h4><a href="/job">Start posting</a></h4>
+                <job-list endpoint="/api/user/me/jobs/accepted" action="'/job/'+job._id+'/applications/'+job.application._id">
+                    <h3>You have no upcoming jobs.</h3>
+                    <p>We'll show all your upcoming jobs that you've applied to and accepted right here.</p>
+                    <h4><a href="/search">Start applying</a></h4>
                 </job-list>
             </div>
             <div ng-switch-when="1"  layout="column" flex>
-                <job-list endpoint="/api/user/me/jobs/waiting" action="'/'">
-                    <h3>You have no jobs waiting</h3>
-                    <p>View all upcoming jobs people have applied to, view their applications and accept or reject them by clicking on the item.</p>
-                    <h4><a href="/job">Start posting</a></h4>
+                <job-list endpoint="/api/user/me/jobs/waiting" action="'/job/'+job._id+'/applications/'+job.application._id">
+                    <h3>You have no pending jobs.</h3>
+                    <p>All upcoming jobs you've applied to will display here. What are you waiting for?</p>
+                    <h4><a href="/search">Start applying</a></h4>
                 </job-list>
             </div>
             <div ng-switch-when="2" layout="column" flex>
                 <job-list endpoint="/api/user/me/jobs/review" action="'/'">
                     <h3>You have nobody to review</h3>
-                    <p>All jobs you have completed will be listed here for a time. Giving you a chance to anonymously review the people who did work for you!</p>
-                    <h4><a href="/job">Start posting</a></h4>
+                    <p>All jobs you have completed will be listed here for a time. Giving you a chance to anonymously review the person you did work for!</p>
+                    <h4><a href="/search">Start applying</a></h4>
                 </job-list>
             </div>
         </div>

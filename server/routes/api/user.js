@@ -194,17 +194,26 @@ router.get('/:user/jobs/review',
     util.auth,
     util.role('worker', 'employer'),
     function(req, res, next) {
+        var role = req.user.role === 'employer' ? 'owner': 'applicant';
+        var otherRole = req.user.role === 'employer' ? 'applicant' : 'owner';
+
         db.Application
             .find({
-                [req.user.role === 'employer' ? 'owner': 'applicant']: req.user.id,
+                [role]: req.user.id,
                 state: 'accepted'
             })
             .populate('job')
+            .populate(otherRole)
             .exec()
             .then(function(apps) {
                 var jobs = {};
 
                 apps.forEach(function(app) {
+                    if (_.where(app[otherRole][app[otherRole].role].reviews, {
+                        job: app.job._id,
+                        [req.user.role === 'employer' ? 'applicant' : 'owner']: req.user.id
+                    }).length) return;
+
                     var job = app.job;
                     delete app.job;
 
@@ -241,9 +250,13 @@ router.get('/:user/jobs/accepted',
                 var jobs = {};
 
                 apps.forEach(function(app) {
-                    if (app.job.start <= new Date()) return;
-                    if (jobs[app.job._id]) return;
-                    jobs[app.job._id] = app.job;
+                    var job = app.job;
+                    delete app.job;
+                    if (job.start <= new Date()) return;
+                    if (!jobs[job._id]) {
+                        jobs[job._id] = job;
+                        job.application = app;
+                    }
                 });
 
                 jobs = _.sortBy(jobs, function(a, b) {
@@ -266,13 +279,20 @@ router.get('/:user/jobs/waiting',
             .populate('job')
             .exec()
             .then(function(apps) {
-                var jobs;
+                var jobs = {};
 
                 apps.forEach(function(app) {
-                    if (app.state !== 'pending' && app.state !== 'rejected') return;
-                    if (app.job.start <= new Date()) return;
-                    if (jobs[app.job._id]) return;
-                    jobs[app.job._id] = app.job;
+                    var job = app.job.toJSON();
+                    app.job = undefined;
+                    job.application = null;
+                    console.log('job', job, job.__proto__);
+
+                    if (app.state === 'accepted') return;
+                    if (job.start <= new Date()) return;
+                    if (!jobs[job._id]) {
+                        jobs[job._id] = job;
+                        job.application = app;
+                    }
                 });
 
                 jobs = _.sortBy(jobs, function(a, b) {

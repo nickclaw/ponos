@@ -11,8 +11,9 @@
     </div>
 
     <!-- case: loaded -->
-    <div ng-if="loaded && !errored">
+    <div ng-if="loaded && !errored" lat="job.location.lat" long="job.location.long">
         <h3>{{job.title}}</h3>
-        <h4><span date="job.start"></span>--<span date="job.end"></span></h4>
+        <h4 date="job.start" format="MMM DD, YYYY"></h4>
+        <p>{{job.description}}</p>
     </div>
 </a>
