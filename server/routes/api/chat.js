@@ -46,30 +46,11 @@ router
         util.auth,
         owns,
         function(req, res, next) {
-
-            // see all messages
-            req.$chat.messages.forEach(function(message) {
-                if (!message.seenBy.includes(req.user.id)) {
-                    message.seenBy.push(req.user.id);
-                }
-            });
-
-            req.$chat.save(function(err, chat) {
-                if (err) return next(err);
-                res.send(chat);
-            });
-        }
-    )
-
-    .post('/:chat',
-        util.auth,
-        owns,
-        function(req, res, next) {
             res.send(req.$chat);
         }
     )
 
-    .post('/:chat/ack',
+    .post('/:chat',
         util.auth,
         owns,
         function(req, res, next) {
@@ -78,6 +59,25 @@ router
                 message: req.body.message,
                 sent: new Date(),
                 seenBy: [req.user.id]
+            });
+
+            req.$chat.save(function(err) {
+                if (err) return next(err);
+                res.send(req.$chat.messages[0]);
+            });
+        }
+    )
+
+    .post('/:chat/ack',
+        util.auth,
+        owns,
+        function(req, res, next) {
+
+            // see all messages
+            req.$chat.messages.forEach(function(message) {
+                if (!message.seenBy.includes(req.user.id)) {
+                    message.seenBy.push(req.user.id);
+                }
             });
 
             req.$chat.save(function(err) {

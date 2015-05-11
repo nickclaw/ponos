@@ -1,0 +1,17 @@
+<md-content class="chat" layout="column">
+    <md-list flex>
+        <md-list-item ng-repeat="group in messages" ng-class="{you: group[0].user === profile._id, them: group[0].user !== profile._id}">
+            <div class="message-container">
+                <p ng-repeat="message in group">{{message.message}}</p>
+            </div>
+        </md-list-item>
+    </md-list>
+
+    <form ng-submit="onSubmit()">
+        <md-input-container>
+            <label>Message</label>
+            <textarea ng-model="message"></textarea>
+        </md-input-container>
+        <md-button type="submit">send</md-button>
+    </form>
+</md-content>

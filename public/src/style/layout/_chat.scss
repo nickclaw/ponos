@@ -1,0 +1,24 @@
+.chat {
+
+    md-list-item {
+        margin: 10px;
+        max-width: 75%;
+        padding: 10px;
+
+        &.you {
+            background-color: rgb(150, 200, 150);
+            border-radius: 5px 5px 0px 5px;
+            margin-left: 22%;
+        }
+
+        &.them {
+            background-color: rgb(150, 150, 200);
+            border-radius: 5px 5px 5px 0px;
+            margin-left: 3%;
+        }
+
+        p {
+            margin-bottom: 3px;
+        }
+    }
+}
