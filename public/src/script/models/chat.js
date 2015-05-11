@@ -1,4 +1,4 @@
-angular.module('scaffold').factory([
+angular.module('scaffold').factory('Chat', [
     '$resource',
     '$http',
     function($resource, $http) {
@@ -9,7 +9,7 @@ angular.module('scaffold').factory([
             },
             {
                 get: { method: 'GET' },
-                search: { method: 'GET', url: '/api/chat' }
+                search: { method: 'GET', url: '/api/chat', isArray: true }
             }
         );
 

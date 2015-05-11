@@ -1,5 +1,13 @@
 angular.module('scaffold').constant('resolve', {
 
+    chat: [
+        'Chat',
+        '$route',
+        function(Chat, $route) {
+            return Chat.get({_id: $route.current.params.chat}).$promise;
+        }
+    ],
+
     job: [
         'Job',
         '$route',

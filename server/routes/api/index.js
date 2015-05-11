@@ -3,6 +3,7 @@ var router = require('express').Router();
 router
     .use('/user/', require('./user'))
     .use('/job/', require('./job'))
+    .use('/chat/', require('./chat'))
     .use('/upload', require('./upload'))
 
     //

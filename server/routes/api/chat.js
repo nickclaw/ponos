@@ -32,10 +32,11 @@ router
                             _id: chat.id,
                             unread: countUnread(user, chat),
                             users: chat.users,
+                            mostRecent: chat.messages[0]
                         }
                     }));
                 })
-                .catch(next);
+                .then(null, next);
         }
     )
 
