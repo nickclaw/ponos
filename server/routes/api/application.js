@@ -72,7 +72,8 @@ router
         function(req, res, next) {
             db.Application
             .find({
-                owner: req.user.id
+                owner: req.user.id,
+                job: req.$job.id
             })
             .populate('job')
             .populate('applicant')
