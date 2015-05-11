@@ -136,14 +136,16 @@ router.get('/:user/jobs/upcoming',
 
                 apps.forEach(function(app) {
                     var job = app.job;
-                    if (!jobs[job._id]) jobs[job._id] = 0;
-                    if (typeof jobs[job._id] !== 'number') return;
-                    jobs[job._id]++;
-                    if (jobs[job._id] >= job.needed) jobs[job._id] = job;
+                    delete app.job;
+                    if (!jobs[job._id]) {
+                        jobs[job._id] = job;
+                        jobs[job._id].applications = [];
+                    }
+                    jobs[job._id].applications.push(app);
                 });
 
                 jobs = _.filter(jobs, function(job) {
-                    return typeof job !== 'number';
+                    return (job.needed || 0) <= job.applications.length;
                 }).map(function(job) {
                     return db.Job.screen('view', job);
                 });
@@ -160,7 +162,8 @@ router.get('/:user/jobs/pending',
     function(req, res, next) {
         db.Application
             .find({
-                owner: req.user.id
+                owner: req.user.id,
+                state: { $in: ['pending', 'waiting'] }
             })
             .populate('job')
             .exec()
@@ -168,17 +171,16 @@ router.get('/:user/jobs/pending',
                 var jobs = {};
 
                 apps.forEach(function(app) {
-                    if (app.state !== 'accepted' && app.state !== 'waiting') return;
                     var job = app.job;
-                    if (!jobs[job._id]) jobs[job._id] = 0;
-                    if (typeof jobs[job._id] !== 'number') return;
-                    jobs[job._id]++;
-                    if (jobs[job._id] >= job.needed) jobs[job._id] = job;
+                    delete app.job;
+                    if (!jobs[job._id]) {
+                        jobs[job._id] = job;
+                        jobs[job._id].applications = [];
+                    }
+                    jobs[job._id].applications.push(app);
                 });
 
-                jobs = _.filter(jobs, function(job) {
-                    return typeof job === 'number';
-                }).map(function(job) {
+                jobs = _.map(jobs, function(job) {
                     return db.Job.screen('view', job);
                 });
 
@@ -203,9 +205,16 @@ router.get('/:user/jobs/review',
                 var jobs = {};
 
                 apps.forEach(function(app) {
+                    var job = app.job;
+                    delete app.job;
+
                     if (app.end > new Date()) return;
-                    if (jobs[app.job._id]) return;
-                    jobs[app.job._id] = app.job;
+                    if (!jobs[job._id]) {
+                        jobs[job._id] = job;
+                        if (req.user.role === 'employer') job.applications = [];
+                        else job.application = app;
+                    };
+                    if (req.user.role === 'employer') job.applications.push(app);
                 });
 
                 jobs = _.sortBy(jobs, function(a, b) {
