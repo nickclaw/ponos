@@ -62,6 +62,14 @@ router
         util.auth,
         owns,
         function(req, res, next) {
+            res.send(req.$chat);
+        }
+    )
+
+    .post('/:chat/ack',
+        util.auth,
+        owns,
+        function(req, res, next) {
             req.$chat.messages.unshift({
                 user: req.user.id,
                 message: req.body.message,
