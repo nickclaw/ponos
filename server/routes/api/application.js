@@ -35,7 +35,15 @@ router
     .post('/',
         util.auth,
         util.role('worker'),
-        // has not applied
+        function(req, res, next) {
+            db.Application.find({
+                job: req.$job.id,
+                applicant: req.user.id
+            }).exec().then(function(app) {
+                if (app) return next(db.NotAllowedError('TODO'));
+                next();
+            }, next);
+        },
         vlad.middleware('body', {
             blurb: vlad.string.required
         }),
