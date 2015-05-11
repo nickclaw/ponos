@@ -105,23 +105,28 @@ router
         util.auth,
         state('pending', 'waiting'),
         function(req, res, next) {
-            var save = false; // TODO isModified?
 
             if (isOwner(req) && hasState(req, 'pending')) {
                 req.$app.state = 'waiting';
-                save = true;
+                var chat = new db.Chat({
+                    job: req.$job.id,
+                    users: [req.user.id, req.$app.applicant],
+                    expires: req.$job.end,
+                    messages: []
+                });
+
+                return chat.save(function() {
+                    if (err) return next(err);
+                    req.$app.save(next);
+                });
             }
 
             if (isApplicant(req) && hasState(req, 'waiting')) {
                 req.$app.state = 'accepted';
-                save = true;
+                return req.$app.save(next);
             }
 
-            if (save) {
-                req.$app.save(next);
-            } else {
-                next(db.NotAllowedError());
-            }
+            next(db.NotAllowedError());
         },
         send
     )

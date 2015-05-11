@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 module.exports.User = require('./models/User');
 module.exports.Job = require('./models/Job');
 module.exports.Application = require('./models/Application');
-
+module.exports.Chat = require('./models/Chat');
 
 //
 // Expose vlad errors
