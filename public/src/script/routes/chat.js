@@ -5,7 +5,7 @@ angular.module('scaffold')
     'resolve',
     'ensure',
     function($routeProvider, resolve, ensure) {
-        $routeProvider.when('/message/:chat', {
+        $routeProvider.when('/messages/:chat', {
             templateUrl: '/static/template/page/chat.html',
             controller: 'Chat',
             resolve: {

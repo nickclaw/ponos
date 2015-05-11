@@ -25,13 +25,15 @@ router
                 })
                 .sort('updated')
                 .populate('job')
+                .populate('users')
                 .exec()
                 .then(function(chats) {
                     res.send(chats.map(function(chat) {
                         return {
                             _id: chat.id,
-                            unread: countUnread(user, chat),
+                            unread: countUnread(req.user, chat),
                             users: chat.users,
+                            job: chat.job,
                             mostRecent: chat.messages[0]
                         }
                     }));

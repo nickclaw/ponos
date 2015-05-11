@@ -115,7 +115,7 @@ router
                     messages: []
                 });
 
-                return chat.save(function() {
+                return chat.save(function(err) {
                     if (err) return next(err);
                     req.$app.save(next);
                 });

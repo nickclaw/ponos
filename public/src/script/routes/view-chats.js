@@ -20,6 +20,11 @@ angular.module('scaffold')
     '$scope',
     'Chat',
     function($scope, Chat) {
+        $scope.errored = false;
+
         $scope.chats = Chat.search();
+        $scope.chats.$promise.catch(function() {
+            $scope.errored = true;
+        });
     }
 ]);

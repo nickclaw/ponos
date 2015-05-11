@@ -1,0 +1,27 @@
+<md-content class="view-chats">
+    <md-list>
+
+        <!-- case: loading -->
+        <div class="temp" ng-if="!chats.$resolved">
+            <md-progress-circular indeterminate></md-progress-circular>
+        </div>
+
+        <!-- case: errored-->
+        <div class="temp" ng-if="chats.$resolved && errored">
+            <h3>Error</h3>
+        </div>
+
+        <!-- case: empty -->
+        <div class="temp" ng-if="chats.$resolved && !errored && !chats.length">
+            <h3>Empty</h3>
+        </div>
+
+        <!-- case: chats! -->
+        <md-list-item ng-if="chats.$resolved && !errored" ng-repeat="chat in chats">
+            <a ng-href="/messages/{{chat._id}}">
+                {{chat._id}}
+            </a>
+            <md-divider></md-divider>
+        </md-list-item>
+    </md-list>
+</md-content>
