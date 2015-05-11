@@ -17,9 +17,15 @@
         </div>
 
         <!-- case: chats! -->
-        <md-list-item ng-if="chats.$resolved && !errored" ng-repeat="chat in chats">
-            <a ng-href="/messages/{{chat._id}}">
-                {{chat._id}}
+        <md-list-item class="chat" ng-if="chats.$resolved && !errored" ng-repeat="chat in chats">
+            <a ng-href="/messages/{{chat._id}}" layout="row" flex>
+                <div class="unread">
+                    {{chat.unread}}
+                </div>
+                <div class="chat-content" flex layout="column" layout-align="center start">
+                    <h3>{{notUser(chat).firstName}}</h3>
+                    <p>{{notUser(chat).mostRecent}}</p>
+                </div>
             </a>
             <md-divider></md-divider>
         </md-list-item>

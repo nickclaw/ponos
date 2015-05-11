@@ -1,17 +1,20 @@
-<md-content class="chat" layout="column">
-    <md-list flex>
-        <md-list-item ng-repeat="group in messages" ng-class="{you: group[0].user === profile._id, them: group[0].user !== profile._id}">
-            <div class="message-container">
-                <p ng-repeat="message in group">{{message.message}}</p>
-            </div>
-        </md-list-item>
-    </md-list>
+<div class="chat" layout-fill layout="column">
+    <md-toolbar md-scroll-shrink="true" style="z-index: -1;">
+        <job-details job="chat.job"></job-details>
+        <user-details user="notUser(chat)"></user-details>
+    </md-toolbar>
+    <md-content flex>
+        <md-list flex>
+            <md-list-item ng-repeat="group in messages" ng-class="{you: group[0].user === profile._id, them: group[0].user !== profile._id}">
+                <div class="message-container">
+                    <p ng-repeat="message in group">{{message.message}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
 
-    <form ng-submit="onSubmit()">
         <md-input-container>
             <label>Message</label>
-            <textarea ng-model="message"></textarea>
+            <textarea ng-model="message" on-enter="onSubmit()"></textarea>
         </md-input-container>
-        <md-button type="submit">send</md-button>
-    </form>
-</md-content>
+    </md-content>
+</div>

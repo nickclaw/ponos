@@ -19,12 +19,17 @@ angular.module('scaffold')
 .controller('ViewChats', [
     '$scope',
     'Chat',
-    function($scope, Chat) {
+    'profile',
+    function($scope, Chat, profile) {
         $scope.errored = false;
 
         $scope.chats = Chat.search();
         $scope.chats.$promise.catch(function() {
             $scope.errored = true;
         });
+
+        $scope.notUser = function(chat) {
+            return chat.users[0]._id === profile._id ? chat.users[0] : chat.users[1];
+        };
     }
 ]);

@@ -37,6 +37,10 @@ angular.module('scaffold')
                 });
         };
 
+        $scope.notUser = function(chat) {
+            return chat.users[0]._id === profile._id ? chat.users[0] : chat.users[1];
+        }
+
         function clusterMessages(messages) {
             var clusters = [],
                 lastUser = null,

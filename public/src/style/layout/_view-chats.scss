@@ -1,0 +1,27 @@
+.view-chats {
+
+    .chat {
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .unread {
+            display: block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            margin: 5px;
+            border-radius: 50%;
+            color: white;
+            background-color: $scaffold-orange;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 100;
+        }
+
+        .chat-content {
+            padding: 5px 15px;
+        }
+    }
+}

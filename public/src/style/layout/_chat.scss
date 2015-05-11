@@ -1,18 +1,27 @@
 .chat {
 
+    md-toolbar {
+        padding: 5px 10px;
+        opacity: .7;
+    }
+
+    md-list {
+        overflow-y: scroll;
+    }
+
     md-list-item {
         margin: 10px;
         max-width: 75%;
         padding: 10px;
 
         &.you {
-            background-color: rgb(150, 200, 150);
+            background-color: #CFCFCF;
             border-radius: 5px 5px 0px 5px;
             margin-left: 22%;
         }
 
         &.them {
-            background-color: rgb(150, 150, 200);
+            background-color: #FFD271;
             border-radius: 5px 5px 5px 0px;
             margin-left: 3%;
         }

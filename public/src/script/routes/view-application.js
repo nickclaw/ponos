@@ -59,7 +59,7 @@ angular.module('scaffold')
         }
 
         function cancel() {
-            $location.url('/job/' + app.job._id + '/applications');
+            $location.url('/job/' + app.job + '/applications');
         }
     }
 ]);
