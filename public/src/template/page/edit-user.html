@@ -1,11 +1,7 @@
-<md-content>
-    <h1>Edit User</h1>
-
-    <h3>Basic Info</h3>
-
-    <image-upload ng-model="user.picture"></image-upload>
-
+<md-content class="info">
     <form ng-submit="save()">
+
+        <image-upload ng-model="user.picture"></image-upload>
 
         <md-input-container>
             <label>First Name</label>
@@ -37,6 +33,6 @@
 </md-content>
 
 <md-content layout="column" class="buttons">
+    <md-button flex ng-click="save()" class="md-accent md-raised">Save</md-button>
     <md-button flex ng-click="cancel()">Cancel</md-button>
-    <md-button flex ng-click="save()">Save</md-button>
 </md-content>
