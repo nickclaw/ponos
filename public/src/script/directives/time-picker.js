@@ -18,7 +18,12 @@ angular.module('scaffold').directive('timePicker', [
                 now.setHours(0);
 
                 ngModel.$render = function() {
-                    elem[0].value = moment(now.valueOf() + ngModel.$viewValue).format('h:mm a');
+                    var date = moment(ngModel.$viewValue);
+                    if (date.isValid()) {
+                        elem[0].value = date.format('h:mm a');
+                    } else {
+                        elem[0].value = "";
+                    }
                 }
                 ngModel.$render();
             }
