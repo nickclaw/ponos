@@ -9,7 +9,10 @@
             <label>Location</label>
             <location-input location="job.location"></location-input>
         </md-input-container>
-        <map options="mapOptions"></map>
+
+        <loading class="row" loading="job.location.$loading" error="job.location.$errored">
+            <map options="mapOptions"></map>
+        </loading>
 
         <div layout="row" flex>
             <md-input-container flex>
