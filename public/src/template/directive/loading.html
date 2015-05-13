@@ -1,0 +1,11 @@
+<div>
+    <ng-transclude></ng-transclude>
+
+    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; background-color: white;" layout="row" layout-align="center center" ng-show="loading">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; background-color: white;" layout="row" layout-align="center center" ng-show="error">
+        <h4>Error</h4>
+    </div>
+</div>
