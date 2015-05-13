@@ -24,7 +24,7 @@
         <meta property="og:description" content="Where work gets done." />
 
     </head>
-    <body>
+    <body layout="row">
         <div id="splash">
             <svg version="1.1" id="c" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             	 width="256px" height="256px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve">
@@ -86,9 +86,11 @@
                     <md-icon md-font-icon="icon_search"></md-icon>
                 </md-button>
             </md-toolbar>
-            <main ng-view layout="column" layout-align="space-between" flex>
+            <md-content>
+                <main ng-view layout="column" layout-align="space-between" flex>
 
-            </main>
+                </main>
+            </md-content>
         </div>
 
         <script>
