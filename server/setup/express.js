@@ -10,8 +10,8 @@ module.exports = function(app, passport) {
 
     // serve static files
     app.use(compress());
-    app.use('/static/lib', serve(path.join(__dirname, '../../public/lib')));
-    app.use('/static', serve(path.join(__dirname, '../../public/src/')));
+    app.use('/static/lib', serve(path.join(__dirname, '../../', C.APP.LIB_DIR)));
+    app.use('/static', serve(path.join(__dirname, '../../', C.APP.RES_DIR)));
     app.use('/static', function(req, res) {
         res.send(404);
     });

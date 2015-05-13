@@ -99,61 +99,8 @@
             window.__user = <%- user ? JSON.stringify(user) : 'null' %>;
         </script>
 
-        <script type="text/javascript" src="/static/lib/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/lib/angular/angular.js"></script>
-        <script type="text/javascript" src="/static/lib/angular-animate/angular-animate.js"></script>
-        <script type="text/javascript" src="/static/lib/angular-aria/angular-aria.js"></script>
-        <script type="text/javascript" src="/static/lib/angular-material/angular-material.js"></script>
-        <script type="text/javascript" src="/static/lib/angular-resource/angular-resource.js"></script>
-        <script type="text/javascript" src="/static/lib/angular-route/angular-route.js"></script>
-        <script type="text/javascript" src="/static/lib/moment/moment.js"></script>
-        <script type="text/javascript" src="/static/lib/leaflet/dist/leaflet.js"></script>
-        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.js"></script>
-        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.date.js"></script>
-        <script type="text/javascript" src="/static/lib/pickadate/lib/compressed/picker.time.js"></script>
 
-        <script type="text/javascript" src="/static/script/app.js"></script>
-        <script type="text/javascript" src="/static/script/models/job.js"></script>
-        <script type="text/javascript" src="/static/script/models/user.js"></script>
-        <script type="text/javascript" src="/static/script/models/profile.js"></script>
-        <script type="text/javascript" src="/static/script/models/application.js"></script>
-        <script type="text/javascript" src="/static/script/models/chat.js"></script>
-        <script type="text/javascript" src="/static/script/services/history.js"></script>
-        <script type="text/javascript" src="/static/script/services/resolve.js"></script>
-        <script type="text/javascript" src="/static/script/services/ensure.js"></script>
-        <script type="text/javascript" src="/static/script/services/handle.js"></script>
-        <script type="text/javascript" src="/static/script/services/moment.js"></script>
-        <script type="text/javascript" src="/static/script/services/upload-cache.js"></script>
-        <script type="text/javascript" src="/static/script/services/leaflet.js"></script>
-        <script type="text/javascript" src="/static/script/services/poller.js"></script>
-        <script type="text/javascript" src="/static/script/routes/edit-user.js"></script>
-        <script type="text/javascript" src="/static/script/routes/index.js"></script>
-        <script type="text/javascript" src="/static/script/routes/modify-job.js"></script>
-        <script type="text/javascript" src="/static/script/routes/review-user.js"></script>
-        <script type="text/javascript" src="/static/script/routes/search.js"></script>
-        <script type="text/javascript" src="/static/script/routes/signup.js"></script>
-        <script type="text/javascript" src="/static/script/routes/view-job.js"></script>
-        <script type="text/javascript" src="/static/script/routes/view-user.js"></script>
-        <script type="text/javascript" src="/static/script/routes/apply-job.js"></script>
-        <script type="text/javascript" src="/static/script/routes/view-applications.js"></script>
-        <script type="text/javascript" src="/static/script/routes/view-application.js"></script>
-        <script type="text/javascript" src="/static/script/routes/view-chats.js"></script>
-        <script type="text/javascript" src="/static/script/routes/chat.js"></script>
-        <script type="text/javascript" src="/static/script/directives/list-item.js"></script>
-        <script type="text/javascript" src="/static/script/directives/app-item.js"></script>
-        <script type="text/javascript" src="/static/script/directives/icon.js"></script>
-        <script type="text/javascript" src="/static/script/directives/user-details.js"></script>
-        <script type="text/javascript" src="/static/script/directives/job-details.js"></script>
-        <script type="text/javascript" src="/static/script/directives/date.js"></script>
-        <script type="text/javascript" src="/static/script/directives/image-upload.js"></script>
-        <script type="text/javascript" src="/static/script/directives/location-input.js"></script>
-        <script type="text/javascript" src="/static/script/directives/job-list.js"></script>
-        <script type="text/javascript" src="/static/script/directives/map.js"></script>
-        <script type="text/javascript" src="/static/script/directives/map-view.js"></script>
-        <script type="text/javascript" src="/static/script/directives/date-picker.js"></script>
-        <script type="text/javascript" src="/static/script/directives/time-picker.js"></script>
-        <script type="text/javascript" src="/static/script/directives/on-enter.js"></script>
-        <script type="text/javascript" src="/static/script/directives/skill-chips.js"></script>
-        <script type="text/javascript" src="/static/script/directives/loading.js"></script>
+        <% for(var i = 0; i < C.JS.length; i++) { %> <script src="<%= C.JS[i] %>" defer></script>
+        <% } %>
     </body>
 </html>

@@ -142,17 +142,14 @@ module.exports = function(grunt) {
         uglify: {
             prod: {
                 options: {
-                    compress: true,
+                    compress: {},
                     report: 'min',
                     sourceMap: true,
                     wrap: true
                 },
-                files:[{
-                    expand: true,
-                    cwd: 'public/src/script/',
-                    src: '**/*.js',
-                    dest: 'public/build/script/'
-                }]
+                files: {
+                    "public/build/script/app.js": "public/src/script/**/*.js"
+                }
             }
         },
 
