@@ -1,107 +1,106 @@
 <md-content ng-switch="user.role">
-        <div ng-switch-default class="info" >
-            <form>
-                <h2>Basic Info</h2>
+    <div ng-switch-default class="info" >
+        <form>
+            <h2>Basic Info</h2>
 
-                <image-upload ng-model="user.picture"></image-upload>
+            <image-upload ng-model="user.picture"></image-upload>
 
-                <md-input-container>
-                    <label>First Name</label>
-                    <input ng-model="user.firstName" />
-                </md-input-container>
-
-                <md-input-container>
-                    <label>Last Name</label>
-                    <input ng-model="user.lastName" />
-                </md-input-container>
-
-                <md-input-container>
-                    <label>Phone</label>
-                    <input ng-model="user.phone" />
-                </md-input-container>
-
-                <md-input-container>
-                    <label>Birthday</label>
-                    <input ng-model="user.birthdate" type="datetime" />
-                </md-input-container>
-
-                <md-radio-group ng-model="user.gender">
-                    <label>Gender</label>
-                    <md-radio-button value="male">Male</md-radio-button>
-                    <md-radio-button value="female">Female</md-radio-button>
-                    <md-radio-button value="other">Other</md-radio-button>
-                </md-radio-group>
-
-                <div layout="row" layout-align="space-around center">
-                    <md-button class="md-accent md-raised" ng-click="isWorker()">Worker</md-button>
-                    <md-button class="md-accent md-raised" ng-click="isEmployer()">Employer</md-button>
-                </div>
-            </form>
-        </div>
-
-        <div ng-switch-when="employer" class="info" >
-            <h2>Employer Info</h2>
             <md-input-container>
-                <label>Bio</label>
-                <textarea ng-model="user.employer.bio"></textarea>
-            </md-input-container>
-            <md-input-container>
-                <label>URL</label>
-                <input ng-model="user.employer.url" />
+                <label>First Name</label>
+                <input ng-model="user.firstName" />
             </md-input-container>
 
-            <div class="buttons">
-                <md-button ng-click="back()">go back</md-button>
-                <md-button class="md-accent md-raised" ng-click="save()">post job</md-button>
-            </div>
-        </div>
-
-        <div ng-switch-when="worker" class="info" >
-            <h2>Worker Info</h2>
             <md-input-container>
-                <label>Bio</label>
-                <textarea ng-model="user.worker.bio"></textarea>
+                <label>Last Name</label>
+                <input ng-model="user.lastName" />
             </md-input-container>
 
-            <h2 style="margin-top: 30px; margin-bottom: -30px; text-align: center;">Experience</h2>
+            <md-input-container>
+                <label>Phone</label>
+                <input ng-model="user.phone" />
+            </md-input-container>
 
-            <!-- case: no experience -->
-            <div ng-if="!user.worker.experience.length" layout="row" layout-align="center center" style="margin-top: 30px;">
-                <span>You haven't added any experience</span>
-                <md-button ng-click="addExperience()" class="md-accent md-raised">add</md-button>
+            <md-input-container>
+                <label>Birthday</label>
+                <input ng-model="user.birthdate" type="datetime" />
+            </md-input-container>
+
+            <md-radio-group ng-model="user.gender">
+                <label>Gender</label>
+                <md-radio-button value="male">Male</md-radio-button>
+                <md-radio-button value="female">Female</md-radio-button>
+                <md-radio-button value="other">Other</md-radio-button>
+            </md-radio-group>
+
+            <div layout="row" layout-align="space-around center">
+                <md-button class="md-accent md-raised" ng-click="isWorker()">Worker</md-button>
+                <md-button class="md-accent md-raised" ng-click="isEmployer()">Employer</md-button>
             </div>
+        </form>
+    </div>
 
-            <!-- case: experience -->
-            <div class="info" ng-repeat="exp in user.worker.experience">
-                <md-input-container>
-                    <label>Title</label>
-                    <input ng-model="exp.title" />
-                </md-input-container>
-                <md-input-container>
-                    <label>Start</label>
-                    <input ng-model="exp.start" date-picker />
-                </md-input-container>
-                <md-input-container>
-                    <label>End</label>
-                    <input ng-model="exp.end" date-picker />
-                </md-input-container>
-                <md-input-container>
-                    <label>Description</label>
-                    <input ng-model="exp.description" />
-                </md-input-container>
+    <div ng-switch-when="employer" class="info" >
+        <h2>Employer Info</h2>
+        <md-input-container>
+            <label>Bio</label>
+            <textarea ng-model="user.employer.bio"></textarea>
+        </md-input-container>
+        <md-input-container>
+            <label>URL</label>
+            <input ng-model="user.employer.url" />
+        </md-input-container>
 
-                <div layout="row" layout-align="end center">
-                    <md-button ng-click="removeExperience($index)">remove</md-button>
-                    <md-button ng-if="$index === user.worker.experience.length - 1"
-                        ng-click="addExperience()"
-                        class="md-accent md-raised">add</md-button>
-                </div>
-
-            </div>
-            <div class="buttons">
-                <md-button ng-click="back()">go back</md-button>
-                <md-button class="md-accent md-raised" ng-click="save()">find jobs</md-button>
-            </div>
+        <div class="buttons">
+            <md-button ng-click="back()">go back</md-button>
+            <md-button class="md-accent md-raised" ng-click="save()">post job</md-button>
         </div>
-    </md-tabs>
+    </div>
+
+    <div ng-switch-when="worker" class="info" >
+        <h2>Worker Info</h2>
+        <md-input-container>
+            <label>Bio</label>
+            <textarea ng-model="user.worker.bio"></textarea>
+        </md-input-container>
+
+        <h2 style="margin-top: 30px; margin-bottom: -30px; text-align: center;">Experience</h2>
+
+        <!-- case: no experience -->
+        <div ng-if="!user.worker.experience.length" layout="row" layout-align="center center" style="margin-top: 30px;">
+            <span>You haven't added any experience</span>
+            <md-button ng-click="addExperience()" class="md-accent md-raised">add</md-button>
+        </div>
+
+        <!-- case: experience -->
+        <div class="info" ng-repeat="exp in user.worker.experience">
+            <md-input-container>
+                <label>Title</label>
+                <input ng-model="exp.title" />
+            </md-input-container>
+            <md-input-container>
+                <label>Start</label>
+                <input ng-model="exp.start" date-picker />
+            </md-input-container>
+            <md-input-container>
+                <label>End</label>
+                <input ng-model="exp.end" date-picker />
+            </md-input-container>
+            <md-input-container>
+                <label>Description</label>
+                <input ng-model="exp.description" />
+            </md-input-container>
+
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="removeExperience($index)">remove</md-button>
+                <md-button ng-if="$index === user.worker.experience.length - 1"
+                    ng-click="addExperience()"
+                    class="md-accent md-raised">add</md-button>
+            </div>
+
+        </div>
+        <div class="buttons">
+            <md-button ng-click="back()">go back</md-button>
+            <md-button class="md-accent md-raised" ng-click="save()">find jobs</md-button>
+        </div>
+    </div>
 </md-content>
