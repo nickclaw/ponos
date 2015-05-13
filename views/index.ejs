@@ -57,11 +57,10 @@
             class="md-sidenav-left md-whiteframe-z2"
             style="height: 100vh;" >
 
-            <md-toolbar>
-                <md-button href="/"></md-button>
-            </md-toolbar>
+            <md-toolbar></md-toolbar>
 
             <md-content>
+                <md-button href="/">Home</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/user/me">profile</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/messages">messages {{unread}}</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/notifications">notifications</md-button>
@@ -81,6 +80,10 @@
             <md-toolbar layout="row" layout-align="space-between center">
                 <md-button ng-click="toggleNav()">
                     <md-icon md-font-icon="icon_menu"></md-icon>
+                </md-button>
+                <a ng-href="/" class="logo"></a>
+                <md-button ng-href="/search">
+                    <md-icon md-font-icon="icon_search"></md-icon>
                 </md-button>
             </md-toolbar>
             <main ng-view layout="column" flex>
