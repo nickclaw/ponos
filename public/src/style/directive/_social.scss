@@ -1,0 +1,18 @@
+.social {
+    .md-button {
+        background-color: $scaffold-gray;
+        height: 64px;
+        width: 64px;
+        line-height: 64px;
+    }
+
+    md-icon {
+        width: 40px;
+        height: 40px;
+        line-height: 54px;
+    }
+
+    md-icon span {
+        font-size: 40px;
+    }
+}

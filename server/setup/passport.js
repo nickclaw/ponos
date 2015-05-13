@@ -1,8 +1,7 @@
 var User = db.User,
     GoogleAuth = require('passport-google-oauth').OAuth2Strategy,
     FacebookAuth = require('passport-facebook').Strategy,
-    LocalAuth = require('passport-local').Strategy,
-    LinkedAuth = require('passport-linkedin-oauth2').Strategy;
+    LocalAuth = require('passport-local').Strategy;
 
 module.exports = function(passport) {
 
@@ -103,29 +102,6 @@ module.exports = function(passport) {
 
         user.save(done);
     }));
-
-
-    //
-    // Linkin auth
-    //
-    passport.use('linkedin-login', new LinkedAuth({
-        clientID: C.AUTH.LINKEDIN.ID,
-        clientSecret: C.AUTH.LINKEDIN.SECRET,
-        callbackUrl: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/linkedin/login/callback",
-        scope: ['r_emailaddress', 'r_basicprofile']
-    }, function() {
-
-    }));
-
-    passport.use('linkedin-signup', new LinkedAuth({
-        clientID: C.AUTH.LINKEDIN.ID,
-        clientSecret: C.AUTH.LINKEDIN.SECRET,
-        callbackUrl: C.SERVER.HOST + ":" + C.SERVER.PORT + "/auth/linkedin/signup/callback",
-        scope: ['r_emailaddress', 'r_basicprofile']
-    }, function() {
-
-    }));
-
 
     //
     // Local auth

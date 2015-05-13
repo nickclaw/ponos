@@ -1,6 +1,7 @@
 # deps
 node_modules/*
 public/lib/*
+!public/lib/mdi/*.svg
 
 # config
 config/*.json

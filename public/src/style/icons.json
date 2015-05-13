@@ -3,5 +3,7 @@
     "./public/lib/material-design-icons/action/svg/production/ic_search_48px.svg",
     "./public/lib/material-design-icons/toggle/svg/production/ic_star_24px.svg",
     "./public/lib/material-design-icons/toggle/svg/production/ic_star_outline_24px.svg",
-    "./public/lib/material-design-icons/toggle/svg/production/ic_star_half_24px.svg"
+    "./public/lib/material-design-icons/toggle/svg/production/ic_star_half_24px.svg",
+    "./public/lib/mdi/ic_facebook_48px.svg",
+    "./public/lib/mdi/ic_google_48px.svg"
 ]
