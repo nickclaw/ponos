@@ -25,7 +25,11 @@ angular.module('scaffold')
                     'Job',
                     function(Job) {
                         return new Job({
-
+                            location: {
+                                name: "",
+                                lat: 0,
+                                long: 0
+                            }
                         });
                     }
                 ]
