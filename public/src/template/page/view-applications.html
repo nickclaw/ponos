@@ -14,7 +14,6 @@
                 <app-item ng-repeat="app in applications.accepted" app="app">
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
-                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
                 </app-item>
             </md-list>
         </md-tab>
@@ -29,7 +28,6 @@
                 <app-item ng-repeat="app in applications.pending" app="app">
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
-                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
                 </app-item>
             </md-list>
         </md-tab>
@@ -44,7 +42,6 @@
                 <app-item ng-repeat="app in applications.waiting" app="app">
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
-                    <md-button ng-href="/job/{{job._id}}/applications/{{app._id}}">review</md-button>
                 </app-item>
             </md-list>
         </md-tab>
