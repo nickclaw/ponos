@@ -214,7 +214,7 @@ router.get('/:user/jobs/review',
                         [req.user.role === 'employer' ? 'applicant' : 'owner']: req.user.id
                     }).length) return;
 
-                    var job = app.job;
+                    var job = app.job.toJSON();
                     delete app.job;
 
                     if (app.end > new Date()) return;
@@ -285,7 +285,6 @@ router.get('/:user/jobs/waiting',
                     var job = app.job.toJSON();
                     app.job = undefined;
                     job.application = null;
-                    console.log('job', job, job.__proto__);
 
                     if (app.state === 'accepted') return;
                     if (job.start <= new Date()) return;

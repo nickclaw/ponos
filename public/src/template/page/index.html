@@ -119,7 +119,7 @@
                 </job-list>
             </div>
             <div ng-switch-when="2" layout="column" flex>
-                <job-list endpoint="/api/user/me/jobs/review" action="'/'">
+                <job-list endpoint="/api/user/me/jobs/review" action="'/user/'+job.application.applicant+'/review/'+job._id">
                     <h3>You have nobody to review</h3>
                     <p>All jobs you have completed will be listed here for a time. Giving you a chance to anonymously review the person you did work for!</p>
                     <h4><a href="/search">Start applying</a></h4>
