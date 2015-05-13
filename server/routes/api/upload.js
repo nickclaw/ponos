@@ -5,7 +5,7 @@ var router = require('express').Router(),
     fs = require('fs'),
     gm = require('gm'),
     multi = require('multiparty'),
-    geocoder = require('node-geocoder')('openstreetmap', 'http');
+    geocoder = require('node-geocoder')('nominatimmapquest', 'http');
 
 module.exports = router;
 
