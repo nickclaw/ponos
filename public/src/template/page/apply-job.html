@@ -4,10 +4,10 @@
             <label>Blurb</label>
             <textarea ng-model="application.blurb"></textarea>
         </md-input-container>
-
-        <div class="buttons">
-            <md-button ng-click="cancel()">Cancel</md-button>
-            <md-button class="md-accent md-raised" type="submit">Apply</md-button>
-        </div>
     </form>
+</md-content>
+
+<md-content layout="column" class="buttons">
+    <md-button flex ng-click="cancel()">Cancel</md-button>
+    <md-button flex class="md-accent md-raised" ng-click="apply()">Apply</md-button>
 </md-content>

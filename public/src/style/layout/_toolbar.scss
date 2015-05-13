@@ -1,11 +1,16 @@
-md-toolbar .logo {
-    height: 64px;
-    width: 135.25px;
-    display: block;
-    background-image: url(../image/header-logo.png);
-    background-size: contain;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    padding: 0px;
-    margin: 0px;
+#top-bar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    .logo {
+        height: 64px;
+        width: 135.25px;
+        display: block;
+        background-image: url(../image/header-logo.png);
+        background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        padding: 0px;
+        margin: 0px;
+    }
 }

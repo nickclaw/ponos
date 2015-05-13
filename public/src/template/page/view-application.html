@@ -7,25 +7,25 @@
         <label>Statement</label>
         <span>{{app.blurb}}</span>
     </div>
+</md-content>
 
-    <!-- case: is applicant -->
-    <div ng-if="profile._id === app.applicant" class="buttons">
-        <md-button ng-if="app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Confirm</md-button>
-        <md-button ng-if="app.state === 'waiting'" class="md-accent" ng-click="reject()">Withdraw</md-button>
-        <md-button ng-if="app.state === 'accepted'"
-            ng-if="profile._id === app.applicant"
-            ng-href="/user/{{app.owner}}/review/{{app.job}}"> Review Poster
-        </md-button>
-        <md-button ng-click="cancel()">Cancel</md-button>
-    </div>
+<!-- case: is applicant -->
+<md-content layout="column" ng-if="profile._id === app.applicant" class="buttons">
+    <md-button flex ng-if="app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Confirm</md-button>
+    <md-button flex ng-if="app.state === 'waiting'" class="md-accent" ng-click="reject()">Withdraw</md-button>
+    <md-button flex ng-if="app.state === 'accepted'"
+        ng-if="profile._id === app.applicant"
+        ng-href="/user/{{app.owner}}/review/{{app.job}}"> Review Poster
+    </md-button>
+    <md-button flex ng-click="cancel()">Cancel</md-button>
+</md-content>
 
-    <!-- case: is poster -->
-    <div ng-if="profile._id === app.owner" class="buttons">
-        <md-button ng-if="app.state === 'pending'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
-        <md-button ng-if="app.state === 'pending'" class="md-accent" ng-click="reject()">Reject</md-button>
-        <md-button ng-if="app.state === 'accepted'"
-            ng-href="/user/{{app.applicant}}/review/{{app.job}}"> Review Applicant
-        </md-button>
-        <md-button ng-click="cancel()">Cancel</md-button>
-    </div>
+<!-- case: is poster -->
+<md-content layout="column" ng-if="profile._id === app.owner" class="buttons">
+    <md-button flex ng-if="app.state === 'pending'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
+    <md-button flex ng-if="app.state === 'pending'" class="md-accent" ng-click="reject()">Reject</md-button>
+    <md-button flex ng-if="app.state === 'accepted'"
+        ng-href="/user/{{app.applicant}}/review/{{app.job}}"> Review Applicant
+    </md-button>
+    <md-button flex ng-click="cancel()">Cancel</md-button>
 </md-content>

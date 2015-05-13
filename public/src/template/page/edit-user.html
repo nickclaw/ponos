@@ -33,8 +33,10 @@
             <md-radio-button value="female">Female</md-radio-button>
             <md-radio-button value="other">Other</md-radio-button>
         </md-radio-group>
-
-        <md-button ng-click="cancel()">Cancel</md-button>
-        <md-button type="submit">Save</md-button>
     </form>
+</md-content>
+
+<md-content layout="column" class="buttons">
+    <md-button flex ng-click="cancel()">Cancel</md-button>
+    <md-button flex ng-click="save()">Save</md-button>
 </md-content>

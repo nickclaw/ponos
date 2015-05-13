@@ -21,10 +21,10 @@
             <label>C</label>
             <md-slider ng-model="review.c" step="1" md-discrete min="0" max="5"></md-slider>
         </div>
-
-        <div class="buttons">
-            <md-button ng-click="cancel()">cancel</md-button>
-            <md-button class="md-accent md-raised" type="submit">review</md-button>
-        </div>
     </form>
+</md-content>
+
+<md-content layout="column" class="buttons">
+    <md-button flex ng-click="cancel()">cancel</md-button>
+    <md-button flex class="md-accent md-raised" type="submit">review</md-button>
 </md-content>

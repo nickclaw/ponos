@@ -1,7 +1,5 @@
 <md-content class="info">
-
     <user-details user="user"></user-details>
-
     <div class="detail item long">
         <label>Bio</label>
         <span>{{user.$isWorker() ? user.worker.bio : user.employer.bio}}</span>
@@ -11,8 +9,8 @@
     <div class="detail item" ng-repeat="review in reviews.comments">
         {{review}}
     </div>
+</md-content>
 
-    <div class="buttons" ng-if="user.$owned()">
-        <md-button class="md-accent md-raised" href="/user/{{user._id}}/edit">Edit</md-button>
-    </div>
+<md-content layout="row" class="buttons" ng-if="user.$owned()">
+    <md-button class="md-accent md-raised" flex href="/user/{{user._id}}/edit">Edit</md-button>
 </md-content>
