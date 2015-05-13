@@ -27,9 +27,9 @@ angular.module('scaffold')
         $scope.chats.$promise.catch(function() {
             $scope.errored = true;
         });
-
+        
         $scope.notUser = function(chat) {
-            return chat.users[0]._id === profile._id ? chat.users[0] : chat.users[1];
+            return chat.users[0]._id === profile._id ? chat.users[1] : chat.users[0];
         };
     }
 ]);
