@@ -13,11 +13,11 @@ angular.module('scaffold').factory('Chat', [
             }
         );
 
-        Chat.prototype.ack = function() {
+        Chat.prototype.$ack = function() {
             return $http.post('/api/chat/' + this._id + '/ack');
         };
 
-        Chat.prototype.message = function(message) {
+        Chat.prototype.$message = function(message) {
             return $http.post('/api/chat/' + this._id, {
                 message: message
             });

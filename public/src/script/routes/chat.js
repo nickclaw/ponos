@@ -19,21 +19,28 @@ angular.module('scaffold')
 
 .controller('Chat', [
     '$scope',
+    '$routeParams',
     'chat',
+    'Chat',
+    'Poller',
     'profile',
-    function($scope, chat, profile) {
+    function($scope, $routeParams, chat, Chat, Poller, profile) {
         $scope.chat = chat;
         $scope.profile = profile;
-        $scope.messages = clusterMessages();
+        $scope.messages = clusterMessages(chat.messages);
         $scope.message = "";
+
+        $scope.chat.$ack();
+        var poller = new Poller(update);
+        poller.start(10000);
 
         $scope.onSubmit = function() {
             if (!$scope.message.length) return;
-            chat.message($scope.message)
+            chat.$message($scope.message)
                 .then(function(req) {
                     $scope.message = "";
                     $scope.chat.messages.unshift(req.data);
-                    $scope.messages = clusterMessages();
+                    $scope.messages = clusterMessages($scope.chat.messages);
                 });
         };
 
@@ -46,7 +53,7 @@ angular.module('scaffold')
                 lastUser = null,
                 lastDate = 0;
 
-            chat.messages.forEach(function(m) {
+            messages.forEach(function(m) {
                 var currentDate = new Date(m.sent).valueOf();
                 if (m.user !== lastUser || lastDate < currentDate - 1000 * 60 * 30) {
                     clusters.unshift([]);
@@ -57,6 +64,14 @@ angular.module('scaffold')
             });
 
             return clusters;
+        }
+
+        function update() {
+            Chat.get({ _id: chat._id }).$promise.then(function(c) {
+                $scope.chat = c;
+                $scope.messages = clusterMessages(c.messages);
+                c.$ack();
+            });
         }
     }
 ]);

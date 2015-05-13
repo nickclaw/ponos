@@ -63,7 +63,7 @@
 
             <md-content>
                 <md-button ng-if="profile.$loggedIn" href="/user/me">profile</md-button>
-                <md-button ng-if="profile.$loggedIn" href="/messages">messages</md-button>
+                <md-button ng-if="profile.$loggedIn" href="/messages">messages {{unread}}</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/notifications">notifications</md-button>
                 <md-divider></md-divider>
 
@@ -118,6 +118,7 @@
         <script type="text/javascript" src="/static/script/services/moment.js"></script>
         <script type="text/javascript" src="/static/script/services/upload-cache.js"></script>
         <script type="text/javascript" src="/static/script/services/leaflet.js"></script>
+        <script type="text/javascript" src="/static/script/services/poller.js"></script>
         <script type="text/javascript" src="/static/script/routes/edit-user.js"></script>
         <script type="text/javascript" src="/static/script/routes/index.js"></script>
         <script type="text/javascript" src="/static/script/routes/modify-job.js"></script>
