@@ -30,9 +30,6 @@ var schema = mongoose.Schema({
     // shared info
     firstName: { type: String },
     lastName: { type: String },
-    phone: { type: String },
-    birthdate: { type: Date },
-    gender: { type: String },
     picture: { type: String },
 
     role: { type: String, default: null },
@@ -111,7 +108,6 @@ schema.methods.validate = function validate(callback) {
 var propertyValidations = {
     firstName: vlad.string.min(2).required,
     lastName: vlad.string.min(2).required,
-    phone: vlad.string,
     role: vlad.string.default(null),
     picture: vlad.string
 };
@@ -159,9 +155,6 @@ var whitelist = {
     edit: {
         firstName: true,
         lastName: true,
-        birthdate: true,
-        gender: true,
-        phone: true,
         picture: true,
 
         worker: {
@@ -181,9 +174,6 @@ var whitelist = {
         _id: true,
         firstName: true,
         lastName: true,
-        birthdate: true,
-        gender: true,
-        phone: true,
         role: true,
         picture: true,
 

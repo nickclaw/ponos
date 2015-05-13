@@ -48,8 +48,6 @@ module.exports = function(passport) {
         var user = new User({
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            birthdate: null,
-            gender: null,
             picture: profile._json.picture,
             role: null,
             worker: {},
@@ -57,10 +55,7 @@ module.exports = function(passport) {
 
             auth: {
                 google_id: profile.id
-            },
-
-            new: true,
-            finished: false
+            }
         });
 
         user.save(done);
@@ -86,13 +81,9 @@ module.exports = function(passport) {
         profileFields: ['id', 'displayName', 'picture.type(large)', 'profileUrl']
     }, function(accessToken, refreshToken, profile, done) {
         var user = new User({
-            new: true,
             role: null,
             firstName: "",
             lastName: "",
-            phone: "",
-            birthdate: null,
-            gender: null,
             picture: !profile._json.picture.data.is_silhouette ? profile._json.picture.data.url : undefined,
 
             auth: {
@@ -122,7 +113,6 @@ module.exports = function(passport) {
         var user = new User({
             firstName: "",
             lastName: "",
-            phone: "",
             role: null,
             auth: {
                 local: {
