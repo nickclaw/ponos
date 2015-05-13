@@ -4,6 +4,16 @@ md-sidenav {
 	left: 0px;
 	width: 250px;
 
+	&:after{
+		content: "";
+		background-color: rgba(0,0,0,.12);
+		height: 100%;
+		width: 1px;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+	}
+
 	md-toolbar .md-button {
 		background-image: url(../image/header-logo.png);
 		background-size: contain;
