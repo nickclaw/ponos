@@ -1,5 +1,8 @@
 <md-content class="info">
-    <user-details user="app.applicant"></user-details>
+
+    <job-details job="app.job"></job-details>
+    <user-details ng-if="profile.$isWorker()" user="app.owner"></user-details>
+    <user-details ng-if="profile.$isEmployer()" user="app.applicant"></user-details>
     <div class="detail item long">
         <label>Statement</label>
         <span>{{app.blurb}}</span>
@@ -7,7 +10,7 @@
 
     <!-- case: is applicant -->
     <div ng-if="profile._id === app.applicant" class="buttons">
-        <md-button ng-if="app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
+        <md-button ng-if="app.state === 'waiting'" class="md-accent md-raised" ng-click="accept()">Confirm</md-button>
         <md-button ng-if="app.state === 'waiting'" class="md-accent" ng-click="reject()">Withdraw</md-button>
         <md-button ng-if="app.state === 'accepted'"
             ng-if="profile._id === app.applicant"

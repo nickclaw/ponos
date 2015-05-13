@@ -20,17 +20,20 @@ angular.module('scaffold')
 .controller('ViewApplicationController', [
     '$scope',
     '$location',
+    '$history',
     'application',
-    function($scope, $location, app) {
+    'profile',
+    function($scope, $location, $history, app, profile) {
 
         //
         // Scope
         //
         $scope.app = app;
-
         $scope.accept = accept;
         $scope.reject = reject;
         $scope.cancel = cancel;
+
+        var url = profile.$isWorker() ? '/job/' + app.job + '/applications' : '/';
 
         //
         // Functions
@@ -39,7 +42,7 @@ angular.module('scaffold')
         function accept() {
             app.$accept().then(
                 function() {
-                    $location.url('/job/' + app.job + '/applications');
+                    $history.back(url);
                 },
                 function(err) {
                     console.error('TODO');
@@ -50,7 +53,7 @@ angular.module('scaffold')
         function reject() {
             app.$reject().then(
                 function() {
-                    $location.url('/job/' + app.job + '/applications');
+                    $history.back(url);
                 },
                 function(err) {
                     console.error('TODO');
@@ -59,7 +62,7 @@ angular.module('scaffold')
         }
 
         function cancel() {
-            $location.url('/job/' + app.job + '/applications');
+            $history.back(url);
         }
     }
 ]);
