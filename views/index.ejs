@@ -72,6 +72,7 @@
                 <md-button ng-if="profile.$isWorker()" href="/user/me/jobs">Your Experience</md-button>
                 <md-divider></md-divider>
 
+                <md-button ng-if="!profile.$loggedIn" href="/">login</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/auth/logout" target="_self">logout</md-button>
             </md-content>
         </md-sidenav>
