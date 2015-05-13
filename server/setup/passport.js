@@ -48,6 +48,7 @@ module.exports = function(passport) {
         var user = new User({
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
+            bio: "",
             picture: profile._json.picture,
             role: null,
             worker: {},
@@ -84,6 +85,7 @@ module.exports = function(passport) {
             role: null,
             firstName: "",
             lastName: "",
+            bio: "",
             picture: !profile._json.picture.data.is_silhouette ? profile._json.picture.data.url : undefined,
 
             auth: {
@@ -113,6 +115,7 @@ module.exports = function(passport) {
         var user = new User({
             firstName: "",
             lastName: "",
+            bio: "",
             role: null,
             auth: {
                 local: {

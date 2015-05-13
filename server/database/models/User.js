@@ -31,27 +31,18 @@ var schema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     picture: { type: String },
-
+    bio: { type: String },
     role: { type: String, default: null },
 
     // worker specific data
     worker: {
-        bio: { type: String },
-        experience: { type: [{
-            title: String,
-            start: Date,
-            end: Date,
-            description: String
-        }] },
-
+        skills: {type: [String], default: []},
         reviews: { type: [Review] }
     },
 
     // employer specific data
     employer: {
-        bio: { type: String },
         url: { type: String },
-
         reviews: { type: [Review] }
     },
 
@@ -109,7 +100,8 @@ var propertyValidations = {
     firstName: vlad.string.min(2).required,
     lastName: vlad.string.min(2).required,
     role: vlad.string.default(null),
-    picture: vlad.string
+    picture: vlad.string,
+    bio: vlad.string
 };
 
 var propertyValidator = vlad(propertyValidations);
@@ -124,7 +116,6 @@ var newValidator = vlad({
 
 var employerValidator = vlad(_.extend({
     employer: vlad({
-        bio: vlad.string.required,
         url: vlad.string
     }),
     auth: authValidator
@@ -132,13 +123,7 @@ var employerValidator = vlad(_.extend({
 
 var workerValidator = vlad(_.extend({
     worker: vlad({
-        bio: vlad.string.required,
-        experience: vlad.array.of(vlad({
-            title: vlad.string.required,
-            start: vlad.date.required,
-            end: vlad.date.required,
-            description: vlad.string
-        })).min(0).required
+        skills: vlad.array.of(vlad.string).min(0).required
     }),
     auth: authValidator
 }, propertyValidations));
@@ -156,14 +141,13 @@ var whitelist = {
         firstName: true,
         lastName: true,
         picture: true,
+        bio: true,
 
         worker: {
-            bio: true,
-            experience: true
+            skills: true
         },
 
         employer: {
-            bio: true,
             url: true
         },
 
@@ -176,14 +160,13 @@ var whitelist = {
         lastName: true,
         role: true,
         picture: true,
+        bio: true,
 
         worker: {
-            bio: true,
-            experience: true
+            skills: true
         },
 
         employer: {
-            bio: true,
             url: true
         },
 

@@ -13,6 +13,11 @@
                 <input ng-model="user.lastName" />
             </md-input-container>
 
+            <md-input-container>
+                <label>Bio</label>
+                <textarea ng-model="user.employer.bio"></textarea>
+            </md-input-container>
+
             <md-radio-group ng-model="user.role">
                 <md-radio-button value="worker" class="md-primary">Worker</md-radio-button>
                 <md-radio-button value="employer" class="md-primary">Employer</md-radio-button>
@@ -21,57 +26,13 @@
 
     <div ng-if="user.role === 'employer'">
         <md-input-container>
-            <label>Bio</label>
-            <textarea ng-model="user.employer.bio"></textarea>
-        </md-input-container>
-
-        <md-input-container>
             <label>URL</label>
             <input ng-model="user.employer.url" />
         </md-input-container>
     </div>
 
     <div ng-if="user.role === 'worker'">
-        <md-input-container>
-            <label>Bio</label>
-            <textarea ng-model="user.worker.bio"></textarea>
-        </md-input-container>
 
-        <h2 style="margin-top: 30px; margin-bottom: -30px; text-align: center;">Experience</h2>
-
-        <!-- case: no experience -->
-        <div ng-if="!user.worker.experience.length" layout="row" layout-align="center center" style="margin-top: 30px;">
-            <span>You haven't added any experience</span>
-            <md-button ng-click="addExperience()" class="md-accent md-raised">add</md-button>
-        </div>
-
-        <!-- case: experience -->
-        <div ng-repeat="exp in user.worker.experience">
-            <md-input-container>
-                <label>Title</label>
-                <input ng-model="exp.title" />
-            </md-input-container>
-            <md-input-container>
-                <label>Start</label>
-                <input ng-model="exp.start" date-picker />
-            </md-input-container>
-            <md-input-container>
-                <label>End</label>
-                <input ng-model="exp.end" date-picker />
-            </md-input-container>
-            <md-input-container>
-                <label>Description</label>
-                <input ng-model="exp.description" />
-            </md-input-container>
-
-            <div layout="row" layout-align="end center">
-                <md-button ng-click="removeExperience($index)">remove</md-button>
-                <md-button ng-if="$index === user.worker.experience.length - 1"
-                    ng-click="addExperience()"
-                    class="md-accent md-raised">add</md-button>
-            </div>
-
-        </div>
     </div>
 </md-content>
 
