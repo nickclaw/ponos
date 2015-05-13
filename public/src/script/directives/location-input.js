@@ -13,10 +13,11 @@ angular.module('scaffold').directive('locationInput', [
                 var currentRequest;
 
                 $scope.$watch('location.name', debounce(600, function(address) {
-                    if (!address) return;
-
-                    $scope.location.$loading = true;
-                    $scope.location.$errored = false;
+                    if (!address) {
+                        $scope.location.$loading = false;
+                        $scope.location.$errored = false;
+                        return;
+                    };
 
                     var thisRequest = currentRequest = $http.get('/api/upload/address?address=' + address)
                         .then(
@@ -41,6 +42,9 @@ angular.module('scaffold').directive('locationInput', [
                 function debounce(time, fn) {
                     var timeout;
                     return function() {
+                        $scope.location.$loading = true;
+                        $scope.location.$errored = false;
+
                         if (timeout) {
                             $timeout.cancel(timeout);
                         }
