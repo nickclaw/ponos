@@ -1,0 +1,17 @@
+<md-chips ng-model="user.worker.skills" md-autocomplete-snap md-require-match />
+    <md-autocomplete
+        md-selected-item="selectedItem"
+        md-search-text="searchText"
+        md-items="item in querySearch(searchText)"
+        md-item-text="'hello'"
+        placeholder="Type in a skill">
+
+        <md-item-template>
+            <span md-highlight-text="searchText">{{item}}</span>
+        </md-item-template>
+
+        <md-not-found>
+            No matches found.
+        </md-not-found>
+    </md-autocomplete>
+</md-chips>
