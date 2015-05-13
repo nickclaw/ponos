@@ -18,7 +18,7 @@ router
     .get('/signup', passport.authenticate('facebook-signup'))
     .get('/signup/callback', passport.authenticate('facebook-signup'),
     function(req, res, next) {
-        res.redirect('/new');
+        res.redirect('/signup');
     });
 
 module.exports = router;
