@@ -1,6 +1,13 @@
 var router = require('express').Router();
 
 router
+    // cache nothing
+    .use(function(req, res, next) {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+        next();
+    })
     .use('/user/', require('./user'))
     .use('/job/', require('./job'))
     .use('/chat/', require('./chat'))
