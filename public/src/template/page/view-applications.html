@@ -8,7 +8,7 @@
                 <!-- case: empty -->
                 <div class="list-info" ng-if="!applications.accepted.length" layout="row" layout-align="center center">
                     No applications..
-                </md-list-item>
+                </div>
 
                 <!-- case: -->
                 <app-item ng-repeat="app in applications.accepted" app="app">
@@ -22,7 +22,7 @@
                 <!-- case: empty -->
                 <div class="list-info" ng-if="!applications.pending.length" layout="row" layout-align="center center">
                     No applications..
-                </md-list-item>
+                </div>
 
                 <!-- case: -->
                 <app-item ng-repeat="app in applications.pending" app="app">
@@ -36,7 +36,7 @@
                 <!-- case: empty -->
                 <div class="list-info" ng-if="!applications.waiting.length" layout="row" layout-align="center center">
                     No applications..
-                </md-list-item>
+                </div>
 
                 <!-- case: -->
                 <app-item ng-repeat="app in applications.waiting" app="app">
