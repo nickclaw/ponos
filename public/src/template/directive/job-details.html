@@ -1,19 +1,10 @@
 <a ng-href="/job/{{job._id}}" class="job-details">
 
-    <!-- case: error -->
-    <div ng-if="errored">
-
-    </div>
-
-    <!-- case: loading -->
-    <div ng-if="!loaded" layout="row" layout-align="center center">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
-
-    <!-- case: loaded -->
-    <div ng-if="loaded && !errored" lat="job.location.lat" long="job.location.long">
-        <h3>{{job.title}}</h3>
-        <h4 date="job.start" format="MMM DD, YYYY"></h4>
-        <p>{{job.description}}</p>
-    </div>
+    <loading loading="loading" error="errored">
+        <div lat="job.location.lat" long="job.location.long">
+            <h3>{{job.title}}</h3>
+            <h4 date="job.start" format="MMM DD, YYYY"></h4>
+            <p>{{job.description}}</p>
+        </div>
+    </loading>
 </a>

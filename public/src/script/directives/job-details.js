@@ -9,13 +9,13 @@ angular.module('scaffold').directive('jobDetails', [
                 _job: '=job'
             },
             link: function($scope, elem, attr) {
-                $scope.loaded = true;
+                $scope.loading = true;
                 $scope.errored = false;
                 $scope.job = $scope._job;
 
                 $scope.$watch('job', function(job) {
                     $scope.errored = false;
-                    $scope.loaded = true;
+                    $scope.loading = false;
 
                     // case: no job
                     if (!job) {
@@ -25,15 +25,16 @@ angular.module('scaffold').directive('jobDetails', [
 
                     // case: just job id
                     if (!job._id) {
-                        $scope.loaded = false;
+                        $scope.loading = true;
                         Job.get({_id: job}).$promise
                             .then(
                                 function(j) {
-                                    $scope.loaded = true;
+                                    $scope.loading = false;
+                                    $scope.errored = false;
                                     $scope.job = j;
                                 },
                                 function() {
-                                    $scope.loaded = true;
+                                    $scope.loading = false;
                                     $scop.errored = true;
                                 }
                             );

@@ -10,14 +10,14 @@ angular.module('scaffold').directive('userDetails', [
             },
             link: function($scope, elem, attr) {
                 $scope.short = false;
-                $scope.loaded = true;
+                $scope.loading = true;
                 $scope.errored = false;
                 $scope.user = $scope._user;
                 $scope.stars = null;
 
                 $scope.$watch('user', function(user) {
                     $scope.errored = false;
-                    $scope.loaded = true;
+                    $scope.loading = false;
 
                     // case: no user
                     if (!user) {
@@ -27,15 +27,16 @@ angular.module('scaffold').directive('userDetails', [
 
                     // case: just unique id
                     if (!user._id) {
-                        $scope.loaded = false;
+                        $scope.loading = true;
                         User.get({_id: user}).$promise
                             .then(
                                 function(u) {
-                                    $scope.loaded = true;
+                                    $scope.loading = false;
+                                    $scope.errored = false;
                                     $scope.user = u;
                                 },
                                 function() {
-                                    $scope.loaded = true;
+                                    $scope.loading = false;
                                     $scop.errored = true;
                                 }
                             );

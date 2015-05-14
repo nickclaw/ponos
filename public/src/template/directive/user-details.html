@@ -1,38 +1,29 @@
 <a ng-href="/user/{{user._id}}" class="user-details">
 
-    <!-- case: error -->
-    <div ng-if="errored" layout="row" layout-align="center center">
+    <loading loading="loading" error="errored">
+        <div layout="row" flex>
+            <icon class="large" src="user.picture"></icon>
+            <div layout="column" layout-align="end end" flex>
 
-    </div>
+                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                <div>
+                    <md-icon ng-if="stars < 1" class="star" md-font-icon="icon_star_outline"></md-icon>
+                    <md-icon ng-if="stars >= 1" class="star" md-font-icon="icon_star"></md-icon>
 
-    <!-- case: loading -->
-    <div ng-if="!loaded" layout="row" layout-align="center center">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
+                    <md-icon ng-if="stars < 2" class="star" md-font-icon="icon_star_outline"></md-icon>
+                    <md-icon ng-if="stars >= 2" class="star" md-font-icon="icon_star"></md-icon>
 
-    <!-- case: loaded -->
-    <div ng-if="loaded && !errored" layout="row" flex>
-        <icon class="large" src="user.picture"></icon>
-        <div layout="column" layout-align="end end" flex>
+                    <md-icon ng-if="stars < 3" class="star" md-font-icon="icon_star_outline"></md-icon>
+                    <md-icon ng-if="stars >= 3" class="star" md-font-icon="icon_star"></md-icon>
 
-            <h3>{{user.firstName}} {{user.lastName}}</h3>
-            <div>
-                <md-icon ng-if="stars < 1" class="star" md-font-icon="icon_star_outline"></md-icon>
-                <md-icon ng-if="stars >= 1" class="star" md-font-icon="icon_star"></md-icon>
+                    <md-icon ng-if="stars < 4" class="star" md-font-icon="icon_star_outline"></md-icon>
+                    <md-icon ng-if="stars >= 4" class="star" md-font-icon="icon_star"></md-icon>
 
-                <md-icon ng-if="stars < 2" class="star" md-font-icon="icon_star_outline"></md-icon>
-                <md-icon ng-if="stars >= 2" class="star" md-font-icon="icon_star"></md-icon>
-
-                <md-icon ng-if="stars < 3" class="star" md-font-icon="icon_star_outline"></md-icon>
-                <md-icon ng-if="stars >= 3" class="star" md-font-icon="icon_star"></md-icon>
-
-                <md-icon ng-if="stars < 4" class="star" md-font-icon="icon_star_outline"></md-icon>
-                <md-icon ng-if="stars >= 4" class="star" md-font-icon="icon_star"></md-icon>
-
-                <md-icon ng-if="stars < 5" class="star" md-font-icon="icon_star_outline"></md-icon>
-                <md-icon ng-if="stars >= 5" class="star" md-font-icon="icon_star"></md-icon>
+                    <md-icon ng-if="stars < 5" class="star" md-font-icon="icon_star_outline"></md-icon>
+                    <md-icon ng-if="stars >= 5" class="star" md-font-icon="icon_star"></md-icon>
+                </div>
             </div>
         </div>
-    </div>
+    </loading>
 
 </a>

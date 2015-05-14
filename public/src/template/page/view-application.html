@@ -1,8 +1,10 @@
 <md-content class="info">
 
     <job-details job="app.job"></job-details>
+    <md-divider layout-margin></md-divider>
     <user-details ng-if="profile.$isWorker()" user="app.owner"></user-details>
     <user-details ng-if="profile.$isEmployer()" user="app.applicant"></user-details>
+
     <div class="detail item long">
         <label>Statement</label>
         <span>{{app.blurb}}</span>
