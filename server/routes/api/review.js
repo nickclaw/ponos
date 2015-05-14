@@ -22,8 +22,10 @@ router
             reviews = req.$user[req.$user.role].reviews,
             length = reviews.length;
 
-        reviews.forEach(function(review, i) {
-            if (i > length - 3) comments.push(review.comment);
+        var count = 0;
+
+        reviews.reverse().forEach(function(review, i) {
+            if (comments.length <  3 && review.comment) comments.push(review.comment);
             averages.a += review.a;
             averages.b += review.b;
             averages.c += review.c;

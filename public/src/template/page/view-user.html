@@ -5,9 +5,23 @@
         <span>{{user.$isWorker() ? user.worker.bio : user.employer.bio}}</span>
     </div>
 
-    <h3>Reviews</h3>
-    <div class="detail item" ng-repeat="review in reviews.comments">
-        {{review}}
+    <div class="list">
+        <div class="list-info" ng-if="!reviews.comments.length">
+            <h3>No Reviews Yet</h3>
+        </div>
+
+        <div class="list-item" ng-if="reviews.comments.length">
+            <div class="list-item-content" layout="row" layout-align="center center">
+                <h3>Reviews</h3>
+            </div>
+        </div>
+
+        <a class="list-item" ng-repeat="review in reviews.comments">
+            <div class="list-item-content">
+                {{review}}
+            </div>
+            <md-divider></md-divider>
+        </a>
     </div>
 </md-content>
 
