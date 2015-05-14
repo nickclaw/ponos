@@ -29,7 +29,7 @@
                     <br />
                     <p>{{chat.mostRecent.message}}</p>
                 </div>
-                <icon src="notUser(chat).picture"></icon>
+                <icon src="notUser(chat).picture" notifications="{{chat.unread + 1 ? chat.unread : ''}}"></icon>
             </div>
             <md-divider></md-divider>
         </a>

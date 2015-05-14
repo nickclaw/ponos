@@ -26,4 +26,20 @@ icon {
         height: 100px;
         width: 100px;
     }
+
+    &[notifications]:not([notifications=""]):after {
+        content: attr(notifications);
+        display: block;
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background-color: $scaffold-orange;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 150%;
+        font-size: 150%;
+        bottom: 0px;
+        right: 0px;
+    }
 }
