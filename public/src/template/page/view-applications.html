@@ -4,9 +4,9 @@
 
     <md-tabs flex>
         <md-tab label="accepted">
-            <md-list>
+            <div class="list">
                 <!-- case: empty -->
-                <md-list-item ng-if="!applications.accepted.length" layout="row" layout-align="center center">
+                <div class="list-info" ng-if="!applications.accepted.length" layout="row" layout-align="center center">
                     No applications..
                 </md-list-item>
 
@@ -15,12 +15,12 @@
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
                 </app-item>
-            </md-list>
+            </div>
         </md-tab>
         <md-tab label="pending">
-            <md-list>
+            <div class="list">
                 <!-- case: empty -->
-                <md-list-item ng-if="!applications.pending.length" layout="row" layout-align="center center">
+                <div class="list-info" ng-if="!applications.pending.length" layout="row" layout-align="center center">
                     No applications..
                 </md-list-item>
 
@@ -29,12 +29,12 @@
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
                 </app-item>
-            </md-list>
+            </div>
         </md-tab>
         <md-tab label="waiting">
-            <md-list>
+            <div class="list">
                 <!-- case: empty -->
-                <md-list-item ng-if="!applications.waiting.length" layout="row" layout-align="center center">
+                <div class="list-info" ng-if="!applications.waiting.length" layout="row" layout-align="center center">
                     No applications..
                 </md-list-item>
 
@@ -43,7 +43,7 @@
                     <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
                     <p>{{app.blurb}}</p>
                 </app-item>
-            </md-list>
+            </div>
         </md-tab>
     </md-tabs>
 </md-content>

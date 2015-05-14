@@ -1,0 +1,41 @@
+.list {
+
+    > a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .list-info {
+        opacity: .7;
+        padding-top: 100px;
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+    }
+
+    .number {
+        width: 60px;
+        height: 60px;
+        background-color: rgb(50,50,50);
+        border-radius: 50%;
+    }
+
+    .list-item-content {
+        padding: 20px 30px;
+        flex: 1;
+
+        h2 {
+            margin: 0px;
+        }
+
+        p {
+            color: $scaffold-gray;
+            margin: 0px;
+            span {
+                font-weight: bold;
+                color: black;
+            }
+        }
+    }
+}

@@ -1,34 +1,37 @@
 <md-content class="view-chats">
-    <md-list>
+    <div class="list">
 
         <!-- case: loading -->
-        <div class="temp" ng-if="!chats.$resolved">
+        <div class="list-info" ng-if="!chats.$resolved">
             <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
 
         <!-- case: errored-->
-        <div class="temp" ng-if="chats.$resolved && errored">
+        <div class="list-info" ng-if="chats.$resolved && errored">
             <h3>Error</h3>
         </div>
 
         <!-- case: empty -->
-        <div class="temp" ng-if="chats.$resolved && !errored && !chats.length">
+        <div class="list-info" ng-if="chats.$resolved && !errored && !chats.length">
             <h3>Empty</h3>
         </div>
 
         <!-- case: chats! -->
-        <md-list-item class="chat" ng-if="chats.$resolved && !errored" ng-repeat="chat in chats">
-            <a ng-href="/messages/{{chat._id}}" layout="row" flex>
-                <icon src="notUser(chat).picture"></icon>
-                <div class="chat-content" flex layout="column" layout-align="center start">
+        <a ng-if="chats.$resolved && !errored"
+            ng-repeat="chat in chats"
+            ng-href="/messages/{{chat._id}}"
+            class="chat list-item">
+
+            <div class="list-item-content" layout="row" flex>
+                <div class="chat-content" flex layout="column">
                     <h3>{{notUser(chat).firstName}}</h3>
-                    <p>{{notUser(chat).mostRecent}}</p>
+                    <p>about <b>{{chat.job.title}}</b></p>
+                    <br />
+                    <p>{{chat.mostRecent.message}}</p>
                 </div>
-                <div class="unread">
-                    {{chat.unread}}
-                </div>
-            </a>
+                <icon src="notUser(chat).picture"></icon>
+            </div>
             <md-divider></md-divider>
-        </md-list-item>
+        </a>
     </md-list>
 </md-content>

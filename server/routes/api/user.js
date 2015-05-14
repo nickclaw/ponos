@@ -91,13 +91,7 @@ router.use('/:user/review', require('./review'));
 // Search users jobs
 //
 
-var userJobsQueryValidator = vlad.middleware({
-    limit: vlad.integer.default(10).within(0, 25).catch,
-    offset: vlad.integer.min(0).default(0),
-    type: vlad.enum('filled', 'pending', 'open', 'old')
-});
-
-router.get('/:user/jobs', userJobsQueryValidator, function(req, res, next) {
+router.get('/:user/jobs', function(req, res, next) {
     db.Job
         .find({poster: req.user._id})
         .lean()

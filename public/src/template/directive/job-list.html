@@ -1,33 +1,36 @@
-<div class="job-list" flex layout="column">
+<div class="list" flex layout="column">
 
     <!-- case: loading -->
-    <div class="job-item temp" ng-if="!loaded" layout="column" flex layout-align="start center">
+    <div class="list-info" ng-if="!loaded" layout="column" flex layout-align="start center">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 
     <!-- case: errored -->
-    <div class="job-item temp" ng-if="errored && loaded" layout="column" flex layout-align="start center">
+    <div class="list-info" ng-if="errored && loaded" layout="column" flex layout-align="start center">
         <h3>There was an error.<h3>
         <h4>Please try again.</h4>
     </div>
 
     <!-- case: empty -->
-    <div class="job-item temp" ng-if="!jobs.length && loaded && !errored" ng-transclude layout="column" flex layout-align="start center">
+    <div class="list-info" ng-if="!jobs.length && loaded && !errored" ng-transclude layout="column" flex layout-align="start center">
 
     </div>
 
     <!-- case: jobs loaded -->
-    <div class="job-item" ng-repeat="job in jobs">
-        <a ng-href="{{makeUrl(job)}}" layout="row" layout-align="center center">
+    <a ng-repeat="job in jobs"
+        class="job-item"
+        ng-href="{{makeUrl(job)}}">
+
+        <div class="list-item-content" layout="row" layout-align="center center">
             <div flex>
                 <h2>{{job.title}}</h2>
-                <h4 date="job.start"></h4>
+                <p date="job.start" format="MMM DD, YYYY"></p>
             </div>
             <div class="number">
 
             </div>
-        </a>
+        </div>
         <md-divider></md-divider>
-    </div>
+    </a>
 
 </div>
