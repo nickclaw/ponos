@@ -15,6 +15,7 @@ module.exports = function(app, passport) {
     app.use('/static', function(req, res) {
         res.send(404);
     });
+    app.use('/', serve(path.join(__dirname, '../../public/res')));
 
     // session
     app.use(bodyParser.json());
