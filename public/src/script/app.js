@@ -43,7 +43,8 @@ angular.module('scaffold', [
     '$http',
     'profile',
     'Poller',
-    function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, $http, profile, Poller) {
+    'socket',
+    function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, $http, profile, Poller, socket) {
         $rootScope.profile = profile;
 
         $rootScope.toggleNav = function() {

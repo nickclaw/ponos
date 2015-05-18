@@ -6,7 +6,8 @@ var async = require('async'),
 
 var app = express();
 
-require('./setup/passport')(passport)
+require('./setup/passport')(passport);
+var io = require('./setup/socket.io.js')();
 require('./setup/express')(app, passport);
 
 module.exports = Promise.all([
