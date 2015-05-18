@@ -26,6 +26,7 @@
                 <div class="chat-content" flex layout="column">
                     <h3>{{notUser(chat).firstName}}</h3>
                     <p>about <b>{{chat.job.title}}</b></p>
+                    <p>on <b date="chat.job.start" format="MMM DD, YYYY"></b></p>
                     <br />
                     <p>{{chat.mostRecent.message}}</p>
                 </div>

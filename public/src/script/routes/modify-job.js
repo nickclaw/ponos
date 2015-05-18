@@ -25,11 +25,14 @@ angular.module('scaffold')
                     'Job',
                     function(Job) {
                         return new Job({
+                            new: true,
                             location: {
                                 name: "",
                                 lat: 0,
                                 long: 0
-                            }
+                            },
+                            start: moment().utc(),
+                            end: moment().utc()
                         });
                     }
                 ]
@@ -50,8 +53,8 @@ angular.module('scaffold')
         $scope.job = job;
         $scope.save = save;
         $scope.mapOptions = {};
-        $scope.start = {date: "", time: ""};
-        $scope.end = {date: "", time: ""};
+        $scope.start = {date: job.start, time: job.start};
+        $scope.end = {date: job.end, time: job.end};
         $scope.$watch('job.location', onLocationChange, true);
         $scope.$watch('start', onStartChange, true);
         $scope.$watch('end', onEndChange, true);

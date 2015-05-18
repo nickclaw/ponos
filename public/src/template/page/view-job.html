@@ -6,14 +6,15 @@
 
     <div class="detail item">
         <label>Rate</label>
-        <span>{{job.rate}}</span>
+        <span>${{job.rate}}</span>
     </div>
 
     <div class="detail item">
         <label>Date</label>
         <span>
-            <span date="job.start"></span> --
-            <span date="job.end"></span>
+            <span date="job.start" format="M/DD h:mm a"></span>
+            to
+            <span date="job.end" format="M/DD h:mm a"></span>
         </span>
     </div>
 
