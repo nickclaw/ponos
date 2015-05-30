@@ -1,7 +1,7 @@
 <md-content class="info">
     <form ng-submit="apply()">
         <md-input-container>
-            <label>Blurb</label>
+            <label error="{{errors.blurb}}">Blurb</label>
             <textarea ng-model="application.blurb"></textarea>
         </md-input-container>
     </form>

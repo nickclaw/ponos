@@ -23,7 +23,8 @@ angular.module('scaffold')
     '$location',
     'Application',
     'job',
-    function($scope, $location, Application, job) {
+    'handle',
+    function($scope, $location, Application, job, handle) {
 
         //
         // Scope
@@ -32,6 +33,7 @@ angular.module('scaffold')
         $scope.application = new Application({
             blurb: ""
         });
+        $scope.errors = {};
 
         $scope.apply = apply;
         $scope.cancel = cancel;
@@ -41,13 +43,21 @@ angular.module('scaffold')
         //
 
         function apply() {
+            $scope.errors = {};
             $scope.application.$apply({job: job._id}).then(
                 function() {
                     $location.url('/');
                 },
-                function() {
-                    console.error('TODO');
-                }
+                handle({
+                    400: function(res) {
+                        $scope.errors = res.data;
+                        for (key in $scope.errors) {
+                            if ($scope.errors[key].indexOf('String') === 0) {
+                                $scope.errors[key] = $scope.errors[key].substr(7);
+                            }
+                        }
+                    }
+                })
             );
         }
 

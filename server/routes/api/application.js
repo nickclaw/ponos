@@ -45,7 +45,7 @@ router
             }, next);
         },
         vlad.middleware('body', {
-            blurb: vlad.string.required
+            blurb: vlad.string.required.min(1)
         }),
         function(req, res, next) {
             var data = req.body;
