@@ -1,12 +1,12 @@
 <md-content class="info">
     <form ng-submit="save()">
         <md-input-container>
-            <label>Title</label>
+            <label error="{{errors.title}}">Title</label>
             <input ng-model="job.title" />
         </md-input-container>
 
         <md-input-container>
-            <label>Location</label>
+            <label error="{{errors.locationName}}">Location</label>
             <location-input location="job.location"></location-input>
         </md-input-container>
 
@@ -16,51 +16,51 @@
 
         <div layout="row" flex>
             <md-input-container flex>
-                <label>Start Date</label>
+                <label error="{{errors.start}}">Start Date</label>
                 <input ng-model="start.date" date-picker />
             </md-input-container>
 
             <md-input-container flex>
-                <label>Start Time</label>
+                <label error="{{errors.start}}">Start Time</label>
                 <input ng-model="start.time" time-picker />
             </md-input-container>
         </div>
 
         <div layout="row" flex>
             <md-input-container flex>
-                <label>End Date</label>
+                <label error="{{errors.end}}">End Date</label>
                 <input ng-model="end.date" date-picker />
             </md-input-container>
 
             <md-input-container flex>
-                <label>End Time</label>
+                <label error="{{errors.end}}">End Time</label>
                 <input ng-model="end.time" time-picker />
             </md-input-container>
         </div>
 
         <div layout="row" flex>
             <md-input-container flex>
-                <label>Workers</label>
-                <input ng-model="job.needed" />
+                <label error="{{errors.needed}}">Workers</label>
+                <input type="number" ng-model="job.needed" />
             </md-input-container>
 
             <md-input-container flex>
-                <label>Rate</label>
-                <input ng-model="job.rate" />
+                <label error="{{errors.rate}}">Rate</label>
+                <input type="number" ng-model="job.rate" />
             </md-input-container>
         </div>
         <md-input-container>
-            <label>Description</label>
+            <label error="{{errors.description}}">Description</label>
             <textarea ng-model="job.description"></textarea>
         </md-input-container>
 
         <md-input-container>
-            <label>Equipment Required</label>
+            <label error="{{errors.equipmentRequired}}">Equipment Required</label>
             <textarea ng-model="job.equipmentRequired"></textarea>
         </md-input-container>
 
         <md-input-container>
-            <label>Perks</label>
+            <label error="{{errors.perks}}">Perks</label>
             <textarea ng-model="job.perks"></textarea>
         </md-input-container>
     </form>

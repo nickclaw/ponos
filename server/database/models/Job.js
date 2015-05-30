@@ -40,7 +40,7 @@ schema.methods.validate = function validate(done) {
 var jobValidator = vlad({
     title: vlad.string.required.within(5, 140),
     location: vlad({
-        name: vlad.string,
+        name: vlad.string.required.min(1),
         lat: vlad.number.required.within(-90, 90),
         long: vlad.number.required.within(-180, 180)
     }),

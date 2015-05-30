@@ -5,7 +5,7 @@ angular.module('scaffold').directive('locationInput', [
         return {
             restrict: 'E',
             replace: true,
-            template: '<input ng-model="location.name" ng-class="{invalid: location.$error}" />',
+            template: '<input ng-model="location.name" placeholder="Seattle Washington" ng-class="{invalid: location.$error}" />',
             scope: {
                 location: '='
             },
@@ -14,6 +14,8 @@ angular.module('scaffold').directive('locationInput', [
 
                 $scope.$watch('location.name', debounce(600, function(address) {
                     if (!address) {
+                        $scope.location.lat = 47.6038321;
+                        $scope.location.long = -122.3300624;
                         $scope.location.$loading = false;
                         $scope.location.$errored = false;
                         return;
@@ -31,8 +33,6 @@ angular.module('scaffold').directive('locationInput', [
                             function(err) {
                                 if (thisRequest !== currentRequest) return;
                                 $scope.location.$error = err;
-                                $scope.location.lat = 0;
-                                $scope.location.long = 0;
                                 $scope.location.$loading = false;
                                 $scope.location.$errored = true;
                             }

@@ -23,13 +23,14 @@ angular.module('scaffold')
                 isEmployer: ensure.hasRole('employer'),
                 job: [
                     'Job',
-                    function(Job) {
+                    'moment',
+                    function(Job, moment) {
                         return new Job({
                             new: true,
                             location: {
                                 name: "",
-                                lat: 0,
-                                long: 0
+                                lat: 47.6038321,
+                                long: -122.3300624
                             },
                             start: moment().utc(),
                             end: moment().utc()
@@ -45,12 +46,15 @@ angular.module('scaffold')
     '$scope',
     '$location',
     'job',
-    function($scope, $location, job) {
+    'handle',
+    function($scope, $location, job, handle) {
 
         //
         // Scope
         //
         $scope.job = job;
+        $scope.errors = {};
+
         $scope.save = save;
         $scope.mapOptions = {};
         $scope.start = {date: job.start, time: job.start};
@@ -82,13 +86,30 @@ angular.module('scaffold')
         }
 
         function save() {
+            $scope.errors = {};
             $scope.job.$save().then(
                 function(job) {
                     $location.url('/job/' + job._id);
                 },
-                function() {
-                    console.error('TODO');
-                }
+                handle({
+                    400: function(res) {
+                        $scope.errors = res.data;
+                        if (res.data.location) {
+                            $scope.errors.locationName = res.data.location.name || "is invalid";
+                        }
+                        for (key in $scope.errors) {
+                            if (typeof $scope.errors[key] !== "string") continue;
+
+                            if ($scope.errors[key].indexOf('String') === 0) {
+                                $scope.errors[key] = $scope.errors[key].substr(7);
+                            }
+
+                            if ($scope.errors[key].indexOf('Field') === 0) {
+                                $scope.errors[key] = $scope.errors[key].substr(6);
+                            }
+                        }
+                    }
+                })
             );
         }
     }
