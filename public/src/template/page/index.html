@@ -11,12 +11,12 @@
 
             <form ng-submit="login()">
                 <md-input-container>
-                    <label>Email</label>
+                    <label error="{{errors.email}}">Email</label>
                     <input ng-model="auth.email" />
                 </md-input-container>
 
                 <md-input-container>
-                    <label>Password</label>
+                    <label error="{{errors.password}}">Password</label>
                     <input ng-model="auth.password" type="password" />
                 </md-input-container>
 
@@ -43,12 +43,12 @@
 
             <form ng-submit="signup()">
                 <md-input-container>
-                    <label>Email</label>
+                    <label error="{{errors.email}}">Email</label>
                     <input ng-model="auth.email" />
                 </md-input-container>
 
                 <md-input-container>
-                    <label>Password</label>
+                    <label error="{{errors.password}}">Password</label>
                     <input ng-model="auth.password" type="password" />
                 </md-input-container>
 

@@ -14,7 +14,8 @@ angular.module('scaffold')
     '$scope',
     '$http',
     'profile',
-    function($scope, $http, profile) {
+    'handle',
+    function($scope, $http, profile, handle) {
 
         //
         // Setup scope
@@ -23,6 +24,8 @@ angular.module('scaffold')
             email: "",
             password: ""
         };
+        $scope.errors = {};
+
         $scope.selectedTab = 0;
         $scope.signup = signup;
         $scope.login = login;
@@ -39,15 +42,23 @@ angular.module('scaffold')
         //
 
         function signup() {
-            $scope.profile.$signup($scope.auth).catch(function(err) {
-                $scope.error = err;
-            })
+            $scope.profile.$signup($scope.auth)
+                .catch(handle({
+                    400: function(res) {
+                        if (res.data.email) $scope.errors.email = "must be valid";
+                        if (res.data.password) $scope.errors.password = "is required";
+                    }
+                }));
         }
 
         function login() {
-            $scope.profile.$login($scope.auth).catch(function(err) {
-                $scope.error = err;
-            });
+            $scope.profile.$login($scope.auth)
+                .catch(handle({
+                    400: function() {
+                        if (res.data.email) $scope.errors.email = "must be valid";
+                        if (res.data.password) $scope.errors.password = "is required";
+                    }
+                }));
         }
     }
 ]);

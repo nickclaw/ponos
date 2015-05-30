@@ -12,8 +12,7 @@ angular.module('scaffold').factory('handle', [
             return function(reason) {
                 var handler = handles[reason.status];
                 if (handler) {
-                    if (typeof handler !== 'function') callback(reason);
-                    return handler.apply(this, arguments);
+                    handler.apply(this, arguments);
                 } else {
                     _handle(reason);
                     callback(reason);
