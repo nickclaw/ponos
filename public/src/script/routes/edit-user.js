@@ -21,12 +21,15 @@ angular.module('scaffold')
     '$scope',
     '$location',
     'user',
-    function($scope, $location, user) {
+    'handle',
+    function($scope, $location, user, handle) {
 
         //
         // Scope
         //
         $scope.user = user;
+        $scope.errors = {};
+
         $scope.save = save;
 
         //
@@ -34,13 +37,21 @@ angular.module('scaffold')
         //
 
         function save() {
+            $scope.errors = {};
             user.$save().then(
                 function(u) {
                     $location.url('/user/' + u._id);
                 },
-                function(err) {
-                    console.log('TODO');
-                }
+                handle({
+                    400: function(err) {
+                        $scope.errors = err.data;
+                        for (key in $scope.errors) {
+                            if ($scope.errors[key].indexOf('String') === 0) {
+                                $scope.errors[key] = $scope.errors[key].substr(7);
+                            }
+                        }
+                    }
+                })
             )
         }
 

@@ -4,17 +4,17 @@
         <image-upload ng-model="user.picture"></image-upload>
 
         <md-input-container>
-            <label>First Name</label>
+            <label error="{{errors.firstName}}">First Name</label>
             <input ng-model="user.firstName" />
         </md-input-container>
 
         <md-input-container>
-            <label>Last Name</label>
+            <label error="{{errors.lastName}}">Last Name</label>
             <input ng-model="user.lastName" />
         </md-input-container>
 
         <md-input-container>
-            <label>Bio</label>
+            <label error="{{errors.bio}}">Bio</label>
             <textarea ng-model="user.bio"></textarea>
         </md-input-container>
 
@@ -22,12 +22,13 @@
 
         <div ng-if="user.role === 'employer'">
             <md-input-container>
-                <label>URL</label>
+                <label error="{{errors.employer.url}}">URL</label>
                 <input ng-model="user.employer.url" />
             </md-input-container>
         </div>
 
         <div ng-if="user.role === 'worker'">
+            <label>Skills</label>
             <skill-chips user="user"></skill-chips>
         </div>
     </form>
