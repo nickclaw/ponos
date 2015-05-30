@@ -11,6 +11,7 @@ router
     .use('/auth', require('./auth/'))
     .use('/admin', require('./admin/'))
     .get('*', function(req, res, next){
+        res.set('Cache-Control', 'no-store');
         res.render('__dirname' + "/../../views/index.ejs", {
             user: req.user || null,
             C: C
