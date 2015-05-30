@@ -22,6 +22,15 @@ var Review = mongoose.Schema({
 Review.plugin(unique);
 Review.plugin(timestamp);
 
+var Notification = mongoose.Schema({
+    text: {type: String},
+    description: {type: String},
+    url: {type: String},
+    seen: {type: Boolean}
+});
+Notification.plugin(unique);
+Notification.plugin(timestamp);
+
 //
 // user schema
 //
@@ -33,6 +42,8 @@ var schema = mongoose.Schema({
     picture: { type: String },
     bio: { type: String },
     role: { type: String, default: null },
+
+    notifications: {type: [Notification], default: [] },
 
     // worker specific data
     worker: {

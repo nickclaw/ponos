@@ -82,6 +82,26 @@ router
             });
         },
         send
+    )
+
+    .get('/:user/notifications',
+        util.auth,
+        owns,
+        function(req, res, next) {
+            res.send(req.user.notifications);
+        }
+    )
+
+    .post('/:user/notifications',
+        util.auth,
+        owns,
+        function(req, res, next) {
+            req.user.notifications = [];
+            req.user.save(function(err) {
+                if (err) return next(err);
+                res.send(200);
+            });
+        }
     );
 
 router.use('/:user/review', require('./review'));

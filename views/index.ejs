@@ -82,7 +82,7 @@
         <div style="z-index: 0;" id="main" layout="column" flex>
             <md-toolbar id="top-bar" layout="row" layout-align="space-between center">
                 <md-button hide show-gt-sm></md-button>
-                <md-button ng-class="{unread: unread > 0}" id="hamburg" ng-click="toggleNav()" hide-gt-sm>
+                <md-button ng-class="{unread: profile.notifications.length > 0}" id="hamburg" ng-click="toggleNav()" hide-gt-sm>
                     <md-icon md-font-icon="icon_menu"></md-icon>
                 </md-button>
                 <a ng-href="/" class="logo"></a>
