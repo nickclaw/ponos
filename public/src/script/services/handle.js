@@ -23,7 +23,7 @@ angular.module('scaffold').factory('handle', [
         function _handle(reason) {
             switch(reason.status) {
                 case 400:
-                    $mdToast.showSimple("Could not do that. Try again.");
+                    $mdToast.showSimple("Invalid input.");
                     break;
                 case 401:
                     $mdToast.showSimple("You must be logged in.");
