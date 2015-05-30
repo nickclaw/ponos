@@ -39,7 +39,7 @@ router
         function(req, res, next) {
             req.file.image = gm(req.file.file.path);
             req.file.image.identify(function(err, data) {
-                if (err) return next(vlad.FieldValidationError("Invalid image file. " + err.message));
+                if (err) return next(vlad.FieldValidationError("Invalid image file."));
                 req.file.data = data;
                 next();
             });

@@ -1,6 +1,7 @@
 angular.module('scaffold').directive('imageUpload', [
     'UploadCache',
-    function(UploadCache) {
+    'handle',
+    function(UploadCache, handle) {
         return {
             restrict: "E",
             replace: true,
@@ -10,6 +11,7 @@ angular.module('scaffold').directive('imageUpload', [
             },
             link: function($scope, elem, attr) {
                 $scope.loading = false;
+                $scope.error = "";
 
                 var input = elem.find('input'),
                     image = angular.element(elem[0].querySelector('.image-upload-image'));
@@ -21,7 +23,7 @@ angular.module('scaffold').directive('imageUpload', [
                         value = "url(" + value +  ")";
                     }
 
-                    image.css('backgroundImage', value);
+                    angular.element(elem[0].querySelector('.image-upload-image')).css('backgroundImage', value);
                 });
 
                 /**
@@ -80,7 +82,7 @@ angular.module('scaffold').directive('imageUpload', [
                 function upload(file) {
                     $scope.loading = true;
                     $scope.ngModel = "";
-                    $scope.error = false;
+                    $scope.error = "";
                     $scope.$digest();
 
                     UploadCache.get('/api/upload/image', file)
@@ -88,9 +90,11 @@ angular.module('scaffold').directive('imageUpload', [
                             function(res) {
                                 $scope.ngModel = res.data.file;
                             },
-                            function() {
-                                console.error(arguments);
-                            }
+                            handle({
+                                400: function(res) {
+                                    $scope.error = res.data;
+                                }
+                            })
                         )
                         .finally(function() {
                             $scope.loading = false;
