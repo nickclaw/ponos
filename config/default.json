@@ -82,7 +82,6 @@
         "/static/script/services/moment.js",
         "/static/script/services/upload-cache.js",
         "/static/script/services/leaflet.js",
-        "/static/script/services/poller.js",
         "/static/script/routes/edit-user.js",
         "/static/script/routes/index.js",
         "/static/script/routes/modify-job.js",

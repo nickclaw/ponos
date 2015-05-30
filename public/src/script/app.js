@@ -40,33 +40,13 @@ angular.module('scaffold', [
     '$mdDialog',
     '$timeout',
     '$history',
-    '$http',
     'profile',
-    'Poller',
-    'socket',
-    function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, $http, profile, Poller, socket) {
+    function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, profile) {
         $rootScope.profile = profile;
 
         $rootScope.toggleNav = function() {
            $mdSidenav('nav').toggle();
         };
-
-        // Poll chats every 10 seconds to get unread count
-        $rootScope.unread = 0;
-        $rootScope.chats = [];
-        var poller = new Poller(getChats);
-        poller.start(10000);
-        getChats();
-        function getChats() {
-            $http.get('/api/chat').then(function(res) {
-                var count = 0;
-                res.data.forEach(function(chat) {
-                    if (chat.unread) count++;
-                });
-                $rootScope.chats = res.data;
-                $rootScope.unread = count;
-            });
-        }
 
         // close sideNav on route change
         $rootScope.$on('$routeChangeStart', function() {
@@ -88,7 +68,5 @@ angular.module('scaffold', [
         $timeout(function() {
             document.getElementById('splash').classList.add('ready');
         }, 300);
-
-
     }
 ]);

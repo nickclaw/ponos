@@ -2,7 +2,8 @@ angular.module('scaffold').factory('profile', [
     '$http',
     '$location',
     'User',
-    function($http, $location, User) {
+    'io',
+    function($http, $location, User, io) {
 
         // retrieve user object
         var user = window['__user'];
@@ -11,9 +12,14 @@ angular.module('scaffold').factory('profile', [
         // build user model
         var model = new User(user);
         var profile = Object.create(model);
+        var socket = null;
 
         profile.$loggedIn = !!profile._id;
         profile.$error = null;
+
+        if (profile.$loggedIn) {
+            openSocket();
+        }
 
         profile.$login = function(data) {
             return $http.post('/auth/local/login', {email: data.email, password: data.password})
@@ -22,6 +28,7 @@ angular.module('scaffold').factory('profile', [
                         profile.__proto__ = new User(res.data);
                         profile.$error = null;
                         profile.$loggedIn = true;
+                        openSocket();
                     },
                     function(res) {
                         profile.$loggedIn = false;
@@ -39,11 +46,13 @@ angular.module('scaffold').factory('profile', [
                        profile.$error = null;
                        profile.$loggedIn = false;
                        $location.url('/');
+                       closeSocket();
                    },
                    function() {
                        profile.__proto__ = new User(null);
                        profile.$error = null;
                        profile.$loggedIn = false;
+                       closeSocket();
                    }
                );
         };
@@ -56,6 +65,7 @@ angular.module('scaffold').factory('profile', [
                         profile.$error = null;
                         profile.$loggedIn = true;
                         $location.url('/signup');
+                        openSocket();
                     },
                     function(res) {
                         profile.$loggedIn = false;
@@ -89,6 +99,31 @@ angular.module('scaffold').factory('profile', [
             return [];
         };
 
+        profile.$on = function() {
+            if(socket) socket.on.apply(socket, arguments);
+        }
+
+        profile.$off = function() {
+            if(socket) socket.off.apply(socket, arguments);
+        }
+
         return profile;
+
+        function openSocket() {
+            socket = io.connect('http://localhost:8081/user/' + profile._id);
+
+            socket.on('notification', function(notification) {
+                profile.notifications.push(notification);
+            });
+
+            socket.on('message', function(notification) {
+                console.log(notification);
+            });
+        }
+
+        function closeSocket() {
+            socket.disconnect();
+            socket = null;
+        }
     }
 ])

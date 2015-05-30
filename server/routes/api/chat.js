@@ -1,6 +1,7 @@
 var router = require('express').Router(),
     vlad = require('vlad'),
-    util = require('./util');
+    util = require('./util'),
+    socket = require('../../setup/socket.io.js');
 
 module.exports = router;
 
@@ -54,15 +55,21 @@ router
         util.auth,
         owns,
         function(req, res, next) {
-            req.$chat.messages.unshift({
+            var data = {
                 user: req.user.id,
                 message: req.body.message,
                 sent: new Date(),
                 seenBy: [req.user.id]
-            });
+            };
 
+            var users = req.$chat.users,
+                notUser = users[0] === req.user.id ? users[1] : users[0];
+
+            req.$chat.messages.unshift(data);
             req.$chat.save(function(err) {
                 if (err) return next(err);
+
+                socket.of('/user/' + notUser).emit('message', data);
                 res.send(req.$chat.messages[0]);
             });
         }

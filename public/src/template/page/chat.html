@@ -13,7 +13,7 @@
         </md-list>
 
         <md-input-container>
-            <label>Message</label>
+            <label error="{{errors.message}}">Message</label>
             <textarea ng-model="message" on-enter="onSubmit()"></textarea>
         </md-input-container>
     </md-content>

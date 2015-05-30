@@ -64,8 +64,8 @@
             <md-content>
                 <md-button href="/">Home</md-button>
                 <md-button ng-if="profile.$loggedIn" href="/user/me">profile</md-button>
-                <md-button ng-if="profile.$loggedIn" href="/messages">messages {{unread}}</md-button>
-                <md-button ng-if="profile.$loggedIn" href="/notifications">notifications</md-button>
+                <md-button ng-if="profile.$loggedIn" href="/messages">messages</md-button>
+                <md-button ng-if="profile.$loggedIn" href="/notifications">notifications {{profile.notifications.length}}</md-button>
                 <md-divider></md-divider>
 
                 <md-button href="/search">Browse Jobs</md-button>
