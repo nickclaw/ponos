@@ -3,23 +3,23 @@
     <job-details class="detail item" job="job"></job-details>
     <form ng-submit="submit()">
         <md-input-container>
-            <label>Comment</label>
+            <label error="{{errors.comment}}">Comment</label>
             <textarea ng-model="review.comment"></textarea>
         </md-input-container>
 
         <div class="detail item long">
-            <label>A</label>
-            <md-slider ng-model="review.a" step="1" md-discrete min="0" max="5"></md-slider>
+            <label error="{{errors.a}}">A</label>
+            <md-slider ng-model="review.a" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
 
         <div class="detail item long">
-            <label>B</label>
-            <md-slider ng-model="review.b" step="1" md-discrete min="0" max="5"></md-slider>
+            <label error="{{errors.b}}">B</label>
+            <md-slider ng-model="review.b" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
 
         <div class="detail item long">
-            <label>C</label>
-            <md-slider ng-model="review.c" step="1" md-discrete min="0" max="5"></md-slider>
+            <label error="{{errors.c}}">C</label>
+            <md-slider ng-model="review.c" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
     </form>
 </md-content>
