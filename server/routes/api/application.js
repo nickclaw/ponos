@@ -1,6 +1,7 @@
 var router = require('express').Router(),
     util = require('./util'),
-    vlad = require('vlad');
+    vlad = require('vlad'),
+    socket = require('../../setup/socket.io.js');
 
 module.exports = router;
 
@@ -54,8 +55,15 @@ router
             data.job = req.$job.id;
 
             req.$app = new db.Application(data);
-            req.$app.save(function(err) {
+            req.$app.save(function(err, app) {
                 if (err) return next(err);
+
+                socket.notify(req.$job.poster, {
+                    text: "New applicant for " + req.job.title,
+                    description: req.user.firstName + " just applied for your job. Click here to view his application and accept or reject him.",
+                    url: "/job/" + req.$job.id + "/application/" + app.id
+                });
+
                 res.send(req.$app.render());
             });
         }
@@ -126,13 +134,34 @@ router
 
                 return chat.save(function(err) {
                     if (err) return next(err);
-                    req.$app.save(next);
+
+                    req.$app.save(function(err, app) {
+                        if (err) return next(err);
+
+                        socket.notify(req.$job.poster, {
+                            text: 'Application accepted!',
+                            description: req.user.firstName + ' has accepted your application to' + req.$job.title + '. Click here to confirm your acceptance.',
+                            url: "/job/" + req.$job.id + "/application/" + app.id
+                        });
+
+                        next();
+                    });
                 });
             }
 
             if (isApplicant(req) && hasState(req, 'waiting')) {
                 req.$app.state = 'accepted';
-                return req.$app.save(next);
+                return req.$app.save(function(err, app) {
+                    if (err) return next(err);
+
+                    socket.notify(req.$app.applicant, {
+                        text: 'Position filled!',
+                        description: req.user.firstName + ' has agreed to your job: ' + req.$job.title + ". Click here to work out the details.",
+                        url: "/messages/" + req.$app.id
+                    });
+
+                    next();
+                });
             }
 
             next(db.NotAllowedError());
