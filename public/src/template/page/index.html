@@ -14,7 +14,7 @@
 
         <br />
 
-        <form ng-submit="login()">
+        <form ng-submit="new ? signup() : login()">
             <md-input-container>
                 <label error="{{errors.email}}">Email</label>
                 <input ng-model="auth.email" />
