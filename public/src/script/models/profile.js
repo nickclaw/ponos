@@ -77,6 +77,10 @@ angular.module('scaffold').factory('profile', [
                 );
         };
 
+        profile.$acknowledgeNotifications = function() {
+            return $http.post('/user/me/notifications');
+        };
+
         profile.$getUpcoming = function() {
             return [];
         };
