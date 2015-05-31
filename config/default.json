@@ -94,6 +94,7 @@
         "/static/script/routes/apply-job.js",
         "/static/script/routes/view-applications.js",
         "/static/script/routes/view-application.js",
+        "/static/script/routes/view-notifications.js",
         "/static/script/routes/view-chats.js",
         "/static/script/routes/chat.js",
         "/static/script/routes/terms.js",

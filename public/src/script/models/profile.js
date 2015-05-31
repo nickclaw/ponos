@@ -1,10 +1,11 @@
 angular.module('scaffold').factory('profile', [
+    '$rootScope',
     '$http',
     '$location',
     'User',
     'io',
     'C',
-    function($http, $location, User, io, C) {
+    function($rootScope, $http, $location, User, io, C) {
 
         // retrieve user object
         var user = window['__user'];
@@ -111,10 +112,13 @@ angular.module('scaffold').factory('profile', [
         return profile;
 
         function openSocket() {
-            socket = io.connect(C.SERVER.HOST + ':8081/user/' + profile._id);
+            socket = io.connect(C.SERVER.HOST + ':8081/user/' + profile._id, {
+                query: 'ns='+profile._id
+            });
 
             socket.on('notification', function(notification) {
                 profile.notifications.push(notification);
+                $rootScope.$digest();
             });
 
             socket.on('message', function(notification) {

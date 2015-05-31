@@ -1,0 +1,22 @@
+<md-content>
+    <div class="list">
+
+        <!-- case: empty -->
+        <div class="list-info" ng-if="!jobs.length && loaded && !errored" layout="column" flex layout-align="start center">
+            <h3>No notifications yet.</h3>
+        </div>
+
+        <!-- case: notifications loaded -->
+        <a ng-repeat="note in notifications track by note._id"
+            ng-href="{{note.url}}"
+            class="list-item">
+
+            <div class="list-item-content">
+                <h3>{{note.text}}</h3>
+                <h5>{{note.description}}</h5>
+            </div>
+            <md-divider></md-divider>
+
+        </a>
+    </div>
+</md-content>

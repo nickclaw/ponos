@@ -1,6 +1,7 @@
 var router = require('express').Router(),
     passport = require('passport'),
-    vlad = require('vlad');
+    vlad = require('vlad'),
+    socket = require('../../setup/socket.io.js');
 
 router.post('/login',
     passport.authenticate('local-login'),
@@ -22,6 +23,15 @@ router.post('/signup',
     }),
     passport.authenticate('local-signup'),
     function(req, res, next) {
+
+        setTimeout(function() {
+            socket.notify(req.user.id, {
+                text: 'Welcome to Scaffold',
+                description: "We're glad you joined! You can click here to learn a little bit more about how you can use Scaffold.",
+                url: '/about'
+            })
+        }, 5000);
+
         res.send(req.user.toObject());
     }
 );
