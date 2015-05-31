@@ -8,17 +8,17 @@
         </md-input-container>
 
         <div class="detail item long">
-            <label error="{{errors.a}}">A</label>
+            <label error="{{errors.a}}">{{user.isWorker() ? 'Attitude' : 'Attitude'}}</label>
             <md-slider ng-model="review.a" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
 
         <div class="detail item long">
-            <label error="{{errors.b}}">B</label>
+            <label error="{{errors.b}}">{{user.isWorker() ? 'Proficiency' : 'Genuine'}}</label>
             <md-slider ng-model="review.b" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
 
         <div class="detail item long">
-            <label error="{{errors.c}}">C</label>
+            <label error="{{errors.c}}">{{user.isWorker() ? 'Timeliness' : 'Timeliness'}}</label>
             <md-slider ng-model="review.c" step="1" md-discrete min="1" max="5"></md-slider>
         </div>
     </form>
