@@ -44,6 +44,8 @@ angular.module('scaffold', [
     function($rootScope, $mdSidenav, $mdDialog, $timeout, $history, profile) {
         $rootScope.profile = profile;
 
+        $rootScope.filter = function(item){ return !item.seen; }
+
         $rootScope.toggleNav = function() {
            $mdSidenav('nav').toggle();
         };

@@ -22,9 +22,9 @@ module.exports = (function() {
     io.notify = function notify(user, data) {
         data = _.extend({seen: false}, data);
 
-        User.findByIdAndUpdate(user, { $push: {notifications: data}}, function(err) {
+        User.findByIdAndUpdate(user, { $push: {notifications: data}}, function(err, u) {
             if (err) return Log.warn('Notification error: %s -> ', user, data);
-            io.of('/user/' + user).emit('notification', data);
+            io.of('/user/' + user).emit('notification', u.notifications[u.notifications.length - 1]);
         });
     };
 

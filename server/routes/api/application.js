@@ -59,9 +59,9 @@ router
                 if (err) return next(err);
 
                 socket.notify(req.$job.poster, {
-                    text: "New applicant for " + req.job.title,
+                    text: "New applicant for " + req.$job.title,
                     description: req.user.firstName + " just applied for your job. Click here to view his application and accept or reject him.",
-                    url: "/job/" + req.$job.id + "/application/" + app.id
+                    url: "/job/" + req.$job.id + "/applications/" + app.id
                 });
 
                 res.send(req.$app.render());
@@ -132,16 +132,16 @@ router
                     messages: []
                 });
 
-                return chat.save(function(err) {
+                return chat.save(function(err, chat) {
                     if (err) return next(err);
 
                     req.$app.save(function(err, app) {
                         if (err) return next(err);
 
-                        socket.notify(req.$job.poster, {
+                        socket.notify(req.$app.applicant, {
                             text: 'Application accepted!',
-                            description: req.user.firstName + ' has accepted your application to' + req.$job.title + '. Click here to confirm your acceptance.',
-                            url: "/job/" + req.$job.id + "/application/" + app.id
+                            description: req.user.firstName + ' has accepted your application to ' + req.$job.title + '. Click here to confirm your acceptance.',
+                            url: "/job/" + req.$job.id + "/applications/" + app.id
                         });
 
                         next();
@@ -154,13 +154,17 @@ router
                 return req.$app.save(function(err, app) {
                     if (err) return next(err);
 
-                    socket.notify(req.$app.applicant, {
-                        text: 'Position filled!',
-                        description: req.user.firstName + ' has agreed to your job: ' + req.$job.title + ". Click here to work out the details.",
-                        url: "/messages/" + req.$app.id
-                    });
+                    db.Chat.findOne({ job: req.$job.id, users: {$in: [req.user.id]} }, function(err, chat) {
+                        if (err) return next(err);
 
-                    next();
+                        socket.notify(req.$job.poster, {
+                            text: 'Position filled!',
+                            description: req.user.firstName + ' has agreed to your job: ' + req.$job.title + ". Click here to work out the details.",
+                            url: "/messages/" + chat.id
+                        });
+
+                        next();
+                    })
                 });
             }
 

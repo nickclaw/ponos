@@ -96,7 +96,10 @@ router
         util.auth,
         owns,
         function(req, res, next) {
-            req.user.notifications = [];
+            req.user.notifications.forEach(function(note) {
+                note.seen = true;
+            });
+
             req.user.save(function(err) {
                 if (err) return next(err);
                 res.send(200);
