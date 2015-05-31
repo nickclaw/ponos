@@ -12,11 +12,15 @@
     h2 {
         color: $scaffold-orange;
         font-size: 1.3rem;
+    }
+
+    h2:not(:first-of-type) {
         margin-top: 1.5rem;
     }
 
     p {
-        margin-top: .4rem;
+        margin-top: .7rem;
+        text-indent: .5rem;
     }
 
     li {

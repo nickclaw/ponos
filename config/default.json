@@ -96,6 +96,7 @@
         "/static/script/routes/view-chats.js",
         "/static/script/routes/chat.js",
         "/static/script/routes/terms.js",
+        "/static/script/routes/about.js",
         "/static/script/directives/list-item.js",
         "/static/script/directives/app-item.js",
         "/static/script/directives/icon.js",
