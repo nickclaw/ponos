@@ -111,7 +111,7 @@ angular.module('scaffold').factory('profile', [
         return profile;
 
         function openSocket() {
-            socket = io.connect('http://' + C.SERVER.HOST + ':8081/user/' + profile._id);
+            socket = io.connect(C.SERVER.HOST + ':8081/user/' + profile._id);
 
             socket.on('notification', function(notification) {
                 profile.notifications.push(notification);
