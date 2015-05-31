@@ -3,7 +3,8 @@ angular.module('scaffold').factory('profile', [
     '$location',
     'User',
     'io',
-    function($http, $location, User, io) {
+    'C',
+    function($http, $location, User, io, C) {
 
         // retrieve user object
         var user = window['__user'];
@@ -110,7 +111,7 @@ angular.module('scaffold').factory('profile', [
         return profile;
 
         function openSocket() {
-            socket = io.connect('http://localhost:8081/user/' + profile._id);
+            socket = io.connect('http://' + C.SERVER.HOST + ':8081/user/' + profile._id);
 
             socket.on('notification', function(notification) {
                 profile.notifications.push(notification);

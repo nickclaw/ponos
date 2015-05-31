@@ -80,6 +80,7 @@
         "/static/script/services/ensure.js",
         "/static/script/services/handle.js",
         "/static/script/services/moment.js",
+        "/static/script/services/C.js",
         "/static/script/services/upload-cache.js",
         "/static/script/services/leaflet.js",
         "/static/script/routes/edit-user.js",
