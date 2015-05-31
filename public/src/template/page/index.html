@@ -1,71 +1,56 @@
-<md-content flex layout="column">
+<md-content flex layout="column" id="index">
+
+    <div id="bg">
+        <h3>Where Work<br/>Gets Done</h3>
+    </div>
 
     <!-- case: logged out -->
     <div ng-if="!profile.$loggedIn" class="info" flex>
 
-        <div ng-if="login">
+        <p>
+            Join the team and connect with people in your
+            community. It only takes seconds. <a href="/about">Learn more.</a>
+        </p>
 
-            <div class="item detail" layout="column" layout-align="center center">
-                <h4>Returning to Scaffold?</h4>
-            </div>
+        <br />
 
-            <form ng-submit="login()">
-                <md-input-container>
-                    <label error="{{errors.email}}">Email</label>
-                    <input ng-model="auth.email" />
-                </md-input-container>
+        <form ng-submit="login()">
+            <md-input-container>
+                <label error="{{errors.email}}">Email</label>
+                <input ng-model="auth.email" />
+            </md-input-container>
 
-                <md-input-container>
-                    <label error="{{errors.password}}">Password</label>
-                    <input ng-model="auth.password" type="password" />
-                </md-input-container>
+            <md-input-container>
+                <label error="{{errors.password}}">Password</label>
+                <input ng-model="auth.password" type="password" />
+            </md-input-container>
 
-                <div class="buttons">
-                    <md-button class="md-raised md-accent" type="submit">Login</md-button>
-                    <md-button class="md-raised md-warn" ng-click="toggle()">New to Scaffold?</md-button>
-                </div>
-            </form>
-
-            <div class="social" layout="row" layout-align="space-around center">
-                <md-button href="/auth/facebook/login" target="_self">
+            <md-checkbox ng-model="new" class="md-primary" flex>
+                I'm new!
+            </md-checkbox>
+            <div class="buttons">
+                <!-- case: not new -->
+                <md-button ng-if="!new" class="social" href="/auth/facebook/login" target="_self">
                     <md-icon md-font-icon="icon_facebook"></md-icon>
                 </md-button>
-                <md-button  href="/auth/google/login" target="_self">
+                <md-button ng-if="!new" class="social" href="/auth/google/login" target="_self">
                     <md-icon md-font-icon="icon_google"></md-icon>
                 </md-button>
-            </div>
-        </div>
+                <md-button ng-if="!new" flex class="md-raised md-accent" type="submit">Login</md-button>
 
-        <div ng-if="!login">
-            <div class="item detail" layout="column" layout-align="center center">
-                <h4>New to Scaffold?</h4>
-            </div>
-
-            <form ng-submit="signup()">
-                <md-input-container>
-                    <label error="{{errors.email}}">Email</label>
-                    <input ng-model="auth.email" />
-                </md-input-container>
-
-                <md-input-container>
-                    <label error="{{errors.password}}">Password</label>
-                    <input ng-model="auth.password" type="password" />
-                </md-input-container>
-
-                <div class="buttons">
-                    <md-button class="md-raised md-accent" type="submit">Signup</md-button>
-                    <md-button class="md-raised md-warn" ng-click="toggle()">Returning to Scaffold?</md-button>
-                </div>
-            </form>
-
-            <div class="social" layout="row" layout-align="space-around center">
-                <md-button href="/auth/facebook/signup" target="_self">
+                <!-- case: new -->
+                <md-button ng-if="new" class="social" href="/auth/facebook/signup" target="_self">
                     <md-icon md-font-icon="icon_facebook"></md-icon>
                 </md-button>
-                <md-button href="/auth/google/signup" target="_self">
+                <md-button ng-if="new" class="social" href="/auth/google/signup" target="_self">
                     <md-icon md-font-icon="icon_google"></md-icon>
                 </md-button>
+                <md-button ng-if="new" flex class="md-raised md-accent" type="submit">Signup</md-button>
             </div>
+        </form>
+
+        <div class="social" layout="row" layout-align="space-around center">
+
         </div>
     </div>
 

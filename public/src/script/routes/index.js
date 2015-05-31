@@ -26,14 +26,11 @@ angular.module('scaffold')
         };
         $scope.errors = {};
 
+        $scope.new = false;
         $scope.selectedTab = 0;
         $scope.signup = signup;
         $scope.login = login;
         $scope.results = [];
-        $scope.toggle = function() {
-            $scope.login = !$scope.login;
-            $scope.auth = { email: "", password: "" };
-         };
         // $scope.profile gets inherited from $rootScope
 
 
