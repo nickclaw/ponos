@@ -24,9 +24,17 @@ angular.module('scaffold')
     'Chat',
     'profile',
     'handle',
-    function($scope, $routeParams, chat, Chat, profile, handle) {
+    'User',
+    function($scope, $routeParams, chat, Chat, profile, handle, User) {
         $scope.chat = chat;
         $scope.errors = {};
+
+        $scope.pics = {};
+        chat.users.forEach(function(id) {
+            User.get({ _id:  id}).$promise.then(function(res) {
+                $scope.pics[id] = res.picture;
+            });
+        });
 
         $scope.profile = profile;
         $scope.messages = clusterMessages(chat.messages);

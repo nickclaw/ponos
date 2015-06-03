@@ -1,7 +1,8 @@
-<md-content>
+<md-content class="info">
     <div class="list">
         <a class="list-item" ng-repeat="job in jobs" ng-href="/job/{{job._id}}">
 
+            <md-divider></md-divider>
             <div class="list-item-content" layout="row">
                 <div flex>
                     <h2>{{job.title}}</h2>
@@ -10,8 +11,6 @@
                 </div>
                 <icon></icon>
             </div>
-
-            <md-divider></md-divider>
         </a>
     </div>
 </md-content>

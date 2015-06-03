@@ -2,28 +2,39 @@
 
     md-toolbar {
         padding: 5px 10px;
-        opacity: .7;
     }
 
     md-list {
         overflow-y: scroll;
+        padding: 10px 0px;
     }
 
     md-list-item {
         margin: 10px;
-        max-width: 75%;
         padding: 10px;
+
+        .chat-icon {
+            display: block;
+            position: absolute;
+            bottom: -25px;
+        }
 
         &.you {
             background-color: #CFCFCF;
             border-radius: 5px 5px 0px 5px;
             margin-left: 22%;
+            margin-right: 60px;
+
+            .chat-icon { right: -55px; }
         }
 
         &.them {
             background-color: #FFD271;
             border-radius: 5px 5px 5px 0px;
-            margin-left: 3%;
+            margin-left: 60px;
+            margin-right: 22%;
+
+            .chat-icon { left: -55px; }
         }
 
         p {

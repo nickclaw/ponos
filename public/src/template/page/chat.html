@@ -1,11 +1,11 @@
-<div class="chat" flex layout="column" style="max-height: calc(100vh - 64px);">
-    <md-toolbar md-scroll-shrink="true" md-shrink-speed-factor="1" style="z-index: 1;">
-        <job-details job="chat.job"></job-details>
-        <user-details user="notUser(chat)"></user-details>
-    </md-toolbar>
-    <md-content flex>
-        <md-list flex>
+<div class="chat" flex layout="column" style="min-height: calc(100vh - 64px);">
+    <md-content layout="column" layout-align="end" flex>
+        <md-list>
             <md-list-item ng-repeat="group in messages track by $index" ng-class="{you: group[0].user === profile._id, them: group[0].user !== profile._id}">
+
+                <a class="chat-icon" href="/user/{{group[0].user}}">
+                    <icon class="small" src="pics[group[0].user]"></icon>
+                </a>
                 <div class="message-container">
                     <p ng-repeat="message in group track by $index">{{message.message}}</p>
                 </div>

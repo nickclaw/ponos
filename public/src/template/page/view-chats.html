@@ -1,4 +1,7 @@
-<md-content class="view-chats">
+<md-content class="view-chats info">
+    <section>
+        <h2>Recent Chats</h2>
+    </section>
     <div class="list">
 
         <!-- case: loading -->
@@ -22,6 +25,7 @@
             ng-href="/messages/{{chat._id}}"
             class="chat list-item">
 
+            <md-divider></md-divider>
             <div class="list-item-content" layout="row" flex>
                 <div class="chat-content" flex layout="column">
                     <h3>{{notUser(chat).firstName}}</h3>
@@ -32,7 +36,6 @@
                 </div>
                 <icon src="notUser(chat).picture" notifications="{{chat.unread + 1 ? chat.unread : ''}}"></icon>
             </div>
-            <md-divider></md-divider>
         </a>
     </md-list>
 </md-content>
