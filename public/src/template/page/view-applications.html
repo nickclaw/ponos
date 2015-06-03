@@ -1,9 +1,9 @@
-<md-content layout="column" flex>
+<md-content layout="column" class="info" flex>
 
     <job-details job="job"></job-details>
 
     <section label="accepted">
-        <h2>Accepted</h2>
+        <h2>Accepted Applications</h2>
         <div class="list">
             <!-- case: empty -->
             <div class="list-info" ng-if="!applications.accepted.length" layout="row" layout-align="center center">
@@ -18,7 +18,7 @@
         </div>
     </section>
     <section label="pending">
-        <h2>Pending</h2>
+        <h2>Pending Applications</h2>
         <div class="list">
             <!-- case: empty -->
             <div class="list-info" ng-if="!applications.pending.length" layout="row" layout-align="center center">
@@ -33,7 +33,7 @@
         </div>
     </section>
     <section label="waiting">
-        <h2>Waiting</h2>
+        <h2>Waiting Confirmation</h2>
         <div class="list">
             <!-- case: empty -->
             <div class="list-info" ng-if="!applications.waiting.length" layout="row" layout-align="center center">

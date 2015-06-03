@@ -1,7 +1,15 @@
-.user-details {
+.details {
     display: block;
     text-decoration: none;
     color: black;
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
 
     .star {
         margin: 1px;

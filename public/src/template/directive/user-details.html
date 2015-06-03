@@ -1,6 +1,6 @@
-<a ng-href="/user/{{user._id}}" class="user-details">
+<a ng-href="/user/{{user._id}}" class="details">
 
-    <loading loading="loading" error="errored">
+    <loading loading="loading" error="errored" flex>
         <div layout="row" flex>
             <icon class="large" src="user.picture"></icon>
             <div layout="column" layout-align="end end" flex>
@@ -25,5 +25,4 @@
             </div>
         </div>
     </loading>
-
 </a>

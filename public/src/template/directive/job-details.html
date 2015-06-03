@@ -1,10 +1,12 @@
-<a ng-href="/job/{{job._id}}" class="job-details">
+<a ng-href="/job/{{job._id}}" class="details">
 
     <loading loading="loading" error="errored">
-        <div lat="job.location.lat" long="job.location.long">
-            <h3>{{job.title}}</h3>
-            <h4 date="job.start" format="MMM DD, YYYY"></h4>
-            <p>{{job.description}}</p>
+        <div layout="row" flex>
+            <icon></icon>
+            <div layout="column" layout-align="center end" flex>
+                <h3>{{job.title}}</h3>
+                <h4 date="job.start" format="MMM DD, YYYY"></h4>
+            </div>
         </div>
     </loading>
 </a>
