@@ -267,7 +267,7 @@ router.get('/:user/jobs/accepted',
                 var jobs = {};
 
                 apps.forEach(function(app) {
-                    var job = app.job;
+                    var job = app.job.toJSON();
                     delete app.job;
                     if (job.start <= new Date()) return;
                     if (!jobs[job._id]) {

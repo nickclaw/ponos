@@ -1,7 +1,8 @@
 angular.module('scaffold').directive('imageUpload', [
+    '$timeout',
     'UploadCache',
     'handle',
-    function(UploadCache, handle) {
+    function($timeout, UploadCache, handle) {
         return {
             restrict: "E",
             replace: true,
@@ -10,11 +11,16 @@ angular.module('scaffold').directive('imageUpload', [
                 ngModel: '='
             },
             link: function($scope, elem, attr) {
-                $scope.loading = false;
+                $scope.loading = true;
                 $scope.error = "";
 
                 var input = elem.find('input'),
                     image = angular.element(elem[0].querySelector('.image-upload-image'));
+
+                $timeout(function() {
+                    $scope.ngModel = $scope.ngModel + " "
+                    $scope.loading = false;
+                }, 1000);
 
                 $scope.$watch('ngModel', function(value) {
                     if (!value) {

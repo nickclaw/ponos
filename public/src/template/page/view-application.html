@@ -8,7 +8,8 @@
     <md-divider></md-divider>
 
     <section>
-        <h2>Applicant</h2>
+        <h2 ng-if="profile.$isWorker()">Poster</h2>
+        <h2 ng-if="profile.$isEmployer()">Applicant</h2>
         <user-details ng-if="profile.$isWorker()" user="app.owner"></user-details>
         <user-details ng-if="profile.$isEmployer()" user="app.applicant"></user-details>
     </section>
@@ -16,7 +17,8 @@
     <md-divider></md-divider>
 
     <section>
-        <h2>Statement</h2>
+        <h2 ng-if="profile.$isWorker()">Your Statement</h2>
+        <h2 ng-if="profile.$isEmployer()">Their Statement</h2>
         <p>{{app.blurb}}</p>
     </section>
 </md-content>

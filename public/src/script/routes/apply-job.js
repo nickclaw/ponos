@@ -21,10 +21,11 @@ angular.module('scaffold')
 .controller('ApplyJobController', [
     '$scope',
     '$location',
+    '$mdToast',
     'Application',
     'job',
     'handle',
-    function($scope, $location, Application, job, handle) {
+    function($scope, $location, $mdToast, Application, job, handle) {
 
         //
         // Scope
@@ -56,6 +57,9 @@ angular.module('scaffold')
                                 $scope.errors[key] = $scope.errors[key].substr(7);
                             }
                         }
+                    },
+                    403: function(res) {
+                        $mdToast.showSimple("You've already applied to this job!");
                     }
                 })
             );

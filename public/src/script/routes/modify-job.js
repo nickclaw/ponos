@@ -45,9 +45,10 @@ angular.module('scaffold')
 .controller('ModifyJobController', [
     '$scope',
     '$location',
+    '$history',
     'job',
     'handle',
-    function($scope, $location, job, handle) {
+    function($scope, $location, $history, job, handle) {
 
         //
         // Scope
@@ -56,6 +57,7 @@ angular.module('scaffold')
         $scope.errors = {};
 
         $scope.save = save;
+        $scope.cancel = onCancel;
         $scope.mapOptions = {};
         $scope.start = {date: job.start, time: job.start};
         $scope.end = {date: job.end, time: job.end};
@@ -111,6 +113,10 @@ angular.module('scaffold')
                     }
                 })
             );
+        }
+
+        function onCancel() {
+            $history.back('/job/' + job._id);
         }
     }
 ]);

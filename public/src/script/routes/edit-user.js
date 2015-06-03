@@ -31,6 +31,7 @@ angular.module('scaffold')
         $scope.errors = {};
 
         $scope.save = save;
+        $scope.cancel = cancel;
 
         //
         // Functions
@@ -56,7 +57,7 @@ angular.module('scaffold')
         }
 
         function cancel() {
-            $location.url('/user/' + u._id);
+            $location.url('/user/' + user._id);
         }
     }
 ]);
