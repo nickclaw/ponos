@@ -2,48 +2,49 @@
 
     <job-details job="job"></job-details>
 
-    <md-tabs flex>
-        <md-tab label="accepted">
-            <div class="list">
-                <!-- case: empty -->
-                <div class="list-info" ng-if="!applications.accepted.length" layout="row" layout-align="center center">
-                    No applications..
-                </div>
-
-                <!-- case: -->
-                <app-item ng-repeat="app in applications.accepted" app="app">
-                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
-                    <p>{{app.blurb}}</p>
-                </app-item>
+    <section label="accepted">
+        <h2>Accepted</h2>
+        <div class="list">
+            <!-- case: empty -->
+            <div class="list-info" ng-if="!applications.accepted.length" layout="row" layout-align="center center">
+                No applications..
             </div>
-        </md-tab>
-        <md-tab label="pending">
-            <div class="list">
-                <!-- case: empty -->
-                <div class="list-info" ng-if="!applications.pending.length" layout="row" layout-align="center center">
-                    No applications..
-                </div>
 
-                <!-- case: -->
-                <app-item ng-repeat="app in applications.pending" app="app">
-                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
-                    <p>{{app.blurb}}</p>
-                </app-item>
+            <!-- case: -->
+            <app-item ng-repeat="app in applications.accepted" app="app">
+                <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                <p>{{app.blurb}}</p>
+            </app-item>
+        </div>
+    </section>
+    <section label="pending">
+        <h2>Pending</h2>
+        <div class="list">
+            <!-- case: empty -->
+            <div class="list-info" ng-if="!applications.pending.length" layout="row" layout-align="center center">
+                No applications..
             </div>
-        </md-tab>
-        <md-tab label="waiting">
-            <div class="list">
-                <!-- case: empty -->
-                <div class="list-info" ng-if="!applications.waiting.length" layout="row" layout-align="center center">
-                    No applications..
-                </div>
 
-                <!-- case: -->
-                <app-item ng-repeat="app in applications.waiting" app="app">
-                    <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
-                    <p>{{app.blurb}}</p>
-                </app-item>
+            <!-- case: -->
+            <app-item ng-repeat="app in applications.pending" app="app">
+                <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                <p>{{app.blurb}}</p>
+            </app-item>
+        </div>
+    </section>
+    <section label="waiting">
+        <h2>Waiting</h2>
+        <div class="list">
+            <!-- case: empty -->
+            <div class="list-info" ng-if="!applications.waiting.length" layout="row" layout-align="center center">
+                No applications..
             </div>
-        </md-tab>
-    </md-tabs>
+
+            <!-- case: -->
+            <app-item ng-repeat="app in applications.waiting" app="app">
+                <h2>{{app.applicant.firstName}} {{app.applicant.lastName}}</h2>
+                <p>{{app.blurb}}</p>
+            </app-item>
+        </div>
+    </section>
 </md-content>

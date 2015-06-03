@@ -1,0 +1,9 @@
+section {
+    > h2 {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 2rem;
+        color: $scaffold-gray;
+        border-bottom: solid 1px $scaffold-gray;
+    }
+}
