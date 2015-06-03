@@ -1,14 +1,24 @@
 <md-content class="info">
 
-    <job-details job="app.job"></job-details>
-    <md-divider layout-margin></md-divider>
-    <user-details ng-if="profile.$isWorker()" user="app.owner"></user-details>
-    <user-details ng-if="profile.$isEmployer()" user="app.applicant"></user-details>
+    <section>
+        <h2>Job</h2>
+        <job-details job="app.job"></job-details>
+    </section>
 
-    <div class="detail item long">
-        <label>Statement</label>
-        <span>{{app.blurb}}</span>
-    </div>
+    <md-divider></md-divider>
+
+    <section>
+        <h2>Applicant</h2>
+        <user-details ng-if="profile.$isWorker()" user="app.owner"></user-details>
+        <user-details ng-if="profile.$isEmployer()" user="app.applicant"></user-details>
+    </section>
+
+    <md-divider></md-divider>
+
+    <section>
+        <h2>Statement</h2>
+        <p>{{app.blurb}}</p>
+    </section>
 </md-content>
 
 <!-- case: is applicant -->
@@ -27,7 +37,10 @@
     <md-button flex ng-if="app.state === 'pending'" class="md-accent md-raised" ng-click="accept()">Accept</md-button>
     <md-button flex ng-if="app.state === 'pending'" class="md-accent" ng-click="reject()">Reject</md-button>
     <md-button flex ng-if="app.state === 'accepted'"
-        ng-href="/user/{{app.applicant}}/review/{{app.job}}"> Review Applicant
+        class="md-accent md-raised"
+        ng-href="/user/{{app.applicant}}/review/{{app.job}}">
+
+        Review Applicant
     </md-button>
     <md-button flex ng-click="cancel()">Cancel</md-button>
 </md-content>

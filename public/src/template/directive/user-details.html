@@ -2,10 +2,10 @@
 
     <loading loading="loading" error="errored" flex>
         <div layout="row" flex>
-            <icon class="large" src="user.picture"></icon>
+            <icon src="user.picture"></icon>
             <div layout="column" layout-align="end end" flex>
 
-                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                <h3 style="text-align: right;">{{user.firstName}} {{user.lastName}}</h3>
                 <div>
                     <md-icon ng-if="stars < 1" class="star" md-font-icon="icon_star_outline"></md-icon>
                     <md-icon ng-if="stars >= 1" class="star" md-font-icon="icon_star"></md-icon>
