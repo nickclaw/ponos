@@ -8,20 +8,26 @@ var redis = require('socket.io-redis')
 module.exports = (function() {
     io = socket();
     io.listen(8081);
-    io.adapter(redis({
+
+    var adapter = redis({
         key: C.REDIS.KEY,
         host: C.REDIS.HOST,
         port: C.REDIS.PORT
-    }));
+    })
+    adapter.pubClient.on('error', function(err){Log.warn(err.stack)});
+    adapter.subClient.on('error', function(err){Log.warn(err.stack)});
+
+    io.adapter(adapter);
 
     // make sure namespace exists
     io.sockets.on('connection', function(socket) {
         var ns = url.parse(socket.handshake.url, true).query.ns;
+        Log.silly("connect ns %s", ns);
         io.of('/user/' + ns);
 
         // TODO remove namespace when user disconnects
         socket.on('disconnect', function(socket) {
-            console.log("disconnect ns", ns);
+            Log.silly("disconnect ns %s", ns);
         });
     });
 
