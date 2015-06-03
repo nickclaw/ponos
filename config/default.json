@@ -26,6 +26,12 @@
         "PASS": ""
     },
 
+    "REDIS": {
+        "KEY": "default",
+        "HOST": "localhost",
+        "PORT": 6379
+    },
+
     "AUTH": {
         "GOOGLE": {
             "ID": "",

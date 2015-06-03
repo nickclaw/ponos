@@ -3,10 +3,16 @@ var io = null;
 var User = require('../database/models/User');
 var _ = require('lodash');
 var url = require('url');
+var redis = require('socket.io-redis')
 
 module.exports = (function() {
     io = socket();
     io.listen(8081);
+    io.adapter(redis({
+        key: C.REDIS.KEY,
+        host: C.REDIS.HOST,
+        port: C.REDIS.PORT
+    }));
 
     // make sure namespace exists
     io.sockets.on('connection', function(socket) {
