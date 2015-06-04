@@ -60,7 +60,7 @@ router
 
                 socket.notify(req.$job.poster, {
                     text: "New applicant for " + req.$job.title,
-                    description: req.user.firstName + " just applied for your job. Click here to view his application and accept or reject him.",
+                    description: req.user.firstName + " just applied for your job. Click here to view his application and accept or reject them.",
                     url: "/job/" + req.$job.id + "/applications/" + app.id
                 });
 
