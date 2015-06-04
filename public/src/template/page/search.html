@@ -32,6 +32,22 @@
 
 
     <div class="list">
+
+        <!-- case: loading -->
+        <div class="list-info" ng-if="!jobs.$resolved" layout="row" layout-align="center center">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+        <!-- case: errored-->
+        <div class="list-info" ng-if="jobs.$resolved && errored">
+            <h3>Error</h3>
+        </div>
+
+        <!-- case: empty -->
+        <div class="list-info" ng-if="jobs.$resolved && !errored && !jobs.length">
+            <h3>No Jobs Found</h3>
+        </div>
+
         <a class="list-item" ng-repeat="job in jobs" ng-href="/job/{{job._id}}">
 
             <md-divider></md-divider>
