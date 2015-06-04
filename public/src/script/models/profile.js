@@ -66,6 +66,7 @@ angular.module('scaffold').factory('profile', [
                         profile.__proto__ = new User(res.data);
                         profile.$error = null;
                         profile.$loggedIn = true;
+                        profile.__proto__.notifications = [];
                         $location.url('/signup');
                         openSocket();
                     },

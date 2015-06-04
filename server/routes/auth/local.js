@@ -10,7 +10,9 @@ router.post('/login',
         password: vlad.string.required.min(1)
     }),
     function(req, res, next) {
-        res.send(req.user.toObject());
+        var obj = req.user.toObject();
+        obj.notifications = req.user.notifications;
+        res.send(obj);
     });
 
 //
