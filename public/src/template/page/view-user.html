@@ -5,6 +5,18 @@
         <span>{{user.bio}}</span>
     </div>
 
+    <div class="detail item long" ng-if="user.$isWorker() && user.worker.skills.length">
+        <label>Skills</label>
+        <p>
+            <skill-chips editable="false" user="user"></skill-chips>
+        </p>
+    </div>
+
+    <div class="detail item" ng-if="user.$isEmployer() && user.employer.url">
+        <label>Website</label>
+        <span>{{user.employer.url}}</span>
+    </div>
+
     <div class="list">
         <div class="list-info" ng-if="!reviews.comments.length">
             <h3>No Comments Yet</h3>

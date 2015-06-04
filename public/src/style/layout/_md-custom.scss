@@ -15,3 +15,7 @@ md-icon {
 md-select {
 	margin-bottom: 0px;
 }
+
+md-chips.none .md-chips {
+	box-shadow: none !important;
+}

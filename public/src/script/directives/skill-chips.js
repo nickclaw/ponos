@@ -4,7 +4,8 @@ angular.module('scaffold').directive('skillChips', [
             restrict: 'E',
             templateUrl: "/static/template/directive/skill-chips.html",
             scope: {
-                user: '='
+                user: '=',
+                editable: '='
             },
             link: function($scope) {
                 $scope.querySearch = querySearch;

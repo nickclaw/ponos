@@ -1,4 +1,4 @@
-<md-chips ng-model="user.worker.skills" md-autocomplete-snap md-require-match />
+<md-chips ng-if="editable" ng-model="user.worker.skills" md-autocomplete-snap md-require-match />
     <md-autocomplete
         md-selected-item="selectedItem"
         md-search-text="searchText"
@@ -15,3 +15,4 @@
         </md-not-found>
     </md-autocomplete>
 </md-chips>
+<md-chips ng-if="!editable" ng-model="user.worker.skills" class="none" readonly="true"></md-chips>
