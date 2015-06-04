@@ -8,6 +8,7 @@ var schema = mongoose.Schema({
     poster: { type: String, ref: "User" },
 
     title: { type: String },
+    category: { type: String },
     location: {
         name: { type: String },
         lat: { type: Number, default: 0.0 },
@@ -39,6 +40,7 @@ schema.methods.validate = function validate(done) {
 
 var jobValidator = vlad({
     title: vlad.string.required.within(5, 140),
+    category: vlad.string.required,
     location: vlad({
         name: vlad.string.required.min(1),
         lat: vlad.number.required.within(-90, 90),
@@ -65,6 +67,7 @@ module.exports.screen = function(action, data) {
 var whitelist = {
     create: {
         title: true,
+        category: true,
         location: {
             name: true,
             lat: true,
@@ -83,6 +86,7 @@ var whitelist = {
 
     edit: {
         title: true,
+        category: true,
         location: {
             name: true,
             lat: true,
@@ -101,6 +105,7 @@ var whitelist = {
         _id: true,
         poster: true,
         title: true,
+        category: true,
         location: {
             name: true,
             lat: true,

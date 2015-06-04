@@ -27,8 +27,9 @@ angular.module('scaffold')
                     function(Job, moment) {
                         return new Job({
                             new: true,
+                            category: "misc",
                             location: {
-                                name: "",
+                                name: "Seattle Washington",
                                 lat: 47.6038321,
                                 long: -122.3300624
                             },
@@ -48,13 +49,15 @@ angular.module('scaffold')
     '$history',
     'job',
     'handle',
-    function($scope, $location, $history, job, handle) {
+    'cats',
+    function($scope, $location, $history, job, handle, cats) {
 
         //
         // Scope
         //
         $scope.job = job;
         $scope.errors = {};
+        $scope.cats = cats;
 
         $scope.save = save;
         $scope.cancel = onCancel;
@@ -70,7 +73,7 @@ angular.module('scaffold')
         //
 
         function onStartChange(start) {
-            job.start = new Date(start.date + start.time).toJSON();
+            job.start = new Date(new Date(start.date) + start.time).toJSON();
         }
 
         function onEndChange(end) {

@@ -5,6 +5,13 @@
             <input ng-model="job.title" />
         </md-input-container>
 
+        <section layout="row" layout-align="end end">
+            <label style="margin-bottom: 5px; color: #F7911E;">Category</label>
+            <md-select flex ng-model="job.category">
+                <md-option ng-value="cat.value" ng-repeat="cat in cats">{{ cat.text }}</md-option>
+            </md-select>
+        </section>
+
         <md-input-container>
             <label error="{{errors.locationName}}">Location</label>
             <location-input location="job.location"></location-input>
