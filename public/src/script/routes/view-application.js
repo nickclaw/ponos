@@ -42,7 +42,11 @@ angular.module('scaffold')
         function accept() {
             app.$accept().then(
                 function() {
-                    $history.back(url);
+                    if (profile.$isWorker()) {
+                        $location.url('/messages');
+                    } else {
+                        $history.back(url);
+                    }
                 },
                 function(err) {
                     console.error('TODO');
