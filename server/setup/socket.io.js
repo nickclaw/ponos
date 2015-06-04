@@ -3,25 +3,16 @@ var io = null;
 var User = require('../database/models/User');
 var _ = require('lodash');
 var url = require('url');
-var redis = require('socket.io-redis');
 
 module.exports = (function() {
     io = socket();
     io.listen(8081);
 
-    var adapter = redis({
-        key: C.REDIS.KEY,
-        host: C.REDIS.HOST,
-        port: C.REDIS.PORT
-    });
-
-    io.adapter(adapter);
-
     // make sure namespace exists
     io.sockets.on('connection', function(socket) {
         var ns = url.parse(socket.handshake.url, true).query.ns;
         Log.silly("connect ns %s", ns);
-        io.of('/user/' + ns);
+        io.of('/user/' + ns).emit('hello', 'world');
 
         // TODO remove namespace when user disconnects
         socket.on('disconnect', function(socket) {
