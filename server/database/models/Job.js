@@ -75,6 +75,8 @@ var jobValidator = vlad({
 var model = mongoose.model('Job', schema);
 module.exports = model;
 
+model.ensureIndexes();
+
 module.exports.screen = function(action, data) {
     return screen(data, whitelist[action]);
 };
