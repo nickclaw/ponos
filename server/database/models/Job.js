@@ -26,6 +26,21 @@ var schema = mongoose.Schema({
 schema.plugin(unique);
 schema.plugin(timestamp);
 
+schema.index({
+    'title': 'text',
+    'description': 'text',
+    'equipmentProvided': 'text',
+    'perks': 'text'
+}, {
+    name: "text_search",
+    weights: {
+        "title": 5,
+        "description": 5,
+        'equipmentProvided': 3,
+        'perks': 2
+    }
+});
+
 schema.methods.render = function(user) {
     return module.exports.screen('view', this.toObject());
 };

@@ -1,4 +1,31 @@
 <md-content class="info">
+
+    <section layout="row" layout-align="end end">
+        <md-input-container flex>
+            <label>Search</label>
+            <input ng-model="searchOptions.search" />
+        </md-input-container>
+
+        <md-select ng-model="searchOptions.category" placeholder="Category">
+            <md-option ng-value="cat.value" ng-repeat="cats in cats">{{ cat.text }}</md-option>
+        </md-select>
+    </section>
+
+    <section layout="row" layout-align="space-between end">
+        <label style="margin-bottom: 5px; margin-right: 10px;">Sort by</label>
+        <md-select flex ng-model="searchOptions.sortBy" placeholder="Sort By">
+            <md-option ng-value="sort.value" ng-repeat="sort in sorts">{{ sort.text }}</md-option>
+        </md-select>
+
+        <md-select flex ng-model="searchOptions.orderBy" placeholder="Order By">
+            <md-option ng-value="order.value" ng-repeat="order in orders">{{ order.text }}</md-option>
+        </md-select>
+    </section>
+
+    <div class="buttons">
+        <md-button flex class="md-accent md-raised" ng-click="search()">Search</md-button>
+    </div>
+
     <div class="list">
         <a class="list-item" ng-repeat="job in jobs" ng-href="/job/{{job._id}}">
 

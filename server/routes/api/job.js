@@ -20,14 +20,50 @@ router
     //
     // Search
     //
-    .get('/', function(req, res, next) {
-        db.Job.find({}).exec()
-            .then(function(jobs) {
-                res.send(jobs.map(function(job) {
-                    return job.render(req.user);
-                }));
-            });
-    })
+    .get('/',
+        vlad.middleware('query', {
+            search: vlad.string,
+            category: vlad.string,
+            sortBy: vlad.enum(["start", "rate", "distance"]),
+            orderBy: vlad.enum(["asc", "desc"])
+        }),
+        function(req, res, next) {
+            var order = req.query.orderBy === "desc" ? -1 : 1,
+                query = {$and: []}, projection = {}, sort = {};
+
+            if (req.query.search) {
+                query.$and.push({ $text: { $search: req.query.search } });
+                projection['textScore'] = { $meta: "textScore" };
+                sort = { textScore: { $meta: "textScore" }};
+            }
+
+            if (req.query.category) {
+                query.$and.push({ category: req.query.category })
+            }
+
+            if (req.query.sortBy) {
+                if (req.query.sortBy === "new") sort["created"] = order;
+                if (req.query.sortBy === "start") sort['start'] = order;
+                if (req.query.sortBy === "rate") sort['rate'] = order;
+                if (req.query.sortBy === "distance") console.log('TODO');
+            }
+
+            // not filters at all, get rid of $and query
+           if (!query.$and.length) {
+               query = {};
+           }
+
+            db.Job
+                .find(query, projection)
+                .sort(sort)
+                .exec()
+                .then(function(jobs) {
+                    res.send(jobs.map(function(job) {
+                        return job.render(req.user);
+                    }));
+                });
+        }
+    )
 
     //
     // Create
