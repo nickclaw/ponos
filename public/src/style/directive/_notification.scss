@@ -1,0 +1,10 @@
+.notification {
+    border-left: solid 4px transparent;
+    padding-left: 4px;
+    opacity: .7;
+
+    &.unread {
+        border-color: $scaffold-orange;
+        opacity: 1;
+    }
+}

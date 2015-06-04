@@ -7,7 +7,7 @@
         </div>
 
         <!-- case: notifications loaded -->
-        <a ng-repeat="note in notifications.slice().reverse() track by note._id"
+        <a class="notification" ng-class="{unread: !note.seen}" ng-repeat="note in notifications.slice().reverse() track by note._id"
             ng-href="{{note.url}}"
             class="list-item">
 
@@ -16,7 +16,6 @@
                 <h5>{{note.description}}</h5>
             </div>
             <md-divider></md-divider>
-
         </a>
     </div>
 </md-content>

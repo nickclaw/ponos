@@ -19,10 +19,10 @@ angular.module('scaffold')
     '$scope',
     'profile',
     function($scope, profile) {
-        $scope.notifications = profile.notifications || [];
+        $scope.notifications = profile.notifications.slice() || [];
         profile.$acknowledgeNotifications()
             .then(function() {
-                $scope.notifications.forEach(function(note) {
+                profile.notifications.forEach(function(note) {
                     note.seen = true;
                 });
             });
