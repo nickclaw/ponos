@@ -12,13 +12,6 @@
         text-align: center;
     }
 
-    .number {
-        width: 60px;
-        height: 60px;
-        background-color: rgb(50,50,50);
-        border-radius: 50%;
-    }
-
     .list-item-content {
         padding: 20px 5px;
         flex: 1;
@@ -35,5 +28,10 @@
                 color: black;
             }
         }
+    }
+
+    .number {
+        width: 60px;
+        height: 60px;
     }
 }
