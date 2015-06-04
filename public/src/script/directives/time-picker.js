@@ -7,18 +7,13 @@ angular.module('scaffold').directive('timePicker', [
             link: function($scope, elem, attr, ngModel) {
                 elem.pickatime({
                     onSet: function(evt) {
-                        ngModel.$setViewValue(evt.select * 1000 * 60);
+                        ngModel.$setViewValue(evt.select * 1000 * 60 + (7 * 1000 * 60 * 60));
                         ngModel.$render();
                     }
                 });
 
-                var now = new Date();
-                now.setMinutes(0);
-                now.setSeconds(0);
-                now.setHours(0);
-
                 ngModel.$render = function() {
-                    var date = moment(ngModel.$viewValue);
+                    var date = moment((+ngModel.$viewValue) + (1 * 1000 * 60 * 60));
                     if (date.isValid()) {
                         elem[0].value = date.format('h:mm a');
                     } else {

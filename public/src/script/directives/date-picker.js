@@ -12,7 +12,7 @@ angular.module('scaffold').directive('datePicker', [
                     }
                 });
                 ngModel.$render = function() {
-                    var date = moment(ngModel.$viewValue);
+                    var date = moment(+ngModel.$viewValue);
                     if (date.isValid()) {
                         elem[0].value = date.format('MMM DD, YYYY');
                     } else {

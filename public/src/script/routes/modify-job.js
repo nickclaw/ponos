@@ -32,8 +32,8 @@ angular.module('scaffold')
                                 name: "Seattle Washington",
                                 coords: [-122.3300624, 47.6038321]
                             },
-                            start: moment().utc(),
-                            end: moment().utc()
+                            start: moment().toJSON(),
+                            end: moment().toJSON()
                         });
                     }
                 ]
@@ -49,7 +49,8 @@ angular.module('scaffold')
     'job',
     'handle',
     'cats',
-    function($scope, $location, $history, job, handle, cats) {
+    'moment',
+    function($scope, $location, $history, job, handle, cats, moment) {
 
         //
         // Scope
@@ -61,8 +62,12 @@ angular.module('scaffold')
         $scope.save = save;
         $scope.cancel = onCancel;
         $scope.mapOptions = {};
-        $scope.start = {date: job.start, time: job.start};
-        $scope.end = {date: job.end, time: job.end};
+
+        var start = moment(job.start).valueOf();
+        var end = moment(job.end).valueOf();
+
+        $scope.start = {date: Math.floor(start / (1000 * 60 * 60 * 24)) * (1000 * 60 * 60 * 24) + (1000 * 60 * 60 * 24) * (job.new ? 2 : 1), time: start % (1000 * 60 * 60 * 24)};
+        $scope.end = {date: Math.floor(end / (1000 * 60 * 60 * 24)) * (1000 * 60 * 60 * 24) + (1000 * 60 * 60 * 24) * (job.new ? 2 : 1), time: end % (1000 * 60 * 60 * 24)};
         $scope.$watch('job.location', onLocationChange, true);
         $scope.$watch('start', onStartChange, true);
         $scope.$watch('end', onEndChange, true);
@@ -72,11 +77,11 @@ angular.module('scaffold')
         //
 
         function onStartChange(start) {
-            job.start = new Date(new Date(start.date) + start.time).toJSON();
+            job.start = new Date(start.date + start.time - (1000 * 60 * 60 * 24) * (job.new ? 1 : 0)).toJSON();
         }
 
         function onEndChange(end) {
-            job.end = new Date(end.date + end.time).toJSON();
+            job.end = new Date(end.date + end.time - (1000 * 60 * 60 * 24) * (job.new ? 1 : 0)).toJSON();
         }
 
         function onLocationChange(loc) {
