@@ -3,7 +3,7 @@ var io = null;
 var User = require('../database/models/User');
 var _ = require('lodash');
 var url = require('url');
-var redis = require('socket.io-redis')
+var redis = require('socket.io-redis');
 
 module.exports = (function() {
     io = socket();
@@ -13,9 +13,7 @@ module.exports = (function() {
         key: C.REDIS.KEY,
         host: C.REDIS.HOST,
         port: C.REDIS.PORT
-    })
-    adapter.pubClient.on('error', function(err){Log.warn(err.stack)});
-    adapter.subClient.on('error', function(err){Log.warn(err.stack)});
+    });
 
     io.adapter(adapter);
 

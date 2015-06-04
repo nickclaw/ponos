@@ -40,7 +40,8 @@
     </div>
 </md-content>
 
-<md-content layout="row" class="buttons">
+<md-content layout="column" class="buttons">
     <md-button flex class="md-accent md-raised" ng-if="job.$owned()" href="/job/{{job._id}}/edit">Edit</md-button>
+    <md-button flex class="md-accent md-raised" ng-if="job.$owned()" href="/job/{{job._id}}/applications">View Applications</md-button>
     <md-button flex class="md-accent md-raised" ng-if="profile.$isWorker()" href="/job/{{job._id}}/apply">Apply</md-button>
 </md-content>

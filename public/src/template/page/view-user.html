@@ -25,6 +25,7 @@
     </div>
 </md-content>
 
-<md-content layout="row" class="buttons" ng-if="user.$owned()">
-    <md-button class="md-accent md-raised" flex href="/user/{{user._id}}/edit">Edit</md-button>
+<md-content layout="column" class="buttons" >
+    <md-button class="md-accent md-raised" flex href="/user/{{user._id}}/edit" ng-if="user.$owned()">Edit</md-button>
+    <md-button ng-if="user.$isEmployer()"  flex href="/user/{{user._id}}/jobs">View Users Jobs</md-button>
 </md-content>
