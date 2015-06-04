@@ -30,8 +30,7 @@ angular.module('scaffold')
                             category: "misc",
                             location: {
                                 name: "Seattle Washington",
-                                lat: 47.6038321,
-                                long: -122.3300624
+                                coords: [-122.3300624, 47.6038321]
                             },
                             start: moment().utc(),
                             end: moment().utc()
@@ -82,10 +81,7 @@ angular.module('scaffold')
 
         function onLocationChange(loc) {
             $scope.mapOptions = {
-                center: {
-                    lat: loc.lat,
-                    lon: loc.long
-                },
+                center: loc.coords,
                 zoom: 11
             };
         }

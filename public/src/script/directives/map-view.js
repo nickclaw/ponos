@@ -6,8 +6,7 @@ angular.module('scaffold').directive('mapView', [
             template: "<div class='map-view'><div class='map'></div><ng-transclude></ng-transclude></div>",
             transclude: true,
             scope: {
-                lat: "=",
-                long: "=",
+                coords: '=',
                 zoom: "="
             },
             link: function($scope, elem, attr) {
@@ -16,7 +15,7 @@ angular.module('scaffold').directive('mapView', [
                 var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
                 var osm = new leaflet.TileLayer(osmUrl, {minZoom: 8, maxZoom: 12, attribution: osmAttrib});
                 map.addLayer(osm);
-                map.setView(new leaflet.LatLng($scope.lat || 0, $scope.long || 0), $scope.zoom || 9);
+                map.setView(new leaflet.LatLng($scope.coords[1] || 0, $scope.coords[0] || 0), $scope.zoom || 9);
             }
         };
     }

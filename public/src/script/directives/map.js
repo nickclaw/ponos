@@ -24,8 +24,8 @@ angular.module('scaffold').directive('map', [
 
                 var marker;
                 $scope.$watch('options', function(options) {
-                    var lat = options.center.lat || 0,
-                        long = options.center.lon || 0,
+                    var lat = options.center[1] || 0,
+                        long = options.center[0] || 0,
                         zoom = options.zoom || 10;
 
                     if (marker) {

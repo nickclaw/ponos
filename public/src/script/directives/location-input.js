@@ -14,8 +14,7 @@ angular.module('scaffold').directive('locationInput', [
 
                 $scope.$watch('location.name', debounce(600, function(address) {
                     if (!address) {
-                        $scope.location.lat = 47.6038321;
-                        $scope.location.long = -122.3300624;
+                        $scope.location.coords = [-122.3300624, 47.6038321];
                         $scope.location.$loading = false;
                         $scope.location.$errored = false;
                         return;
@@ -25,8 +24,7 @@ angular.module('scaffold').directive('locationInput', [
                         .then(
                             function(res) {
                                 if (thisRequest !== currentRequest) return;
-                                $scope.location.lat = res.data.latitude;
-                                $scope.location.long = res.data.longitude;
+                                $scope.location.coords = [res.data.longitude, res.data.latitude];
                                 $scope.location.$errored = false;
                                 $scope.location.$loading = false;
                             },
