@@ -14,16 +14,23 @@ angular.module('scaffold')
 .controller('SearchController', [
     '$scope',
     '$timeout',
+    '$mdToast',
     'Job',
     'cats',
-    function($scope, $timeout, Job, cats){
+    'geo',
+    function($scope, $timeout, $mdToast, Job, cats, geo){
+
+        $scope.loading = false;
 
         $scope.search = search;
+        $scope.cancel = cancel;
         $scope.searchOptions = {
             search: "",
             category: "",
             sortBy: "start",
-            orderBy: "asc"
+            orderBy: "asc",
+            lat: undefined,
+            long: undefined
         };
 
         $scope.cats = cats;
@@ -42,6 +49,35 @@ angular.module('scaffold')
         ];
 
         search();
+
+        $scope.$watch('searchOptions.sortBy', function(sort) {
+            if (sort !== 'distance') return;
+
+            $scope.loading = true;
+            $scope.cancelled = false;
+
+            geo().then(
+                function(coords) {
+                    if ($scope.cancelled) return;
+                    $scope.loading = false;
+                    $scope.searchOptions.lat = coords.coords.latitude;
+                    $scope.searchOptions.long = coords.coords.longitude;
+                },
+                function(err) {
+                    if ($scope.cancelled) return;
+                    $scope.loading = false;
+                    $scope.searchOptions.sortBy = "start";
+                    $mdToast.showSimple("Could not get your location.");
+                }
+            );
+        });
+
+        function cancel() {
+            $scope.cancelled = true;
+            $scope.loading = false;
+            $scope.searchOptions.sortBy = "start";
+            $mdToast.showSimple("Could not get your location.");
+        }
 
         function search() {
             $scope.jobs = Job.search($scope.searchOptions);
