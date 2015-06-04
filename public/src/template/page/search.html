@@ -25,9 +25,10 @@
         </section>
     </loading>
 
-    <div class="buttons">
+    <div layout="row" class="buttons">
+        <md-button ng-if="!loading" flex ng-click="clear()">Clear</md-button>
         <md-button ng-if="!loading" flex class="md-accent md-raised" ng-click="search()">Search</md-button>
-        <md-button ng-if="loading" flex class="md-accent md-raised" ng-click="cancel()">stop getting location</md-button>
+        <md-button ng-if="loading" flex class="md-accent md-raised" ng-click="cancel()">Stop Finding Location</md-button>
     </div>
 
 

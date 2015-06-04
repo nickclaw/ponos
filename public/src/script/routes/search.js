@@ -24,14 +24,11 @@ angular.module('scaffold')
 
         $scope.search = search;
         $scope.cancel = cancel;
-        $scope.searchOptions = {
-            search: "",
-            category: "",
-            sortBy: "start",
-            orderBy: "asc",
-            lat: undefined,
-            long: undefined
-        };
+        $scope.clear = clear;
+
+        $scope.searchOptions = {};
+
+        clear();
 
         $scope.cats = cats;
 
@@ -47,8 +44,6 @@ angular.module('scaffold')
             { text: "Asc", value: "asc" },
             { text: "Desc", value: "desc" }
         ];
-
-        search();
 
         $scope.$watch('searchOptions.sortBy', function(sort) {
             if (sort !== 'distance') return;
@@ -81,6 +76,18 @@ angular.module('scaffold')
 
         function search() {
             $scope.jobs = Job.search($scope.searchOptions);
+        }
+
+        function clear() {
+            $scope.searchOptions = {
+                search: "",
+                category: "",
+                sortBy: "start",
+                orderBy: "asc",
+                lat: undefined,
+                long: undefined
+            };
+            search();
         }
     }
 ]);
