@@ -25,7 +25,9 @@ router
             search: vlad.string,
             category: vlad.string,
             sortBy: vlad.enum(["start", "rate", "distance"]),
-            orderBy: vlad.enum(["asc", "desc"])
+            orderBy: vlad.enum(["asc", "desc"]),
+            lat: vlad.number,
+            long: vlad.number
         }),
         function(req, res, next) {
             var order = req.query.orderBy === "desc" ? -1 : 1,
@@ -45,7 +47,12 @@ router
                 if (req.query.sortBy === "new") sort["created"] = order;
                 if (req.query.sortBy === "start") sort['start'] = order;
                 if (req.query.sortBy === "rate") sort['rate'] = order;
-                if (req.query.sortBy === "distance") console.log('TODO');
+                if (req.query.sortBy === "distance") {
+                    query.$and.push({'location.coords': {
+                        $near: [ req.query.long , req.query.lat ]
+                    }});
+                    sort = {}
+                }
             }
 
             // not filters at all, get rid of $and query
@@ -58,6 +65,10 @@ router
                 .sort(sort)
                 .exec()
                 .then(function(jobs) {
+                    if (req.query.sortBy === "distance" && req.query.orderBy === "desc") {
+                        jobs = jobs.reverse();
+                    }
+
                     res.send(jobs.map(function(job) {
                         return job.render(req.user);
                     }));
