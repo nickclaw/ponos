@@ -42,7 +42,7 @@
         class="md-accent md-raised"
         ng-href="/user/{{app.applicant}}/review/{{app.job}}">
 
-        Review {{user.$isWorker() ? "Poster": : "Applicant:}}
+        Review {{profile.$isWorker() ? "Poster" : "Applicant"}}
     </md-button>
     <md-button flex ng-click="cancel()">Cancel</md-button>
 </md-content>
