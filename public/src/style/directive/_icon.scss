@@ -9,6 +9,10 @@ icon {
     &.loaded {
 
     }
+
+    &.orange {
+        background-color: $scaffold-orange;
+    }
 }
 
 .icon, icon {
