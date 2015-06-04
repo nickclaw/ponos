@@ -117,9 +117,6 @@ router.use('/:user/review', require('./review'));
 router.get('/:user/jobs', function(req, res, next) {
     db.Job
         .find({poster: req.user._id})
-        .lean()
-        .limit(req.query.offset)
-        .skip(req.query.offset)
         .exec().then(function(jobs) {
             res.send(jobs.map(function(job) {
                 return job.render(req.user);
