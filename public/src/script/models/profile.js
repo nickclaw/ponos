@@ -66,7 +66,6 @@ angular.module('scaffold').factory('profile', [
                         profile.__proto__ = new User(res.data);
                         profile.$error = null;
                         profile.$loggedIn = true;
-                        profile.__proto__.notifications = [];
                         $location.url('/signup');
                         openSocket();
                     },
@@ -122,6 +121,7 @@ angular.module('scaffold').factory('profile', [
             });
 
             socket.on('notification', function(notification) {
+                if (!notification) return;
                 profile.notifications.push(notification);
                 $rootScope.$digest();
             });

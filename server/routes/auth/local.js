@@ -34,7 +34,9 @@ router.post('/signup',
             })
         }, 5000);
 
-        res.send(req.user.toObject());
+        var obj = req.user.toObject();
+        obj.notifications = [];
+        res.send(obj);
     }
 );
 

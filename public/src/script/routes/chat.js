@@ -36,7 +36,6 @@ angular.module('scaffold')
             });
         });
 
-        $scope.profile = profile;
         $scope.messages = clusterMessages(chat.messages);
         $scope.message = "";
 

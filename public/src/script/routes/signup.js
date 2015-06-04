@@ -35,7 +35,7 @@ angular.module('scaffold')
                 .then(
                     function(res) {
                         var profile = $scope.profile;
-                        profile.__proto__ = $scope.user;
+                        profile.__proto__ = res;
                         $location.url(profile.$isWorker() ? "/search" : "/job");
                     },
                     handle({

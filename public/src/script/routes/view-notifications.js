@@ -17,12 +17,11 @@ angular.module('scaffold')
 
 .controller('ViewNotifications', [
     '$scope',
-    'profile',
-    function($scope, profile) {
-        $scope.notifications = profile.notifications.slice() || [];
-        profile.$acknowledgeNotifications()
+    function($scope) {
+        $scope.notifications = ($scope.profile.notifications || []).slice() || [];
+        $scope.profile.$acknowledgeNotifications()
             .then(function() {
-                profile.notifications.forEach(function(note) {
+                $scope.profile.notifications.forEach(function(note) {
                     note.seen = true;
                 });
             });
